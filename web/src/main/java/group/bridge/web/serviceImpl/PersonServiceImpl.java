@@ -35,7 +35,6 @@ public class PersonServiceImpl extends BaseServiceImpl<Person,Integer> implement
 //        Predicate p=cb.gt(age,18);
         c.where(p);
         c.select(cb.avg(age));
-
         Double result=entityManager.createQuery(c).getSingleResult();
         return result;
 
