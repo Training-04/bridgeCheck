@@ -8,6 +8,11 @@ spring:
     database: mysql
     show-sql: true
     open-in-view: true
+    #解决数据库无法自动创建表的问题
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
   mvc:
     view:
       prefix: /

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+</head>
+<body>
+
+<script language="JavaScript">
+    function validOperator() {
+        return confirm("确认删除？");
+    }
+</script>
+
+<div class="container-fluid">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>用户名</th>
+                <th>密码</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="User : ${user}">
+                <td th:text="${User.user_id}">aaa</td>
+                <td th:text="${User.user_name}">aaa</td>
+                <td th:text="${User.password}">aaa</td>
+
+                <td align="center">
+                    <a th:href="@{'/toUpdate/'+${User.user_id}}">修改</a>&nbsp|&nbsp
+                    <a th:href="@{'/delete/'+${User.user_id}}" onclick="return confirm('确认删除？')">删除</a>
+                </td>
+            </tr>
+        </tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td align="center"> <a href="/toAdd">添&nbsp加</a></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

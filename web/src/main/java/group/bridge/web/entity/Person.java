@@ -13,7 +13,7 @@ public class Person {
     private String name;
     @Column(name = "age")
     private Integer age;
-    @OneToMany(cascade =CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "personId" )
+    @OneToMany(cascade =CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "person" )
     private Set<Car> cars;
 
     public int getId() {
