@@ -1,5 +1,10 @@
 package group.bridge.web.controller;
 
-public class SVGController {
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/web")
+public class SVGController extends BaseController{
 
 }
