@@ -11,5 +11,6 @@ public interface BaseService<T,ID> {
     void deleteById(ID id);
     List<T> getAll();
     T get(ID id);
+//    只需要把specification作为参数传进去即可获得List.
     List<T> getByPredicate(Specification<T> specification);
 }

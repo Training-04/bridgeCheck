@@ -1,6 +1,7 @@
 package group.bridge.web.controller;
 
 import group.bridge.web.entity.Person;
+import group.bridge.web.entity.Sensor;
 import group.bridge.web.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -79,4 +80,5 @@ public class DemoRestController {
         };
         return personService.getSum(personSpecification);
     }
+
 }
