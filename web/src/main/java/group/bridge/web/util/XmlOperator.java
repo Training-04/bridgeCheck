@@ -11,12 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class XmlOperator {
-    public static Navigation getUrl() throws IOException {
+    public static Navigation getUrl() {
         XmlMapper mapper=new XmlMapper();
-        File file =  ResourceUtils.getFile("classpath:static/url.xml");
+        Navigation navigation=null;
+        try {
+            File file = ResourceUtils.getFile("classpath:static/url.xml");
 
 
-        Navigation navigation= mapper.readValue(file,Navigation.class);
+            navigation = mapper.readValue(file, Navigation.class);
+        }
+        catch (Exception ex){
+            System.out.println("mapper url.xml failed.");
+        }
         return navigation;
     }
 }
