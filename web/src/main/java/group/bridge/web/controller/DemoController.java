@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Controller
-public class DemoController {
+public class DemoController extends BaseController {
     @Autowired
     PersonService personService;
     @RequestMapping("/")

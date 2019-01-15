@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Nav>
+    <Url text="系统管理" path="systemMenu">
+            <Url text="用户管理" path="userMenu">
+                <Url text="demo" path="web/siderbar" />
+                <Url text="demo2" path="web/siderbar" />
+
+            </Url>
+    </Url>
+    <Url text="一级管理" path="systemMenu">
+        <Url text="二级管理" path="userMenu">
+            <Url text="3级管理" path="web/siderbar" />
+            <Url text="3级管理" path="web/siderbar" />
+
+        </Url>
+    </Url>
+</Nav>
