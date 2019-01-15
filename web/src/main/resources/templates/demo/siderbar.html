@@ -6,14 +6,33 @@
 </head>
 <body>
 <nav th:fragment="siderbar" class="sidebar-nav" style="top:50px">
-    <ul id="menu-one" class="L1">
+    <ul id="nav-one" class="L1" th:if="${session.nav!=null}">
+
+        <li th:each="one : ${session.nav.urls}">
+            <a data-toggle="collapse" data-parent="#nav-one" th:text="${one.text}" th:href="'#'+${one.path}">
+                一级菜单
+            </a>
+
+            <ul th:id="${one.path}" class="collapse L2" >
+                <li th:each="two : ${one.urls}">
+                    <a th:data-parent="'#'+${one.path}" th:text="${two.text}" data-toggle="collapse" th:href="'#'+${two.path}">
+                        二级菜单
+                    </a>
+                    <ul th:id="${two.path}" class="collapse L3">
+                        <li th:each="three:${two.urls}">
+                            <a th:text="${three.text}" th:href="${three.path}">三级菜单</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
         <li>
             <a data-toggle="collapse" data-parent="#nav-one" href="#menu-two">
                 一级菜单
             </a>
             <ul id="menu-two" class="collapse L2">
                 <li class="">
-                    <a data-parent="#pc" data-toggle="collapse" href="#menu-three">二级菜单</a>
+                    <a data-parent="#menu-two" data-toggle="collapse" href="#menu-three">二级菜单</a>
                     <ul id="menu-three" class="collapse L3">
                         <li>
                             <a href="#">三级菜单</a>
