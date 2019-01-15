@@ -4,6 +4,8 @@ import group.bridge.web.dao.BaseRepository;
 import group.bridge.web.service.BaseService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -45,6 +47,10 @@ public abstract class BaseServiceImpl<T,ID> implements BaseService<T,ID>, Initia
     public List<T> getAll() {
         return repository.findAll();
     }
+    @Override
+    public Page<T> getAll(Pageable pageable){
+        return repository.findAll(pageable);
+    }
 
     @Override
     public T get(ID id) {
@@ -53,6 +59,11 @@ public abstract class BaseServiceImpl<T,ID> implements BaseService<T,ID>, Initia
     @Override
     public List<T> getByPredicate(Specification<T> specification){
         return repository.findAll(specification);
+    }
+    @Override
+    public Page<T> getByPredicate(Specification<T> specification,Pageable pageable){
+
+        return repository.findAll(specification,pageable);
     }
     @Override
     public void afterPropertiesSet() throws Exception {

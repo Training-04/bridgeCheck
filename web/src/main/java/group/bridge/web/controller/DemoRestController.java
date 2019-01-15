@@ -4,6 +4,9 @@ import group.bridge.web.entity.Person;
 import group.bridge.web.entity.Sensor;
 import group.bridge.web.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -80,5 +83,22 @@ public class DemoRestController {
         };
         return personService.getSum(personSpecification);
     }
+<<<<<<< HEAD
 
+=======
+    @RequestMapping("/page")
+    public List<Person> page(){
+        //创建分页配置
+        //从0开始
+        Pageable pageable=PageRequest.of(0,5);
+        Page<Person> personPage= personService.getAll(pageable);
+        //获取数据总数
+        int num=personPage.getSize();
+        //获取总页数
+        int count=personPage.getTotalPages();
+        //获取当前页数据
+        return personPage.getContent();
+
+    }
+>>>>>>> 09be948137f6f6fcaeb8e523bf8ed45d2960b2b9
 }
