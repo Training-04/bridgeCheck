@@ -9,6 +9,7 @@ import java.util.List;
 public interface BaseService<T,ID> {
     boolean add(T t);
 
+
     boolean update(T t);
 
     void delete(T t);
@@ -20,11 +21,11 @@ public interface BaseService<T,ID> {
     Page<T> getAll(Pageable pageable);
 
     T get(ID id);
-<<<<<<< HEAD
-//    只需要把specification作为参数传进去即可获得List.
-=======
 
->>>>>>> 09be948137f6f6fcaeb8e523bf8ed45d2960b2b9
+//    只需要把specification作为参数传进去即可获得List.
+
+
+
     List<T> getByPredicate(Specification<T> specification);
 
     Page<T> getByPredicate(Specification<T> specification, Pageable pageable);

@@ -83,9 +83,7 @@ public class DemoRestController {
         };
         return personService.getSum(personSpecification);
     }
-<<<<<<< HEAD
 
-=======
     @RequestMapping("/page")
     public List<Person> page(){
         //创建分页配置
@@ -100,5 +98,5 @@ public class DemoRestController {
         return personPage.getContent();
 
     }
->>>>>>> 09be948137f6f6fcaeb8e523bf8ed45d2960b2b9
+
 }

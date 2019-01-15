@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 // 包括对数据库的增删查改，还有存储过程，还有各种调用SQL语句的查询方式
 
 public interface Warn_recordService  extends BaseService<Warn_record,Integer>{
-
+    Warn_record addWarn_record(Warn_record wr);
 }

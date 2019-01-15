@@ -18,9 +18,11 @@ public class Warn_record {
     private String status;
 //    insertable和updatable(不需要修改，不需要插入该字段的值)属性一般多用于只读的属性，例如主键和外键等。
 //    这些字段的值通常是自动生成的。
-    @Column(name = "bridge_id",insertable = false,updatable = false)
+//    @Column(name = "bridge_id",insertable = false,updatable = false)
+    @Column(name = "bridge_id")
     private Integer bridge_id;
-    @Column(name = "sensor_id",insertable = false,updatable = false)
+//    @Column(name = "sensor_id",insertable = false,updatable = false)
+    @Column(name = "sensor_id")
     private Integer sensor_id;
 //    @ManyToOne
 //    private Bridge bridge;

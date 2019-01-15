@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout" xmlns:margin-top="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>修改阈值</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container" style="width:500px">
+        <form th:action="@{/sensor/update}" th:object="${sensor}" method="post">
+            <div class="form-group">
+                <label for="number" >编号:</label>
+                <input type="text" class="form-control " id="number" th:field="*{sensor_id}" readonly="readonly">
+            </div>
+            <div class="form-group">
+                <label for="bridge_number">桥梁编号:</label>
+                <input type="text" class="form-control" id="bridge_number" th:field="*{bridge_id}" readonly="readonly">
+            </div>
+            <div class="form-group">
+                <!--<label for="sensor_name">传感器名称：</label>-->
+                <input type="hidden" class="form-control" id="sensor_name" th:field="*{sensor_name}" readonly="readonly">
+            </div>
+            <div class="form-group">
+                <!--<label for="parameter_unit">数值单位：</label>-->
+                <input type="hidden" class="form-control" id="parameter_unit" th:field="*{parameter_unit}" readonly="readonly">
+            </div>
+            <div class="form-group">
+                <label for="threshold">阈值：</label>
+                <input type="text" class="form-control" id="threshold" th:field="*{threshold}" >
+            </div>
+
+            <div align="center" style="margin-top: 8px;padding-right: 50px;" >
+                <button type="submit" class="btn btn-default">更改</button>
+                <a href="/sensor/list" th:href="@{/sensor/list}"><button type="submit" class="btn btn-default">返回主页面</button></a>
+            </div>
+        </form>
+        </div>
+    </div>
+</body>
+</html>

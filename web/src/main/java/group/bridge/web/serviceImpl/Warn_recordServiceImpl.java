@@ -10,6 +10,11 @@ public class Warn_recordServiceImpl extends BaseServiceImpl<Warn_record,Integer>
     Warn_recordRepository wrRepository;
 
     @Override
+    public Warn_record addWarn_record(Warn_record wr) {
+        return wrRepository.save(wr);
+    }
+
+    @Override
     protected void setRepository() {
         this.repository = wrRepository;
     }
