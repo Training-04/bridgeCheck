@@ -26,8 +26,18 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")}
     )
     private Set<Role> roles;
-    //@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user_id")
-    //private Set<Permission> permissions;
+    @ManyToMany
+    @JoinTable(
+                //用来指定中间表的名称
+                name = "user_permission_mapping",
+               //用于指定本表在中间表的字段名称，以及中间表依赖的是本表的那个字段
+                joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "user_id")},
+                //用于指定对方表在中间表的字段名称，以及中间表依赖的是对方表的那个字段
+                inverseJoinColumns = {@JoinColumn(name = "permission_id",referencedColumnName = "permission_id")}
+        )
+    private Set<Permission> permissions;
+
+
 
     public Set<Role> getRoles() {
         return roles;
@@ -35,6 +45,14 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
     }
 
     public int getUser_id(){return user_id;}

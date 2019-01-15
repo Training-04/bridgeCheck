@@ -24,12 +24,14 @@ public class UserController {
     public String getAllUser(Model model){
         List<User> lists=userService.getAll();
         model.addAttribute("user",lists);
-        return "demo/index";
+        model.addAttribute("title","所以用户信息");
+        return "sysmanagement/usermanagement/alluser";
     }
 
     @RequestMapping("/toAdd")
-    public String toAdd(){
-        return "demo/addUser";
+    public String toAdd(Model model){
+        model.addAttribute("title","添加用户");
+        return "sysmanagement/usermanagement/adduser";
     }
 
     @RequestMapping("/add")
@@ -44,7 +46,8 @@ public class UserController {
         User user=userService.getUserByID(userID);
         model.addAttribute("user",user);
         model.addAttribute("cap","修改用户信息");
-        return "demo/updateUser";
+        model.addAttribute("title","修改用户信息");
+        return "sysmanagement/usermanagement/updateuser";
     }
 
 
@@ -53,6 +56,8 @@ public class UserController {
         userService.updateUser(user);
         return "redirect:/allUser";
     }
+
+
 
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable("id") int userID){

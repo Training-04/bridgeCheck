@@ -1,28 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
 <head>
     <meta charset="UTF-8">
     <title>用户信息</title>
-    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
 </head>
 <body>
-
 <script language="JavaScript">
     function validOperator() {
         return confirm("确认删除？");
     }
 </script>
-
-<div class="container-fluid">
-    <table class="table">
-        <thead>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <p>所有用户信息</p>
+        <table class="table">
+            <thead>
             <tr>
                 <th>序号</th>
                 <th>用户名</th>
                 <th>密码</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             <tr th:each="User : ${user}">
                 <td th:text="${User.user_id}">aaa</td>
                 <td th:text="${User.user_name}">aaa</td>
@@ -33,16 +34,16 @@
                     <a th:href="@{'/delete/'+${User.user_id}}" onclick="return confirm('确认删除？')">删除</a>
                 </td>
             </tr>
-        </tbody>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td align="center"> <a href="/toAdd">添&nbsp加</a></td>
-        </tr>
-    </table>
+            </tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td align="center"> <a href="/toAdd">添&nbsp加</a></td>
+            </tr>
+        </table>
+    </div>
 </div>
-
 </body>
 </html>
