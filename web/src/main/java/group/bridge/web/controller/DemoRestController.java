@@ -85,7 +85,8 @@ public class DemoRestController {
     @RequestMapping("/page")
     public List<Person> page(){
         //创建分页配置
-        Pageable pageable=PageRequest.of(2,5);
+        //从0开始
+        Pageable pageable=PageRequest.of(0,5);
         Page<Person> personPage= personService.getAll(pageable);
         //获取数据总数
         int num=personPage.getSize();
