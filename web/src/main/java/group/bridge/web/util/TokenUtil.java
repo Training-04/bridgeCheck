@@ -11,7 +11,6 @@ public class TokenUtil {
         if(token!=null){
             Claims claims= JwtBuilder.getClaims(token);
             String name=claims.get("name",String.class);
-            System.out.println(name);
             result=true;
         }
         return result;
