@@ -10,8 +10,10 @@ public class Permission {
     private int permission_id;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String permission_name;
+    /*
     @ManyToMany(mappedBy = "permissions")
     private Set<User> users;
+    */
     @ManyToMany(mappedBy = "permissions")
     private Set<Role> roles;
 
@@ -30,7 +32,7 @@ public class Permission {
     public void setPermission_name(String permission_name) {
         this.permission_name = permission_name;
     }
-
+/*
     public Set<User> getUsers() {
         return users;
     }
@@ -38,7 +40,7 @@ public class Permission {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
-
+*/
     public Set<Role> getRoles() {
         return roles;
     }

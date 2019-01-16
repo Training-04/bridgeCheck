@@ -2,11 +2,23 @@
 
 <Nav>
     <Url text="系统管理" path="systemMenu">
-            <Url text="用户管理" path="userMenu">
-                <Url text="demo" path="/web/siderbar" />
-                <Url text="demo2" path="/web/siderbar" />
+        <Url text="用户管理" path="userMenu">
+            <Url text="添加用户信息" path="/web/toAdd" />
+            <Url text="删除用户信息" path="/web/allUser" />
+            <Url text="修改用户信息" path="/web/allUser" />
+            <Url text="查找用户信息" path="/web/toSearch" />
 
-            </Url>
+            <Url text="添加权限组" path="/web/toAddRole" />
+            <Url text="删除权限组" path="/web/allRole" />
+            <Url text="修改权限组" path="/web/allRole" />
+            <Url text="查找权限组" path="/web/toSearchR" />
+
+            <Url text="添加权限" path="/web/toAddPer" />
+            <Url text="删除权限" path="/web/allPer" />
+            <Url text="修改权限" path="/web/allPer" />
+            <Url text="查找权限" path="/web/toSearchP" />
+
+        </Url>
     </Url>
     <Url text="一级管理" path="oneMenu">
         <Url text="二级管理" path="twoMenu">

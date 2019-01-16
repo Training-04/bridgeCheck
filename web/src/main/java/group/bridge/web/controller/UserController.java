@@ -14,7 +14,7 @@ import javax.persistence.criteria.*;
 import java.util.List;
 
 @Controller
-public class UserController {
+public class UserController extends BaseController{
 
     @Autowired
     UserService userService;
@@ -37,7 +37,7 @@ public class UserController {
     @RequestMapping("/add")
     public String add(User user){
         userService.add(user);
-        return "redirect:/allUser";
+        return "redirect:/web/allUser";
     }
 
 
@@ -54,15 +54,27 @@ public class UserController {
     @RequestMapping("/update")
     public String update(User user){
         userService.updateUser(user);
-        return "redirect:/allUser";
+        return "redirect:/web/allUser";
     }
 
 
 
-    @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable("id") int userID){
+    @RequestMapping("/delete")
+    public String delete(int userID){
         userService.deleteById(userID);
-        return "redirect:/allUser";
+        return "redirect:/web/allUser";
+    }
+
+    @RequestMapping("/toSearch")
+    public String toSearch(Model model){
+        model.addAttribute("title","查找用户信息");
+        return "sysmanagement/usermanagement/searchuser";
+    }
+
+    @RequestMapping("/search/{id}")
+    public String search(@PathVariable("id") int userID){
+        userService.get(userID);
+        return "sysmanagement/usermanagement/searchuser";
     }
 
 }

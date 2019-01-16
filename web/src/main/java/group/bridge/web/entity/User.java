@@ -26,6 +26,7 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")}
     )
     private Set<Role> roles;
+    /*
     @ManyToMany
     @JoinTable(
                 //用来指定中间表的名称
@@ -37,7 +38,7 @@ public class User {
         )
     private Set<Permission> permissions;
 
-
+*/
 
     public Set<Role> getRoles() {
         return roles;
@@ -46,7 +47,7 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
+/*
     public Set<Permission> getPermissions() {
         return permissions;
     }
@@ -54,6 +55,7 @@ public class User {
     public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
     }
+*/
 
     public int getUser_id(){return user_id;}
     public void setUser_id(int user_id){this.user_id=user_id;}

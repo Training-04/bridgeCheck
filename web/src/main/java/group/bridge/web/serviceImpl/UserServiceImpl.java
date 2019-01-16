@@ -25,4 +25,5 @@ public class UserServiceImpl extends BaseServiceImpl<User,Integer> implements Us
     public User getUserByID(Integer user_id){
         return userRepository.findById(user_id).get();
     }
+
 }
