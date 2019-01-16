@@ -10,11 +10,11 @@
 <div layout:fragment="content">
 
     <div style="margin: 10px 100px 10px auto" align="right">
-        <a href="/web/allUser" th:href="@{/web/allUser}" class="btn btn-default">Back</a>
+        <a href="/allUser" th:href="@{/allUser}" class="btn btn-default">Back</a>
     </div>
     <div style="border: 1px solid #000000;margin: 100px auto;width: 600px;text-align: center" >
         <p>修改用户信息</p>
-        <form class="form-horizontal" role="form" method="post" th:object="${user}" th:action="@{/web/update}">
+        <form class="form-horizontal" role="form" method="post" th:object="${user}" th:action="@{/update}">
 
             <div class="form-group">
                 <label for="user_id" class="col-sm-2 control-label">编号</label>
