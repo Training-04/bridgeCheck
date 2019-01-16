@@ -11,7 +11,7 @@ public class Warn_record {
     @Id
     @Column(name="warn_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer warn_id;
     @Column(name = "warn_date")
     private Date warn_date;
     @Column(name = "status")
@@ -30,12 +30,12 @@ public class Warn_record {
 //    private Sensor sensor;
 
 
-    public Integer getId() {
-        return id;
+    public Integer getWarn_id() {
+        return warn_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setWarn_id(Integer warn_id) {
+        this.warn_id = warn_id;
     }
 
     public Date getWarn_date() {
@@ -69,4 +69,5 @@ public class Warn_record {
     public void setSensor_id(Integer sensor_id) {
         this.sensor_id = sensor_id;
     }
+
 }

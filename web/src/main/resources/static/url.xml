@@ -7,6 +7,11 @@
                 <Url text="demo2" path="/web/siderbar" />
 
             </Url>
+            <Url text="阈值和报警管理" path="thresholdAndwrMenu">
+                <Url text="阈值管理" path="/web/allSensors" />
+                <Url text="报警管理" path="/web/allWarn_records" />
+
+            </Url>
     </Url>
     <Url text="一级管理" path="oneMenu">
         <Url text="二级管理" path="twoMenu">

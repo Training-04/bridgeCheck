@@ -10,10 +10,10 @@
 <body>
     <div layout:fragment="content">
         <div class="container" style="width:500px">
-        <form th:action="@{/sensor/update}" th:object="${sensor}" method="post">
+        <form th:action="@{/web/updateSensor}" th:object="${sensor}" method="post">
             <div class="form-group">
-                <label for="number" >编号:</label>
-                <input type="text" class="form-control " id="number" th:field="*{sensor_id}" readonly="readonly">
+                <label for="sensor_id" >编号:</label>
+                <input type="text" class="form-control " id="sensor_id" th:field="*{sensor_id}" readonly="readonly">
             </div>
             <div class="form-group">
                 <label for="bridge_number">桥梁编号:</label>
