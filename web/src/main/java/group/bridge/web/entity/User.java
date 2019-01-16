@@ -25,20 +25,14 @@ public class User {
             //用于指定对方表在中间表的字段名称，以及中间表依赖的是对方表的那个字段
             inverseJoinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")}
     )
-    private Set<Role> roles;
-    /*
-    @ManyToMany
-    @JoinTable(
-                //用来指定中间表的名称
-                name = "user_permission_mapping",
-               //用于指定本表在中间表的字段名称，以及中间表依赖的是本表的那个字段
-                joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "user_id")},
-                //用于指定对方表在中间表的字段名称，以及中间表依赖的是对方表的那个字段
-                inverseJoinColumns = {@JoinColumn(name = "permission_id",referencedColumnName = "permission_id")}
-        )
-    private Set<Permission> permissions;
 
-*/
+    //用户和角色（权限组）、用户和权限都是都是多对多都关系，
+    //按照面向对象的方法来设计，用集合来记住另一方的数据。
+    //但是，在权限的Dao中，查看权限的时候，没有必要列出相应的角色
+    //在查看角色时，没有必要列出相应的用户。
+    //所以，权限实体没必要使用Set集合来记住角色，角色实体没必要使用Set集合来记住用户！
+    private Set<Role> roles;
+
 
     public Set<Role> getRoles() {
         return roles;
@@ -47,15 +41,7 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-/*
-    public Set<Permission> getPermissions() {
-        return permissions;
-    }
 
-    public void setPermissions(Set<Permission> permissions) {
-        this.permissions = permissions;
-    }
-*/
 
     public int getUser_id(){return user_id;}
     public void setUser_id(int user_id){this.user_id=user_id;}

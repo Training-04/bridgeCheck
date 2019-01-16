@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.jws.WebParam;
 import javax.persistence.criteria.*;
 import java.util.List;
 
@@ -71,10 +72,11 @@ public class UserController extends BaseController{
         return "sysmanagement/usermanagement/searchuser";
     }
 
-    @RequestMapping("/search/{id}")
-    public String search(@PathVariable("id") int userID){
-        userService.get(userID);
+    @RequestMapping("/search")
+    public String search(Model model,String user_name){
+        List<User> user=userService.findUserByName(user_name);
+        model.addAttribute("user",user);
+        model.addAttribute("title","查找用户信息");
         return "sysmanagement/usermanagement/searchuser";
     }
-
 }

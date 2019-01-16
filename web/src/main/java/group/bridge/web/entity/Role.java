@@ -1,7 +1,6 @@
 package group.bridge.web.entity;
 
 
-
 import javax.persistence.*;
 import java.util.Set;
 

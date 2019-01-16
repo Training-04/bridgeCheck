@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>查找用户</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
 <div layout:fragment="content">
@@ -14,20 +15,20 @@
 
     <form class="form-horizontal" role="form" method="post" th:action="@{/search}">
         <div class="form-group">
-            <label for="search" class="col-sm-2 control-label">检索</label>
+            <label for="user_name" class="col-sm-2 control-label">检索</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control" name="search" id="search" placeholder="请输入用户ID"/>
+                <input type="text" class="form-control" name="user_name" id="user_name" placeholder="请输入用户Name"/>
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" onclick=" var id=document.getElementsByTagName(search)">查询</button>
+                <button type="submit" class="btn btn-primary">查询</button>
             </div>
         </div>
     </form>
     <div class="container-fluid">
         <br>
         <br>
-        <table class="table">
+        <table class="table table-hover">
             <thead>
             <tr>
                 <th>序号</th>
