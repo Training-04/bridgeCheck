@@ -45,6 +45,8 @@ public class DemoRestController {
         };
         return personService.getByPredicate(personSpecification);
     }
+
+
     @RequestMapping("/avg")
     public Double avg(){
 
@@ -64,6 +66,8 @@ public class DemoRestController {
         };
         return personService.getAvg(null);
     }
+
+
     @RequestMapping("/sum")
     public Integer sum(){
         Specification<Person> personSpecification=new Specification<Person>() {
@@ -72,7 +76,7 @@ public class DemoRestController {
                 //predicate 最后要返回的查询对象
                 Predicate predicate;
                 Path<Integer> age=root.get("age");
-                predicate=cb.gt(age,20);
+                predicate=cb.gt(age,22);
                 //and
                 predicate=cb.and(cb.gt(age,20),predicate);
                 //Expression
@@ -82,6 +86,8 @@ public class DemoRestController {
         };
         return personService.getSum(personSpecification);
     }
+
+
     @RequestMapping("/page")
     public List<Person> page(){
         //创建分页配置

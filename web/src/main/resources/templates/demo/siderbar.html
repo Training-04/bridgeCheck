@@ -10,7 +10,7 @@
 
         <li th:each="one : ${session.nav.urls}">
             <a data-toggle="collapse" data-parent="#nav-one" th:text="${one.text}" th:href="'#'+${one.path}">
-                一级菜单
+                一级菜单 
             </a>
 
             <ul th:id="${one.path}" class="collapse L2" >
