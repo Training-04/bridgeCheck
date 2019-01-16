@@ -5,19 +5,19 @@
             <Url text="用户管理" path="userMenu">
                 <Url text="demo" path="/web/siderbar" />
                 <Url text="demo2" path="/web/siderbar" />
-
             </Url>
             <Url text="阈值和报警管理" path="thresholdAndwrMenu">
-                <Url text="阈值管理" path="/web/allSensors" />
-                <Url text="报警管理" path="/web/allWarn_records" />
-
+                <Url text="阈值管理" path="thresholdMenu" >
+                    <Url text="修改阈值" path="/allSensors" />
+                    <Url text="查找阈值" path="/searchSensor" />
+                </Url>
+                <Url text="报警管理" path="/allWarn_records" />
             </Url>
     </Url>
     <Url text="一级管理" path="oneMenu">
         <Url text="二级管理" path="twoMenu">
             <Url text="3级管理" path="/web/siderbar" />
             <Url text="3级管理" path="/web/siderbar" />
-
         </Url>
     </Url>
 </Nav>

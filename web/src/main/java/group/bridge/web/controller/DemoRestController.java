@@ -1,7 +1,6 @@
 package group.bridge.web.controller;
 
 import group.bridge.web.entity.Person;
-import group.bridge.web.entity.Sensor;
 import group.bridge.web.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -83,7 +82,6 @@ public class DemoRestController {
         };
         return personService.getSum(personSpecification);
     }
-
     @RequestMapping("/page")
     public List<Person> page(){
         //创建分页配置
@@ -98,5 +96,8 @@ public class DemoRestController {
         return personPage.getContent();
 
     }
-
+    @RequestMapping("/warn")
+    public boolean warn(){
+        return true;
+    }
 }

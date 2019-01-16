@@ -26,12 +26,12 @@
                     <td th:text="${wrs.sensor_id}"></td>
                     <td th:text="${#dates.format(wrs.warn_date,'yyyy-MM-dd')}"></td>
                     <td th:text="${wrs.status}"></td>
-                    <td><a th:href="@{'/web/toUpdateW/'+${wrs.warn_id}}">解除报警</a></td>
+                    <td><a th:href="@{'/toUpdateW/'+${wrs.warn_id}}">解除报警</a></td>
                     <td>|</td>
-                    <td><a th:href="@{'/web/delWarn_record/'+${wrs.warn_id}}">删除报警</a></td>
+                    <td><a th:href="@{'/delWarn_record/'+${wrs.warn_id}}">删除报警</a></td>
                 </tr>
             </table>
-            <a th:href="@{'/web/toAdd'}"><btn type="button" class="btn btn-info">添加</btn></a>
+            <a th:href="@{'/toAdd'}"><btn type="button" class="btn btn-info">添加</btn></a>
         </div>
     </div>
 </body>

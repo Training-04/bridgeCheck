@@ -14,7 +14,7 @@
 <body>
     <div layout:fragment="content">
         <div class="container" style="width: 500px;">
-            <form th:action="@{/web/addWarn_records}" method="post">
+            <form th:action="@{/addWarn_records}" method="post">
                 <div class="form-group">
                     <label for="warn_id">编号</label>
                     <input type="text" class="form-control" id="warn_id" name="warn_id">
@@ -33,28 +33,19 @@
                 </div>
                 <div class="form-group">
                     <label for="status">警报状态</label>
-                    <br>
-                    <!--<input type="text" class="form-control" id="status" name="status">-->
-                    <!--<div class="dropdown">-->
-                        <!--<button class="btn btn-default dropdown-toggle" type="button" id="status" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                            <!--未解除-->
-                            <!--<span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" aria-labelledby="status">-->
-                            <!--<li><a href="#">解除</a></li>-->
-                        <!--</ul>-->
-                    <!--</div>-->
-                    <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="status" value="option1"> 已解除
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 未解除
-                    </label>
+                    <input type="text" id="status" class="form-control" th:name="status" readonly value="未解除">
+
+                    <!--<label class="radio-inline">-->
+                        <!--<input type="radio" name="status" id="status" value="已解除"> 已解除-->
+                    <!--</label>-->
+                    <!--<label class="radio-inline">-->
+                        <!--<input type="radio" name="status" id="inlineRadio2" value="未解除"> 未解除-->
+                    <!--</label>-->
                 </div>
 
                 <div align="center" style="margin-top: 8px;padding-right: 50px;" >
                     <button type="submit" class="btn btn-default">添加</button>
-                    <a th:href="@{/web/allWarn_records}"><button type="submit" class="btn btn-default">返回主页面</button></a>
+                    <a th:href="@{/allWarn_records}"><button type="submit" class="btn btn-default">返回主页面</button></a>
                 </div>
 
             </form>

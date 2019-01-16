@@ -1,8 +1,6 @@
 package group.bridge.web.entity;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
 @Entity
 @Table(name = "sensor")

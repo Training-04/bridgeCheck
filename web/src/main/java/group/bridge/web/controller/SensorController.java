@@ -22,6 +22,13 @@ public class SensorController extends BaseController{
         model.addAttribute("sensors",lists);
         return "sensor/allSensors";
     }
+    //搜索相应名称的传感器
+    @RequestMapping("/search")
+    public String getByName(Model model,String sensor_name){
+        List<Sensor> lists = sensorService.getByName(sensor_name);
+        model.addAttribute("sensor",lists);
+        return "sensor/searchSensor";
+    }
 
     //更改
     @RequestMapping("/toUpdate/{id}")
@@ -36,6 +43,6 @@ public class SensorController extends BaseController{
     @RequestMapping("/updateSensor")
     public String update(Sensor sensor){
         sensorService.update(sensor);
-        return "redirect:/web/allSensors";
+        return "redirect:/allSensors";
     }
 }

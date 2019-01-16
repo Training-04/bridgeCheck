@@ -16,6 +16,7 @@ public class PageInterceptor implements HandlerInterceptor {
     //在这里些拦截内容
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
         boolean result=validateToken(request);
         if(!result) {
             response.sendRedirect("/login");
