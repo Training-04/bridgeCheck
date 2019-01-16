@@ -33,7 +33,7 @@ public class LoginController {
         String url="redirect:/login";
         if(testName.equals(userName) && password.equals(testPassword)){
             setToken(userName,response);
-            url="redirect:/web/";
+            url="redirect:/";
         }
         return url;
     }
