@@ -9,8 +9,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 添加一个拦截器，拦截以/test为前缀的 url路径
-        registry.addInterceptor(new PageInterceptor()).addPathPatterns("/web/**");
+        // 添加一个拦截器，拦截以/web/为前缀 url路径
+        registry.addInterceptor(new PageInterceptor()).addPathPatterns("/**").excludePathPatterns("/login");
     }
 
 }
