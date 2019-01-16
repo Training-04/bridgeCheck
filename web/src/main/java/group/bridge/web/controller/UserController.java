@@ -37,7 +37,7 @@ public class UserController extends BaseController{
     @RequestMapping("/add")
     public String add(User user){
         userService.add(user);
-        return "redirect:/web/allUser";
+        return "redirect:/allUser";
     }
 
 
@@ -54,7 +54,7 @@ public class UserController extends BaseController{
     @RequestMapping("/update")
     public String update(User user){
         userService.updateUser(user);
-        return "redirect:/web/allUser";
+        return "redirect:/allUser";
     }
 
 
@@ -62,7 +62,7 @@ public class UserController extends BaseController{
     @RequestMapping("/delete")
     public String delete(int userID){
         userService.deleteById(userID);
-        return "redirect:/web/allUser";
+        return "redirect:/allUser";
     }
 
     @RequestMapping("/toSearch")
