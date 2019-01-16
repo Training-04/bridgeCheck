@@ -8,11 +8,12 @@ public class Sensor {
     @Id
     @Column(name="sensor_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@OneToMany(cascade =CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "record_id" )
     private int sensor_id;
     @Column(name="sensor_name")
     private String sensor_name;
     @Column(name="bridge_id")
-    @ManyToOne
+    //@ManyToOne
     private int bridge_id;
     @Column(name="parameter_unit")
     private String parameter_unit;

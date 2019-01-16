@@ -17,7 +17,7 @@ public class SensorRecord {
     @Column(name="value")
     private double value;
     @Column(name="sensor_id")
-    @ManyToOne
+    //@ManyToOne
     private int sensor_id;
 
     public int getRecord_id() {

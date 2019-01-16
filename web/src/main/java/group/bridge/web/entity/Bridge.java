@@ -7,6 +7,7 @@ public class Bridge {
     @Id
     @Column(name="bridge_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@OneToMany(cascade =CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "sensor_id" )
     private int bridge_id;
     @Column(name="bridge_name")
     private String bridge_name;
