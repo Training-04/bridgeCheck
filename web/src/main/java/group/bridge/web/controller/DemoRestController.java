@@ -96,4 +96,8 @@ public class DemoRestController {
         return personPage.getContent();
 
     }
+    @RequestMapping("/warn")
+    public boolean warn(){
+        return true;
+    }
 }
