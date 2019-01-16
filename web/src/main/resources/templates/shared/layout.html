@@ -30,7 +30,9 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#">警报</a>
+                        <a href="#" ><span class="label label-success" id="safe" >安全</span>
+                            <span class="label label-danger" style="display: none;" id="warn" >警报</span>
+                        </a>
                     </li>
                     <li>
                         <a href="/logout">log out</a>
@@ -39,7 +41,7 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    <nav th:replace="demo/siderbar::siderbar">
+    <nav th:replace="common/siderbar::siderbar">
 
     </nav>
 </div>
@@ -51,8 +53,28 @@
     </div>
 </div>
 <script>
-    function linkAddToken(){
+    setInterval(checkWarn,2*1000);
+    function checkWarn(){
+        $.ajax({
+            type: 'get',
+            url: "/api/warn",
+            async: true,
+            data:"",
+            datatype: "json",
+            success:function(result){
+                if(!result){
+                    $("#warn").css("display","none");
+                    $("#safe").css("display","inline");
 
+                }else{
+                    $("#warn").css("display","inline");
+                    $("#safe").css("display","none");
+                }
+            },
+            error:function(result){
+            }
+
+        });
     }
 </script>
 </body>
