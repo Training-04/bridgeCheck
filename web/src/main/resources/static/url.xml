@@ -8,11 +8,18 @@
 
             </Url>
     </Url>
-    <Url text="一级管理" path="oneMenu">
-        <Url text="二级管理" path="twoMenu">
-            <Url text="3级管理" path="/web/siderbar" />
-            <Url text="3级管理" path="/web/siderbar" />
-
+    <Url text="数据监控" path="oneMenu">
+        <Url text="动态图形" path="SVGMenu">
+            <Url text="实时数据" path="/web/siderbar1" />
+            <Url text="历史数据" path="/web/siderbar2" />
+            <Url text="统计数据" path="/web/siderbar3" />
+            <Url text="历史报警" path="/web/siderbar4" />
+        </Url>
+        <Url text="数据列表" path="DataListMenu">
+            <Url text="实时数据" path="/web/siderbar5" />
+            <Url text="历史数据" path="/web/siderbar6" />
+            <Url text="统计数据" path="/web/siderbar7" />
+            <Url text="历史报警" path="/web/siderbar8" />
         </Url>
     </Url>
 </Nav>

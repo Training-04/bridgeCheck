@@ -1,6 +1,9 @@
 package group.bridge.web.service;
 
-import sun.management.Sensor;
+import group.bridge.web.entity.SensorRecord;
+import org.springframework.data.jpa.domain.Specification;
 
-public interface SensorRecordService extends BaseService<Sensor, Integer>{
+
+public interface SensorRecordService extends BaseService<SensorRecord, Integer>{
+    Double getAvg(Specification<SensorRecord> specification);
 }
