@@ -3,6 +3,8 @@ package group.bridge.web.controller;
 import group.bridge.web.service.PersonService;
 import group.bridge.web.util.CookieUtil;
 import group.bridge.web.util.JwtBuilder;
+import group.bridge.web.util.SessionUtil;
+import group.bridge.web.util.TokenUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +34,7 @@ public class LoginController {
         String testPassword="admin";
         String url="redirect:/login";
         if(testName.equals(userName) && password.equals(testPassword)){
-            setToken(userName,response);
+            TokenUtil.setToken(userName,response);
             url="redirect:/";
         }
         return url;
@@ -44,15 +46,11 @@ public class LoginController {
     }
     private void clean(HttpServletRequest request,HttpServletResponse response){
         //remove cookie
-        CookieUtil.writeCookie(response,"token","",0);
+        TokenUtil.clearToken(response);
 
         //remove session
-        HttpSession session=request.getSession();
-        session.removeAttribute("nav");
+        SessionUtil.removeSession("nav",request);
     }
-    private void setToken(String username,HttpServletResponse response){
-        String token=JwtBuilder.buildToken(username);
-        CookieUtil.writeCookie(response,"token",token);
-    }
+
 
 }
