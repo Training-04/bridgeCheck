@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultrap.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/layoutit.css" />
+    <script src="/js/jquery-1.10.2.js"></script>
+    <script src="/js/bootstrap.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="container">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <br>
+            <div align="center"><h1>历史警告信息</h1></div>
+            <br><br>
+            <hr width="800" size="1" color="#000000">
+            <br><br>
+            <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>桥梁</th>
+                    <th>温度</th>
+                    <th>湿度</th>
+                    <th>承重</th>
+                    <th>曲率</th>
+                    <th>弧度</td>
+                    <th>通行量</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>茄子揍土豆天桥</td>
+                    <td>32</td>
+                    <td>75%</td>
+                    <td>40kt</td>
+                    <td>15</td>
+                    <td>0.23</td>
+                    <td>18546</td>
+                </tr>
+                <tr>
+                    <td>冬瓜架南瓜索桥</td>
+                    <td>32</td>
+                    <td>33%</td>
+                    <td>4kg</td>
+                    <td>12</td>
+                    <td>0.19</td>
+                    <td>146</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+
+
+
+</div>
+</body>
+
+</html>
