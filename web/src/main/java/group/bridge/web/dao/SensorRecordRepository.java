@@ -1,7 +1,9 @@
 package group.bridge.web.dao;
 
 import group.bridge.web.entity.SensorRecord;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface SensorRecordRepository extends JpaRepository<SensorRecord, Integer> {
+
+@Repository
+public interface SensorRecordRepository extends BaseRepository<SensorRecord, Integer> {
 }

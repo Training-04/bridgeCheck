@@ -24,10 +24,10 @@ public class DataListController {
         return "/demo/history_datalist";
     }
 
-    @RequestMapping("/histroy_warn_record")
-    public String Histroy_warn_record()
+    @RequestMapping("/history_warn_record")
+    public String History_warn_record()
     {
-        return "/demo/histroy_warn_record";
+        return "/demo/history_warn_record";
     }
 
     @RequestMapping("/statistic_datalist")

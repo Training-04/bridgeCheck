@@ -9,27 +9,30 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BridgeServiceImpl implements BridgeService {
+public class BridgeServiceImpl extends BaseServiceImpl<Bridge, Integer> implements BridgeService {
 
     @Autowired
     BridgeRepository bridgeRepository;
-
     @Override
-    public Bridge addBridge(Bridge bridge) { return bridgeRepository.save(bridge); }
-
-    public void deleteBridge(Integer bID) { bridgeRepository.deleteById(bID); }
-    @Override
-    public List<Bridge> getAllBridge(){
-        return bridgeRepository.findAll();
+    protected void setRepository() {
+        this.repository=bridgeRepository;
     }
-
-    @Override
-    public Bridge updateBridge(Bridge student){
-        return bridgeRepository.save(student);
-    }
-
-    @Override
-    public  Bridge getBridgeByID(Integer bID){
-        return bridgeRepository.findById(bID).get();
-    }
+//    @Override
+//    public Bridge addBridge(Bridge bridge) { return bridgeRepository.save(bridge); }
+//
+//    public void deleteBridge(Integer bID) { bridgeRepository.deleteById(bID); }
+//    @Override
+//    public List<Bridge> getAllBridge(){
+//        return bridgeRepository.findAll();
+//    }
+//
+//    @Override
+//    public Bridge updateBridge(Bridge student){
+//        return bridgeRepository.save(student);
+//    }
+//
+//    @Override
+//    public  Bridge getBridgeByID(Integer bID){
+//        return bridgeRepository.findById(bID).get();
+//    }
 }
