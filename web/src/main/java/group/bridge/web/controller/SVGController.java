@@ -15,9 +15,21 @@ public class SVGController extends BaseController{
 
     @RequestMapping("/siderbar1")
     public String DrawLiveSensorRecord(){
+        return "svg/svglivedata";
+    }
 
+    @RequestMapping("/siderbar2")
+    public String DrawHisSensorRecord(){
+        return "svg/svghisdata";
+    }
 
+    @RequestMapping("/siderbar3")
+    public String DrawStatistics(){
+        return "svg/svgstatistics";
+    }
 
-        return "test";
+    @RequestMapping("/siderbar4")
+    public String DrawWarnRecords(){
+        return "svg/svgwarnrecords";
     }
 }
