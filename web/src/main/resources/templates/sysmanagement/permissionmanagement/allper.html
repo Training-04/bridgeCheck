@@ -4,7 +4,7 @@
       layout:decorate="shared/layout">
 <head>
     <meta charset="UTF-8">
-    <title>用户信息</title>
+    <title>权限信息</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
@@ -15,26 +15,25 @@
 </script>
 <div layout:fragment="content">
     <div class="container-fluid">
-        <p>所有用户信息</p>
+        <p>所有权限信息</p>
         <table class="table table-hover">
             <thead>
             <tr>
                 <th>序号</th>
-                <th>用户名</th>
-                <th>密码</th>
-                <!--<th>所属权限组</th>-->
+                <th>权限名</th>
+                <th>权限</th>
+                <th>URL</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="User : ${user}">
-                <td th:text="${User.user_id}">aaa</td>
-                <td th:text="${User.user_name}">aaa</td>
-                <td th:text="${User.password}">aaa</td>
-                <!--<td th:value="${role}">aaa</td>-->
-
+            <tr th:each="Permission : ${per}">
+                <td th:text="${Permission.permission_id}">aaa</td>
+                <td th:text="${Permission.permission_name}">aaa</td>
+                <td th:text="${Permission.permissionE}">aaa</td>
+                <td th:text="${Permission.url}">aaa</td>
                 <td align="center">
-                    <a th:href="@{'/toUpdate/'+${User.user_id}}">修改</a>&nbsp|&nbsp
-                    <a th:href="@{'/delete/'+${User.user_id}}" onclick="return confirm('确认删除？')">删除</a>
+                    <a th:href="@{'/toUpdatePer/'+${Permission.permission_id}}">修改</a>&nbsp|&nbsp
+                    <a th:href="@{'/deletePer/'+${Permission.permission_id}}" onclick="return confirm('确认删除？')">删除</a>
                 </td>
             </tr>
             </tbody>
@@ -43,7 +42,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td align="center"> <a href="/toAdd">添&nbsp加</a></td>
+                <td align="center"> <a href="/toAddPer">添&nbsp加</a></td>
             </tr>
         </table>
     </div>

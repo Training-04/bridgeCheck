@@ -4,20 +4,20 @@
       layout:decorate="shared/layout">
 <head>
     <meta charset="UTF-8">
-    <title>查找用户</title>
+    <title>查找权限组信息</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
 <div layout:fragment="content">
     <div style="margin: 10px 100px 30px auto" align="right">
-        <a href="/allUser" th:href="@{/allUser}" class="btn btn-default">Back</a>
+        <a href="/allRole" th:href="@{/allRole}" class="btn btn-default">Back</a>
     </div>
 
-    <form class="form-horizontal" role="form" method="post" th:action="@{/search}">
+    <form class="form-horizontal" role="form" method="post" th:action="@{/searchRole}">
         <div class="form-group">
-            <label for="user_name" class="col-sm-2 control-label">检索</label>
+            <label for="role_name" class="col-sm-2 control-label">检索</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control" name="user_name" id="user_name" placeholder="请输入用户Name"/>
+                <input type="text" class="form-control" name="role_name" id="role_name" placeholder="请输入权限组Name"/>
             </div>
 
             <div class="form-group">
@@ -32,17 +32,17 @@
             <thead>
             <tr>
                 <th>序号</th>
-                <th>用户名</th>
-                <th>密码</th>
-                <!--<th>所属权限组</th>-->
+                <th>权限组名</th>
+                <th>权限组</th>
+                <!--<th>拥有的权限</th>-->
             </tr>
             </thead>
             <tbody>
-            <tr th:each="User : ${user}">
-                <td th:text="${User.user_id}">aaa</td>
-                <td th:text="${User.user_name}">aaa</td>
-                <td th:text="${User.password}">aaa</td>
-                <!--<td th:value="${User.getRoles().size()}">aaa</td>-->
+            <tr th:each="Role : ${role}">
+                <td th:text="${Role.role_id}">aaa</td>
+                <td th:text="${Role.role_name}">aaa</td>
+                <td th:text="${Role.roleE}">aaa</td>
+                <!--<td>aaa</td>-->
             </tr>
             </tbody>
         </table>

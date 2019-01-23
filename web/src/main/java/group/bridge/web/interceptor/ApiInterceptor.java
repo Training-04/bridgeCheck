@@ -13,17 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class PageInterceptor implements HandlerInterceptor {
+public class ApiInterceptor implements HandlerInterceptor {
     //在这里些拦截内容
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         boolean result= TokenUtil.validateToken(request);
-        if(!result) {
-            response.sendRedirect("/login");
-        }else{
-           setNavigation(request);
-        }
         return result;
     }
     @Override
@@ -31,11 +26,4 @@ public class PageInterceptor implements HandlerInterceptor {
 
     }
 
-    private void setNavigation(HttpServletRequest request){
-        HttpSession session=request.getSession();
-        Object nav=session.getAttribute("nav");
-        if(nav==null) {
-            session.setAttribute("nav", XmlOperator.getUrl());
-        }
-    }
 }

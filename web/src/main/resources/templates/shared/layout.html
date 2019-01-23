@@ -41,7 +41,7 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    <nav th:replace="demo/siderbar::siderbar">
+    <nav th:replace="common/siderbar::siderbar">
 
     </nav>
 </div>
@@ -57,7 +57,7 @@
     function checkWarn(){
         $.ajax({
             type: 'get',
-            url: "/warn",
+            url: "/api/warn",
             async: true,
             data:"",
             datatype: "json",

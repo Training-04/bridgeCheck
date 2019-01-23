@@ -1,13 +1,16 @@
 package group.bridge.web.serviceImpl;
 
 import group.bridge.web.dao.UserRepository;
+import group.bridge.web.entity.Role;
 import group.bridge.web.entity.User;
 import group.bridge.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -55,5 +58,6 @@ public class UserServiceImpl extends BaseServiceImpl<User,Integer> implements Us
         };
         return getByPredicate(userSpecification);
     }
+
 
 }

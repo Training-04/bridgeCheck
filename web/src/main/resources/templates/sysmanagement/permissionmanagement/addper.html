@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content">
+    <div style="margin: 10px 100px 10px auto" align="right">
+        <a href="/allPer" th:href="@{/allPer}" class="btn btn-default">Back</a>
+    </div>
+    <div style="border: 1px solid #000000;margin: 100px auto;width: 600px;text-align: center" >
+        <p>添加权限信息</p>
+        <form class="form-horizontal" role="form" method="post" th:action="@{/addPer}">
+
+            <div class="form-group">
+                <label for="permission_id" class="col-sm-2 control-label">编号</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="permission_id" id="permission_id"  placeholder="权限编号" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="permission_name" class="col-sm-2 control-label">权限名</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="permission_name" id="permission_name" required="required" placeholder="请输入权限名" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="permissionE" class="col-sm-2 control-label">权限</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="permissionE" id="permissionE" required="required" placeholder="输入格式：perInfo:view" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="url" class="col-sm-2 control-label">URL</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="url" id="url" required="required" placeholder="输入格式：/toAddPermission" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-7">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                    <button type="reset" class="btn btn-default">取消</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

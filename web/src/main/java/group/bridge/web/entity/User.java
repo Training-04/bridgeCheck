@@ -9,14 +9,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "user_id")
-
     private int user_id;
     @Column(name="user_name")
     private String user_name;
     @Column(name = "password")
     private String password;
 
-    @ManyToMany
+    //cascade = {CascadeType.ALL}拥有所有级联操作权限
+    //fetch = FetchType.LAZY懒加载，加载一个实体时，定义懒加载的属性不会马上从数据库中加载
+    //FetchType.EAGER：急加载，加载一个实体时，定义急加载的属性会立即从数据库中加载
+    @ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.LAZY)
     @JoinTable(
             //用来指定中间表的名称
             name = "user_role_mapping",

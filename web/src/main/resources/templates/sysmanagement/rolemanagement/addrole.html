@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>添加权限组</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css}">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js}"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <!--<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-*.min.js}"></script>-->
+
+    <script>
+        $(window).on('load',function () {
+            $('#permission_name').selectpicker({'selectedText':'cat'});
+        });
+    </script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div style="margin: 10px 100px 10px auto" align="right">
+        <a href="/allRole" th:href="@{/allRole}" class="btn btn-default">Back</a>
+    </div>
+    <div style="border: 1px solid #000000;margin: 100px auto;width: 600px;text-align: center" >
+        <p>添加权限组信息</p>
+        <form class="form-horizontal" role="form" method="post" th:action="@{/addRole}">
+
+            <div class="form-group">
+                <label for="role_id" class="col-sm-3 control-label">编号</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="role_id" id="role_id"  placeholder="权限组编号" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">权限组名</label>
+                <div class="col-sm-7">
+                    <select class="form-control" name="role_name">
+                        <option value="游客" name="role_name" id="visitor1">游客</option>
+                        <option value="管理员" name="role_name" id="admin1">管理员</option>
+                        <option value="专业人士" name="role_name" id="professional1">专业人士</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">权限组</label>
+                <div class="col-sm-7">
+                    <select class="form-control" name="roleE">
+                        <option value="visitor" name="roleE" id="visitor">visitor</option>
+                        <option value="admin" name="roleE" id="admin">admin</option>
+                        <option value="professional" name="roleE" id="professional">professional</option>
+                    </select>
+                </div>
+            </div>
+                <!--
+                <div class="col-sm-7">
+                    <label class="radio-inline">
+                        <input type="radio" name="role_name" id="visitor" value="visitor">游客
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="role_name" id="admin" value="admin">管理员
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="role_name" id="professional" value="professional">专业人士
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">拥有的权限</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="per_name" id="per_name"
+                           required="required" placeholder="请输入权限名称" />
+                </div>
+            </div>
+            !-->
+            <div class="form-group">
+                <label class="col-sm-3 control-label">拥有的权限</label>
+                <div class="col-sm-7">
+                    <select class="form-control show-tick selectpicker" id="permission_id"
+                            name="permission_id" multiple data-live-search="true">
+                        <option name="permission_id" id="per" th:each="Permission:${session.session}"
+                                    th:value="${Permission.permission_id}"
+                                th:text="${Permission.permission_id}+${Permission.permission_name}">aaa</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">请确认权限</label>
+                <div class="col-sm-7">
+                    <select class="form-control show-tick selectpicker" id="permission_name"
+                            name="permission_name" multiple data-live-search="true">
+                        <option name="permission_name" id="permission" th:each="Permission:${session.session}"
+                                th:value="${Permission.permission_name}"
+                                th:text="${Permission.permission_id}+${Permission.permission_name}">aaa</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-7">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                    <button type="reset" class="btn btn-default">取消</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

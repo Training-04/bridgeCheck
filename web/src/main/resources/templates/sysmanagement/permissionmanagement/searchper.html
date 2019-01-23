@@ -4,20 +4,20 @@
       layout:decorate="shared/layout">
 <head>
     <meta charset="UTF-8">
-    <title>查找用户</title>
+    <title>查询权限信息</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
 <div layout:fragment="content">
     <div style="margin: 10px 100px 30px auto" align="right">
-        <a href="/allUser" th:href="@{/allUser}" class="btn btn-default">Back</a>
+        <a href="/allPer" th:href="@{/allPer}" class="btn btn-default">Back</a>
     </div>
 
-    <form class="form-horizontal" role="form" method="post" th:action="@{/search}">
+    <form class="form-horizontal" role="form" method="post" th:action="@{/searchPer}">
         <div class="form-group">
-            <label for="user_name" class="col-sm-2 control-label">检索</label>
+            <label for="permission_name" class="col-sm-2 control-label">检索</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control" name="user_name" id="user_name" placeholder="请输入用户Name"/>
+                <input type="text" class="form-control" name="permission_name" id="permission_name" placeholder="请输入权限名"/>
             </div>
 
             <div class="form-group">
@@ -32,17 +32,17 @@
             <thead>
             <tr>
                 <th>序号</th>
-                <th>用户名</th>
-                <th>密码</th>
-                <!--<th>所属权限组</th>-->
+                <th>权限名</th>
+                <th>权限</th>
+                <th>URL</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="User : ${user}">
-                <td th:text="${User.user_id}">aaa</td>
-                <td th:text="${User.user_name}">aaa</td>
-                <td th:text="${User.password}">aaa</td>
-                <!--<td th:value="${User.getRoles().size()}">aaa</td>-->
+            <tr th:each="Permission : ${per}">
+                <td th:text="${Permission.permission_id}">aaa</td>
+                <td th:text="${Permission.permission_name}">aaa</td>
+                <td th:text="${Permission.permissionE}">aaa</td>
+                <td th:text="${Permission.url}">aaa</td>
             </tr>
             </tbody>
         </table>

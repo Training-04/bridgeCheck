@@ -5,11 +5,34 @@ import java.util.Set;
 
 @Entity(name = "permission")
 public class Permission {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "permission_id")
     private int permission_id;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "permission_name")
     private String permission_name;
+    @Column(name = "permission")
+    private String permissionE;
+    @Column
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getPermissionE() {
+        return permissionE;
+    }
+
+    public void setPermissionE(String permissionE) {
+        this.permissionE = permissionE;
+    }
+
+
 
     //用户和角色（权限组）、用户和权限都是都是多对多都关系，
     //按照面向对象的方法来设计，用集合来记住另一方的数据。

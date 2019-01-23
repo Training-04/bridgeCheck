@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Nav>
-    <Url text="系统管理" path="systemMenu">
-        <Url text="用户管理" path="userMenu">
-            <Url text="添加用户信息" path="/toAdd" />
-            <Url text="删除用户信息" path="/allUser" />
-            <Url text="修改用户信息" path="/allUser" />
-            <Url text="查找用户信息" path="/toSearch" />
-
-            <Url text="添加权限组" path="/toAddRole" />
-            <Url text="删除权限组" path="/allRole" />
-            <Url text="修改权限组" path="/allRole" />
-            <Url text="查找权限组" path="/toSearchR" />
-
-            <Url text="添加权限" path="/toAddPer" />
-            <Url text="删除权限" path="/allPer" />
-            <Url text="修改权限" path="/allPer" />
-            <Url text="查找权限" path="/toSearchP" />
-
-        </Url>
-    </Url>
-    <Url text="一级管理" path="oneMenu">
-        <Url text="二级管理" path="twoMenu">
-            <Url text="3级管理" path="/siderbar" />
-            <Url text="3级管理" path="/siderbar" />
-
-        </Url>
+    <Url text="系统管理" isLink="false" path="systemMenu">
+            <Url text="用户管理" isLink="false" path="userMenu">
+                <Url text="信息管理" isLink="false" path="informMenu" >
+                    <Url text="添加用户信息" isLink="true" path="/toAdd" />
+                    <Url text="删除用户信息" isLink="true" path="/allUser" />
+                    <Url text="修改用户信息" isLink="true" path="/allUser" />
+                    <Url text="查看用户信息" isLink="true" path="/toSearch" />
+                </Url>
+                <Url text="权限组管理" isLink="false" path="roleMenu" >
+                    <Url text="添加权限组" isLink="true" path="/toAddRole" />
+                    <Url text="删除权限组" isLink="true" path="/allRole" />
+                    <Url text="修改权限组" isLink="true" path="/allRole" />
+                    <Url text="查看权限组" isLink="true" path="/toSearchRole" />
+                </Url>
+                <Url text="权限管理" isLink="false" path="permissionMenu" >
+                    <Url text="添加权限" isLink="true" path="/toAddPer" />
+                    <Url text="删除权限" isLink="true" path="/allPer" />
+                    <Url text="修改权限" isLink="true" path="/allPer" />
+                    <Url text="查看权限" isLink="true" path="/toSearchPer" />
+                </Url>
+            </Url>
     </Url>
 </Nav>

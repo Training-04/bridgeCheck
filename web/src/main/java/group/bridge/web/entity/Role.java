@@ -13,11 +13,15 @@ public class Role {
     private int role_id;
     @Column(name = "role_name")
     private String role_name;
-
+    @Column(name = "role")
+    private String roleE;
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
-    @ManyToMany
+    //用户user 角色role 中间表user_role，用户新增，
+    //只增加中间表对应角色关系，不增加角色role
+    //只增加关联关系到中间表中,需要添加CascadeType.MERGE
+    @ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.LAZY)
     @JoinTable(
             //用来指定中间表的名称
             name = "role_permission_mapping",
@@ -33,6 +37,14 @@ public class Role {
 
     public String getRole_name(){return role_name;}
     public void setRole_name(String role_name){this.role_name=role_name;}
+
+    public String getRoleE() {
+        return roleE;
+    }
+
+    public void setRoleE(String roleE) {
+        this.roleE = roleE;
+    }
 
     public Set<User> getUsers() {
         return users;
