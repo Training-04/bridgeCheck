@@ -54,9 +54,9 @@ public class ShrioConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
         //解决登录成功后无法跳转到successUrl的问题
-        Map<String, Filter> map = new LinkedHashMap<>();
-        map.put("authc", new MyFormAuthenticationFilter());
-        shiroFilterFactoryBean.setFilters(map);
+//        Map<String, Filter> map = new LinkedHashMap<>();
+//        map.put("authc", new MyFormAuthenticationFilter());
+//        shiroFilterFactoryBean.setFilters(map);
 
 
         //设置进入登陆界面
@@ -135,14 +135,6 @@ public class ShrioConfig {
         return securityManager;
     }
 
-
-    //解决无法跳入自定义realm的问题
-//    @Bean
-//    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator(){
-//        DefaultAdvisorAutoProxyCreator creator = new DefaultAdvisorAutoProxyCreator();
-//        creator.setProxyTargetClass(true);
-//        return creator;
-//    }
 
     /**
      * 配置shiro redisManager
@@ -260,12 +252,12 @@ public class ShrioConfig {
     }
 
 
-    private class MyFormAuthenticationFilter extends FormAuthenticationFilter implements Filter {
-        @Override
-        protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
-            String successUrl = "/index";
-            WebUtils.issueRedirect(request,response,successUrl);
-            return false;
-        }
-    }
+//    private class MyFormAuthenticationFilter extends FormAuthenticationFilter implements Filter {
+//        @Override
+//        protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
+//            String successUrl = "/index";
+//            WebUtils.issueRedirect(request,response,successUrl);
+//            return false;
+//        }
+//    }
 }

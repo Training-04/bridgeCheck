@@ -33,7 +33,8 @@
                 <!--<td>aaa</td>-->
                 <td align="center">
                     <a th:href="@{'/toUpdateRole/'+${Role.role_id}}">修改</a>&nbsp|&nbsp
-                    <a th:href="@{'/deleteRole/'+${Role.role_id}}" onclick="return confirm('确认删除？')">删除</a>
+                    <a th:href="@{'/deleteRole/'+${Role.role_id}}" onclick="return confirm('确认删除？')">删除</a>&nbsp|&nbsp
+                    <a th:href="@{'/toroleAddper/'+${Role.role_id}}">添加权限</a>
                 </td>
             </tr>
             </tbody>

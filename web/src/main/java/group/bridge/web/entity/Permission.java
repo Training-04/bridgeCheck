@@ -11,7 +11,7 @@ public class Permission {
     private int permission_id;
     @Column(name = "permission_name")
     private String permission_name;
-    @Column(name = "permission")
+    @Column(name = "permissionE")
     private String permissionE;
     @Column
     private String url;

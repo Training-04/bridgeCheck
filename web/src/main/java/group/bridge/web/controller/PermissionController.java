@@ -2,6 +2,7 @@ package group.bridge.web.controller;
 
 import group.bridge.web.entity.Permission;
 import group.bridge.web.service.PermissionService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ public class PermissionController extends BaseController {
     PermissionService permissionService;
 
     @RequestMapping("/allPer")
+    @RequiresPermissions("perInfo:allPer")
     public String getAllPer(Model model, HttpSession session){
         List<Permission> lists=permissionService.getAll();
         model.addAttribute("per",lists);
@@ -27,6 +29,7 @@ public class PermissionController extends BaseController {
 
 
     @RequestMapping("/toAddPer")
+    @RequiresPermissions("perInfo:toAddPer")
     public String toAdd(Model model){
         model.addAttribute("title","添加权限");
         return "sysmanagement/permissionmanagement/addper";
@@ -62,6 +65,7 @@ public class PermissionController extends BaseController {
     }
 
     @RequestMapping("/toSearchPer")
+    @RequiresPermissions("perInfo:toSearchPer")
     public String toSearch(Model model){
         model.addAttribute("title","查找权限信息");
         return "sysmanagement/permissionmanagement/searchper";

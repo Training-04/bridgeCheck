@@ -34,7 +34,7 @@
                 <th>序号</th>
                 <th>权限组名</th>
                 <th>权限组</th>
-                <!--<th>拥有的权限</th>-->
+                <th>拥有的权限</th>
             </tr>
             </thead>
             <tbody>
@@ -42,7 +42,9 @@
                 <td th:text="${Role.role_id}">aaa</td>
                 <td th:text="${Role.role_name}">aaa</td>
                 <td th:text="${Role.roleE}">aaa</td>
-                <!--<td>aaa</td>-->
+                <td th:each="Permission:${permission}">
+                    <font th:text="${Permission.permission_name}">aaa</font>
+                </td>
             </tr>
             </tbody>
         </table>

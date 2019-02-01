@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.jws.WebParam;
 import javax.persistence.criteria.*;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,7 +31,7 @@ public class UserController extends BaseController{
 
 
     @RequestMapping("/allUser")
-    @RequiresPermissions("userInfo:alluser")
+    @RequiresPermissions("userInfo:allUser")
     public String getAllUser(Model model){
         List<User> lists=userService.getAll();
         model.addAttribute("user",lists);
@@ -64,6 +65,8 @@ public class UserController extends BaseController{
     @RequestMapping("/toUpdate/{id}")
     public String toUpdate(Model model,@PathVariable("id") int userID){
         User user=userService.getUserByID(userID);
+        Set<Role>roles=user.getRoles();
+        model.addAttribute("role",roles);
         model.addAttribute("user",user);
         model.addAttribute("cap","修改用户信息");
         model.addAttribute("title","修改用户信息");
@@ -72,14 +75,7 @@ public class UserController extends BaseController{
 
 
     @RequestMapping("/update")
-    public String update(User user,Role role){
-        //往中间表添加内容
-        Set<User> users=new HashSet<>();
-        users.add(user);
-        role.setUsers(users);
-        Set<Role> roles=new HashSet<>();
-        roles.add(role);
-        user.setRoles(roles);
+    public String update(User user){
         userService.updateUser(user);
         return "redirect:/allUser";
     }
@@ -99,11 +95,18 @@ public class UserController extends BaseController{
 
     @RequestMapping("/search")
     public String search(Model model,String user_name){
-        List<User> user=userService.findUserByName(user_name);
-        //List<Role> roles=roleService.findRolenameByUserId();
-
-        //model.addAttribute("role",roles);
-        model.addAttribute("user",user);
+        List<User> users=userService.findUserByName(user_name);
+        User user;
+        List<Role> roleList=new ArrayList();
+        Set<Role> roles = null;
+        for (int i=0;i<users.size();i++)
+        {
+            user=users.get(i);
+            roles=user.getRoles();
+        }
+        roleList.addAll(roles);
+        model.addAttribute("role",roleList);
+        model.addAttribute("user",users);
         model.addAttribute("title","查找用户信息");
         return "sysmanagement/usermanagement/searchuser";
     }

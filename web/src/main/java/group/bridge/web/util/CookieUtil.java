@@ -20,7 +20,7 @@ public class CookieUtil {
     }
     //写cookie，默认时间1天
     public static void writeCookie(HttpServletResponse response, String cookieName, String value){
-        writeCookie(response,cookieName,value,1);
+        writeCookie(response,cookieName,value,StaticData.CookieAge);
 
     }
     public static void writeCookie(HttpServletResponse response, String cookieName, String value,int time) {

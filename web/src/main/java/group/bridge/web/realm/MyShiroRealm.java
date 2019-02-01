@@ -14,6 +14,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,12 +22,13 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class MyShiroRealm extends AuthorizingRealm {
 
     //MyShiroRealm继承 AuthorizingRealm，
     //重写doGetAuthorizationInfo授权方法，和doGetAuthenticationInfo认证方法
-    @Resource
+    @Autowired
     private UserService userService;
 
 
@@ -106,14 +108,28 @@ public class MyShiroRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
 
+        // 给资源进行授权
         SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo();
 
-        User user= (User) principalCollection.getPrimaryPrincipal();
-        //getRole(),getPermission()分别对应Role和Permission的英文信息
+        // 获取当前登录用户
+        //这个值是认证方法中的SimpleAuthenticationInfo对象的第一个参数的值即user.getUsername()
+        String user_name=(String)principalCollection.getPrimaryPrincipal();
+        List<User> users=(List<User>) this.userService.findUserByName(user_name);
+        //将获得的List数组取值给User对象
+        User user = users.get(0);
+        //User user= (User) principalCollection.getPrimaryPrincipal();
+
+        System.out.println("user_name:"+user.getUser_name()+",password:"+user.getPassword());
+        //getRoleE(),getPermissionE()分别对应Role和Permission的英文信息
+        // 到数据库查询当前登录用户的授权字符串
+        //Set<Role> roles=user.getRoles();
+        //Role role= (Role) roles;
         for (Role role:user.getRoles()){
             simpleAuthorInfo.addRole(role.getRoleE());
+            System.out.println("用户"+user.getUser_name()+"具有的角色:"+role.getRoleE());
             for (Permission permission:role.getPermissions()){
                 simpleAuthorInfo.addStringPermission(permission.getPermissionE());
+                System.out.println("用户"+user.getUser_name()+"具有的权限："+permission.getPermissionE());
             }
         }
         return simpleAuthorInfo;

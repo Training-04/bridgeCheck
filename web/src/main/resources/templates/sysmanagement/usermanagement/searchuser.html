@@ -34,7 +34,7 @@
                 <th>序号</th>
                 <th>用户名</th>
                 <th>密码</th>
-                <!--<th>所属权限组</th>-->
+                <th>所属权限组</th>
             </tr>
             </thead>
             <tbody>
@@ -42,7 +42,9 @@
                 <td th:text="${User.user_id}">aaa</td>
                 <td th:text="${User.user_name}">aaa</td>
                 <td th:text="${User.password}">aaa</td>
-                <!--<td th:value="${User.getRoles().size()}">aaa</td>-->
+                <td th:each="Role:${role}">
+                    <font th:text="${Role.role_name}">aaa</font>
+                </td>
             </tr>
             </tbody>
         </table>
