@@ -9,9 +9,19 @@ public class Url {
     String text;
     @JacksonXmlProperty(isAttribute = true,localName = "path")
     String path;
+    @JacksonXmlProperty(isAttribute = true,localName = "isLink")
+    boolean isLink;
     @JacksonXmlElementWrapper(useWrapping = false)
     @JacksonXmlProperty(localName = "Url")
     List<Url> urls;
+
+    public boolean getIsLink() {
+        return isLink;
+    }
+
+    public void setIsLink(boolean link) {
+        isLink = link;
+    }
 
     public String getText() {
         return text;

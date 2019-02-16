@@ -32,12 +32,12 @@
     </Url>
     <Url text="数据监控" path="oneMenu">
         <Url text="动态图形" path="SVGMenu">
-            <Url text="实时数据" path="/web/siderbar1" />
-            <Url text="历史数据" path="/web/siderbar2" />
-            <Url text="统计数据" path="/web/siderbar3" />
-            <Url text="历史报警" path="/web/siderbar4" />
+            <Url text="实时数据" isLink="true" path="web/siderbar1" />
+            <Url text="历史数据" isLink="true" path="web/siderbar2" />
+            <Url text="统计数据" isLink="true" path="web/siderbar3" />
+            <Url text="历史报警" isLink="true" path="web/siderbar4" />
         </Url>
-        <Url text="数据列表" isLink="false" path="userMenu">
+        <Url text="数据列表" isLink="false" path="listMenu">
             <Url text="实时数据列表" isLink="true" path="/real_time_datalist" />
             <Url text="历史数据列表" isLink="true" path="/history_datalist" />
             <Url text="历史警告信息" isLink="true" path="/history_warn_record" />

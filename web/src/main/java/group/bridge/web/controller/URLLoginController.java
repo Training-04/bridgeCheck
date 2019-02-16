@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@Controller
+//@Controller
 public class URLLoginController {
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String getlogin() {

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
+@RequestMapping("sensor")
 public class SensorController extends BaseController{
     @Autowired
     private SensorService sensorService;

@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
+@RequestMapping("user")
 public class UserController extends BaseController{
 
     @Autowired

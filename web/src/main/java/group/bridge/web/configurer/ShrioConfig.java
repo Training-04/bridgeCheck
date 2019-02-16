@@ -37,7 +37,7 @@ import javax.servlet.ServletResponse;
 // 就好像SpringMvc 通过DispachServlet 来主控制一样。
 //既然是使用 Filter 一般也就能猜到，是通过URL规则来进行过滤和权限校验，
 // 所以我们需要定义一系列关于URL的规则和访问权限。
-@Configuration
+//@Configuration
 public class ShrioConfig {
     //ShiroFilterFactoryBean 处理拦截资源文件问题。
     //注意：单独一个ShiroFilterFactoryBean配置是或报错的，因为在初始化ShiroFilterFactoryBean的时候需要注入：SecurityManager
@@ -89,6 +89,7 @@ public class ShrioConfig {
         //filterChainDefinitionMap.put("/templates/sysmanagement/permissionmanagement/**", "authc");
         //filterChainDefinitionMap.put("/templates/sysmanagement/rolemanagement/**", "authc");
         //filterChainDefinitionMap.put("/templates/sysmanagement/usermanagement/**", "authc");
+        filterChainDefinitionMap.put("/**", "authc");
 
         filterChainDefinitionMap.put("/**/*.html", "anon");
 
