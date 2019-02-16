@@ -22,5 +22,13 @@
                     <Url text="查看权限" isLink="true" path="/toSearchPer" />
                 </Url>
             </Url>
+        <Url text="阈值和报警管理" path="thresholdAndwrMenu">
+            <Url text="阈值管理" path="thresholdMenu" >
+                <Url text="修改阈值" path="/allSensors" />
+                <Url text="查找阈值" path="/searchSensor" />
+            </Url>
+            <Url text="报警管理" path="/allWarn_records" />
+        </Url>
     </Url>
+
 </Nav>
