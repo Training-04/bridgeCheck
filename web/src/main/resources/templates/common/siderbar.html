@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -13,16 +13,15 @@
                 一级菜单
             </a>
 
-            <ul th:id="${one.path}" class="collapse L2">
+            <ul th:id="${one.path}" class="collapse L2" >
                 <li th:each="two : ${one.urls}">
-                    <a th:data-parent="'#'+${one.path}" th:text="${two.text}" data-toggle="collapse"
-                       th:href="'#'+${two.path}">
+                    <a th:data-parent="'#'+${one.path}" th:text="${two.text}" data-toggle="collapse" th:href="'#'+${two.path}">
                         二级菜单
                     </a>
                     <ul th:id="${two.path}" class="collapse L3">
                         <li th:each="three:${two.urls}" th:switch="${three.isLink}">
                             <span th:case="True">
-                                <a th:text="${three.text}" th:href="${three.path}">三级菜单</a>
+                            <a th:text="${three.text}" th:href="${three.path}">三级菜单</a>
                             </span>
                             <span th:case="False">
                                 <a th:text="${three.text}" data-toggle="collapse" th:href="'#'+${three.path}">三级菜单</a>

@@ -18,7 +18,7 @@ public class ApiInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        boolean result= TokenUtil.validateToken(request,response);
+        boolean result= TokenUtil.validateToken(request);
         return result;
     }
     @Override

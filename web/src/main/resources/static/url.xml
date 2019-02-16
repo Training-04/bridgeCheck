@@ -2,7 +2,7 @@
 
 <Nav>
     <Url text="系统管理" isLink="false" path="systemMenu">
-            <Url text="用户管理" isLink="false" path="userMenu">
+        <Url text="用户管理" isLink="false" path="userMenu">
                 <Url text="信息管理" isLink="false" path="informMenu" >
                     <Url text="添加用户信息" isLink="true" path="/toAdd" />
                     <Url text="删除用户信息" isLink="true" path="/allUser" />
@@ -21,13 +21,21 @@
                     <Url text="修改权限" isLink="true" path="/allPer" />
                     <Url text="查看权限" isLink="true" path="/toSearchPer" />
                 </Url>
-            </Url>
+        </Url>
         <Url text="阈值和报警管理" path="thresholdAndwrMenu">
             <Url text="阈值管理" path="thresholdMenu" >
                 <Url text="修改阈值" path="/allSensors" />
                 <Url text="查找阈值" path="/searchSensor" />
             </Url>
             <Url text="报警管理" path="/allWarn_records" />
+        </Url>
+    </Url>
+    <Url text="数据监控" path="oneMenu">
+        <Url text="动态图形" path="SVGMenu">
+            <Url text="实时数据" path="/web/siderbar1" />
+            <Url text="历史数据" path="/web/siderbar2" />
+            <Url text="统计数据" path="/web/siderbar3" />
+            <Url text="历史报警" path="/web/siderbar4" />
         </Url>
         <Url text="数据列表" isLink="false" path="userMenu">
             <Url text="实时数据列表" isLink="true" path="/real_time_datalist" />
@@ -36,5 +44,4 @@
             <Url text="数据统计列表" isLink="true" path="/statistic_datalist" />
         </Url>
     </Url>
-
 </Nav>
