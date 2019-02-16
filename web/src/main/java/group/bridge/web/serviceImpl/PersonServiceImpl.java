@@ -68,6 +68,7 @@ public class PersonServiceImpl extends BaseServiceImpl<Person,Integer> implement
         CriteriaQuery<Integer> c = cb.createQuery(Integer.class);
         Root<Person> root=c.from(Person.class);
 
+
         Predicate p=specification.toPredicate(root,c,cb);
         //condition
         Path<Integer> age=root.get("age");

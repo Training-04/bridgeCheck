@@ -29,6 +29,12 @@
             </Url>
             <Url text="报警管理" path="/allWarn_records" />
         </Url>
+        <Url text="数据列表" isLink="false" path="userMenu">
+            <Url text="实时数据列表" isLink="true" path="/real_time_datalist" />
+            <Url text="历史数据列表" isLink="true" path="/history_datalist" />
+            <Url text="历史警告信息" isLink="true" path="/history_warn_record" />
+            <Url text="数据统计列表" isLink="true" path="/statistic_datalist" />
+        </Url>
     </Url>
 
 </Nav>
