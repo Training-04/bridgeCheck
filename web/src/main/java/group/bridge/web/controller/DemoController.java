@@ -16,7 +16,7 @@ public class DemoController extends BaseController{
     PersonService personService;
     @RequestMapping(value = {"/",""})
     public String demo(Model model, HttpServletRequest request) {
-        return "demo/fragment1";
+        return "common/index";
     }
     @RequestMapping("/siderbar")
     public String siderBar(Model model){
