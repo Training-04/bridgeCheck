@@ -14,26 +14,26 @@ public class DataListController {
     @RequestMapping("/real_time_datalist")
     public String Real_time_datalist()
     {
-        return "/demo/real_time_datalist";
+        return "/DataList/real_time_datalist";
     }
 
 
     @RequestMapping("/history_datalist")
     public String History_datalist()
     {
-        return "/demo/history_datalist";
+        return "/DataList/history_datalist";
     }
 
     @RequestMapping("/history_warn_record")
     public String History_warn_record()
     {
-        return "/demo/history_warn_record";
+        return "/DataList/history_warn_record";
     }
 
     @RequestMapping("/statistic_datalist")
     public String Statistic_datalist()
     {
-        return "/demo/statistic_datalist";
+        return "/DataList/statistic_datalist";
     }
 
 
