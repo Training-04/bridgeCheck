@@ -44,14 +44,17 @@
                 <td th:text="${bridge.bridge_length}"></td>
                 <td th:text="${bridge.bridge_info}"></td>
                 <td>
-                    <a th:href="@{'/bridge/delBridge/'+${bridge.bridge_id}}">删除</a>
+                    <a th:href="@{'/bridge/delBridge/'+${bridge.bridge_id}}">删除桥梁</a>
                     |
-                    <a th:href="@{'/bridge/toUpdate/'+${bridge.bridge_id}}">修改</a>
+                    <a th:href="@{'/bridge/toUpdate/'+${bridge.bridge_id}}">修改桥梁</a>
 
                 </td>
             </tr>
         </table>
-        <a th:href="@{/bridge/toAddBridges}"><button class="btn btn-primary">添加桥梁</button></a>
+        <div th:align="right">
+            <a th:href="@{/bridge/toAddBridges}"><button class="btn btn-primary" >添加桥梁</button></a>
+        </div>
+
     </div>
 
     <nav aria-label="Page navigation" style="text-align: center;">

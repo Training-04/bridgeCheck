@@ -5,7 +5,6 @@ import group.bridge.web.entity.Sensor;
 import group.bridge.web.service.BridgeService;
 import group.bridge.web.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,22 +40,6 @@ public class SensorController extends BaseController{
         return "sensor/allThreshold";
     }
 
-    //搜索相应名称的传感器（中介）
-    @RequestMapping("/toSearchSensor")
-    public String toSearch(Model model){
-        model.addAttribute("title","查询传感器信息页面");
-        return "sensor/searchSensor";
-    }
-
-    //搜索相应名称的传感器
-    @RequestMapping("/searchSensor")
-    public String getByName(Model model,String sensor_name){
-        List<Sensor> lists = sensorService.getByName(sensor_name);
-        model.addAttribute("title","查询传感器信息页面");
-        model.addAttribute("sensor",lists);
-        return "sensor/searchSensor";
-    }
-
     //在所有传感器页面更改阈值
     @RequestMapping("/toUpdateThreshold/{id}")
     public String toUpdate(Model model, @PathVariable("id") Integer id){
@@ -89,19 +72,66 @@ public class SensorController extends BaseController{
         return "redirect:/sensor/allSensors";
     }
 
+    //搜索相应名称的阈值（中介）
+    @RequestMapping("/toSearchThreshold")
+    public String toSearchThreshold(Model model){
+        model.addAttribute("title","查询传感器阈值信息页面");
+        return "sensor/searchThreshold";
+    }
+
+    //搜索相应名称的阈值
+    @RequestMapping("/searchThreshold")
+    public String getByName1(Model model,String sensor_name){
+        List<Sensor> lists = sensorService.getByName(sensor_name);
+        model.addAttribute("title","查询传感器阈值信息页面");
+        model.addAttribute("sensor",lists);
+        return "sensor/searchThreshold";
+    }
+
+    //搜索相应名称的传感器（中介）
+    @RequestMapping("/toSearchSensor")
+    public String toSearch(Model model){
+        model.addAttribute("title","查询传感器信息页面");
+        return "sensor/searchSensor";
+    }
+
+    //搜索相应名称的传感器
+    @RequestMapping("/searchSensor")
+    public String getByName(Model model,String sensor_name){
+        List<Sensor> lists = sensorService.getByName(sensor_name);
+        model.addAttribute("title","查询传感器信息页面");
+        model.addAttribute("sensor",lists);
+        return "sensor/searchSensor";
+    }
+
 //    在搜索页面更改阈值
-    @RequestMapping("/search_toUpdate/{id}")
+    @RequestMapping("/search_toUpdateThreshold/{id}")
     public String sensor_toUpdate(Model model, @PathVariable("id") Integer id){
         Sensor sensor = sensorService.get(id);
         model.addAttribute("title","修改传感器阈值");
         model.addAttribute("sensor",sensor);
-        return "sensor/search_updateSensor";
+        return "sensor/search_updateThreshold";
     }
     //在搜索页面更改阈值
-    @RequestMapping("/search_updateSensor")
+    @RequestMapping("/search_updateThreshold")
     public String search_update(Sensor sensor){
         sensorService.update(sensor);
-        return "redirect:/sensor/searchSensor";
+        return "sensor/searchThreshold";
+    }
+
+    //    在搜索页面更改传感器
+    @RequestMapping("/search_toUpdateSensor/{id}")
+    public String search_toUpdateSensor(Model model, @PathVariable("id") Integer id){
+        Sensor sensor = sensorService.get(id);
+        model.addAttribute("title","修改传感器");
+        model.addAttribute("sensor",sensor);
+        return "sensor/search_updateSensor";
+    }
+    //在搜索页面更改传感器
+    @RequestMapping("/search_updateSensor")
+    public String search_updateSensor(Sensor sensor){
+        sensorService.update(sensor);
+        return "sensor/searchSensor";
     }
 
 //    添加传感器
@@ -116,6 +146,7 @@ public class SensorController extends BaseController{
 
 //  添加传感器
     @RequestMapping("/addSensors")
+//    使用@RequestParam注解将请求参数绑定至方法参数，value为请求参数名
     public String addSensor(Sensor sensor,@RequestParam(value = "bridge_id") Integer bridge_id){
         Bridge bridge = bridgeService.get(bridge_id);
         sensor.setBridge(bridge);

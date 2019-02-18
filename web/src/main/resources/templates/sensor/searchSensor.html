@@ -12,9 +12,8 @@
     <div layout:fragment="content">
         <ol class="breadcrumb">
             <li><a href="#">系统管理</a></li>
-            <li><a href="#">阈值和报警管理</a></li>
-            <li><a href="#">阈值管理</a></li>
-            <li class="active">查找阈值</li>
+            <li><a href="#">传感器管理</a></li>
+            <li class="active">查找传感器</li>
         </ol>
         <div class="container " style="width: 1000px; margin-top: 100px">
             <form th:action="@{/sensor/searchSensor}" method="post" class="form-horizontal">
@@ -38,13 +37,13 @@
                     </tr>
                     <tr th:each="sensor:${sensor}">
                         <td th:text="${sensor.sensor_id}"></td>
-                        <td th:text="${sensor.bridge?.bridge_name}"></td>
+                        <td th:text="${sensor.bridge.bridge_name}"></td>
                         <td th:text="${sensor.sensor_name}"></td>
                         <td th:text="${sensor.parameter_unit}"></td>
                         <td th:text="${sensor.threshold1}"></td>
                         <td th:text="${sensor.threshold2}"></td>
                         <td>
-                            <a th:href="@{'/sensor/search_toUpdate/'+${sensor.sensor_id}}">修改阈值</a>
+                            <a th:href="@{'/sensor/search_toUpdateSensor/'+${sensor.sensor_id}}">修改传感器</a>
                         </td>
                     </tr>
                 </table>
