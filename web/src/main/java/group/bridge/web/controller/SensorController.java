@@ -5,10 +5,12 @@ import group.bridge.web.entity.Sensor;
 import group.bridge.web.service.BridgeService;
 import group.bridge.web.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -106,21 +108,22 @@ public class SensorController extends BaseController{
     @RequestMapping("/toAddSensors")
     public String toAdd(Model model,HttpSession session){
         model.addAttribute("title","添加传感器页面");
+//      下边两行是从数据库中获取桥梁名称
         List<Bridge> lists = bridgeService.getAll();
         session.setAttribute("bridges",lists);
         return "sensor/addSensors";
     }
+
 //  添加传感器
     @RequestMapping("/addSensors")
-    public String addSensor(Sensor sensor,Integer bridge_id,HttpSession session){
-        sensorService.add(sensor);
+    public String addSensor(Sensor sensor,@RequestParam(value = "bridge_id") Integer bridge_id){
         Bridge bridge = bridgeService.get(bridge_id);
-//        Bridge bridge = new Bridge();
-//
-//        Bridge bridge1= session.get();
+        sensor.setBridge(bridge);
+        sensorService.add(sensor);
         return "redirect:/sensor/allSensors";
     }
     //删除传感器
+//    通过 @PathVariable 可以将 URL 中占位符参数绑定到控制器处理方法的入参中
     @RequestMapping("/delSensor/{id}")
     public String delWarn_record(@PathVariable("id") Integer id) {
         sensorService.deleteById(id);
