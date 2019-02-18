@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
+@RequestMapping("Warn_record")
 public class Warn_recordController extends BaseController{
     @Autowired
     private Warn_recordService warn_recordService;
@@ -47,7 +48,7 @@ public class Warn_recordController extends BaseController{
     @RequestMapping("/addWarn_records")
     public String addWarn_record(Warn_record wr){
         warn_recordService.add(wr);
-        return "redirect:/allWarn_records";
+        return "redirect:/Warn_record/allWarn_records";
     }
     @RequestMapping("toUpdateW/{id}")
     public String toUpdate(Model model, @PathVariable("id") Integer id){
@@ -60,14 +61,14 @@ public class Warn_recordController extends BaseController{
     @RequestMapping("/updateWarn_record")
     public String update(Warn_record wr){
         warn_recordService.update(wr);
-        return "redirect:/allWarn_records";
+        return "redirect:/Warn_record/allWarn_records";
     }
 
     //删除未解决报警记录
     @RequestMapping("/delWarn_record/{id}")
     public String delWarn_record(@PathVariable("id") Integer id) {
         warn_recordService.deleteById(id);
-        return "redirect:/allWarn_records";
+        return "redirect:/Warn_record/allWarn_records";
     }
 
     //删除已解决报警记录

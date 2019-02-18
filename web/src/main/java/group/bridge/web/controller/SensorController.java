@@ -58,7 +58,7 @@ public class SensorController extends BaseController{
     @RequestMapping("/updateSensor")
     public String update(Sensor sensor){
         sensorService.update(sensor);
-        return "redirect:/allSensors";
+        return "redirect:/sensor/allSensors";
     }
 
 //    在搜索页面更改阈值

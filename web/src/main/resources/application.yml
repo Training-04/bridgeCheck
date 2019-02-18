@@ -1,23 +1,23 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/jpa_test?useSSL=false&useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
     username: root
     password: root
   jpa:
     database: mysql
+    show-sql: true
     open-in-view: true
+    #解决数据库无法自动创建表的问题
     hibernate:
-#      每次运行程序，没有表格会新建表格，表内有数据不会清空，只会更新
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: update
-      dialect : org.hibernate.dialect.MySQL5Dialect
-      show-sql: true
-
   mvc:
     view:
       prefix: /
       suffix: .html
   thymeleaf:
     cache: false
-    mode: HTML
+    model: HTML5
     encoding: UTF-8
