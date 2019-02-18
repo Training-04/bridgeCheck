@@ -7,28 +7,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/web")
+@RequestMapping("/echarts")
 public class SVGController extends BaseController{
 
     @Autowired
     SensorRecordService sensorRecordService;
 
-    @RequestMapping("/siderbar1")
+    @RequestMapping("/livedata")
     public String DrawLiveSensorRecord(){
         return "svg/svglivedata";
     }
 
-    @RequestMapping("/siderbar2")
+    @RequestMapping("/historydata")
     public String DrawHisSensorRecord(){
         return "svg/svghisdata";
     }
 
-    @RequestMapping("/siderbar3")
+    @RequestMapping("/statistics")
     public String DrawStatistics(){
         return "svg/svgstatistics";
     }
 
-    @RequestMapping("/siderbar4")
+    @RequestMapping("/warnrecords")
     public String DrawWarnRecords(){
         return "svg/svgwarnrecords";
     }
