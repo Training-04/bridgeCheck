@@ -34,7 +34,7 @@
                 <td th:text="${#dates.format(wrs.warn_date,'yyyy-MM-dd')}"></td>
                 <td th:text="${#dates.format(wrs.relieve_date,'yyyy-MM-dd')}"></td>
                 <td th:text="${wrs.status}"></td>
-                <td><a th:href="@{'/delRelieveWarn_record/'+${wrs.warn_id}}">删除报警信息</a></td>
+                <td><a th:href="@{'/Warn_record/delRelieveWarn_record/'+${wrs.warn_id}}">删除报警信息</a></td>
             </tr>
         </table>
         <nav aria-label="Page navigation" style="text-align: center;">

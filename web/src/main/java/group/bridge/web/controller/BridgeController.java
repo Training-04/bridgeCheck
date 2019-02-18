@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
+@RequestMapping("bridge")
 public class BridgeController {
     @Autowired
     private BridgeService bridgeService;
@@ -43,13 +44,45 @@ public class BridgeController {
     @RequestMapping("/addBridges")
     public String addBridge(Bridge bridge){
         bridgeService.add(bridge);
-        return "redirect:/allBridges";
+        return "redirect:/bridge/allBridges";
     }
 
     //删除桥梁
     @RequestMapping("/delBridge/{id}")
     public String delWarn_record(@PathVariable("id") Integer id) {
         bridgeService.deleteById(id);
-        return "redirect:/allBridges";
+        return "redirect:/bridge/allBridges";
+    }
+
+    //在所有桥梁页面更改桥梁信息
+    @RequestMapping("/toUpdate/{id}")
+    public String toUpdate(Model model, @PathVariable("id") Integer id){
+        Bridge bridge = bridgeService.get(id);
+        model.addAttribute("title","修改桥梁信息");
+        model.addAttribute("bridge",bridge);
+        return "bridge/updateBridge";
+    }
+
+    //在所有桥梁页面更改桥梁信息
+    @RequestMapping("/updateBridge")
+    public String update(Bridge bridge){
+        bridgeService.update(bridge);
+        return "redirect:/bridge/allBridges";
+    }
+
+    //搜索相应名称的桥梁（中介）
+    @RequestMapping("/toSearchBridge")
+    public String toSearch(Model model){
+        model.addAttribute("title","查询桥梁信息页面");
+        return "bridge/searchBridge";
+    }
+
+    //搜索相应名称的桥梁
+    @RequestMapping("/searchBridge")
+    public String getByName(Model model,String bridge_name){
+        List<Bridge> lists = bridgeService.getByName(bridge_name);
+        model.addAttribute("title","查询传感器信息页面");
+        model.addAttribute("bridge",lists);
+        return "bridge/searchBridge";
     }
 }

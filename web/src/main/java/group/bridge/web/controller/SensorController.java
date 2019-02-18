@@ -30,6 +30,15 @@ public class SensorController extends BaseController{
         return "sensor/allSensors";
     }
 
+    //展示所有传感器
+    @RequestMapping("/allThreshold")
+    public String getAllThreshold(Model model){
+        List<Sensor> lists = sensorService.getAll();
+        model.addAttribute("title","展示阈值信息页面");
+        model.addAttribute("sensors",lists);
+        return "sensor/allThreshold";
+    }
+
     //搜索相应名称的传感器（中介）
     @RequestMapping("/toSearchSensor")
     public String toSearch(Model model){
@@ -47,17 +56,33 @@ public class SensorController extends BaseController{
     }
 
     //在所有传感器页面更改阈值
-    @RequestMapping("/toUpdate/{id}")
+    @RequestMapping("/toUpdateThreshold/{id}")
     public String toUpdate(Model model, @PathVariable("id") Integer id){
         Sensor sensor = sensorService.get(id);
         model.addAttribute("title","修改传感器阈值");
         model.addAttribute("sensor",sensor);
-        return "sensor/updateSensor";
+        return "sensor/updateThreshold";
     }
 
     //在所有传感器页面更改阈值
-    @RequestMapping("/updateSensor")
+    @RequestMapping("/updateThreshold")
     public String update(Sensor sensor){
+        sensorService.update(sensor);
+        return "redirect:/sensor/allSensors";
+    }
+
+    //在所有传感器页面更改传感器
+    @RequestMapping("/toUpdateSensor/{id}")
+    public String toUpdateSensor(Model model, @PathVariable("id") Integer id){
+        Sensor sensor = sensorService.get(id);
+        model.addAttribute("title","修改传感器");
+        model.addAttribute("sensor",sensor);
+        return "sensor/updateSensor";
+    }
+
+    //在所有传感器页面更改传感器
+    @RequestMapping("/updateSensor")
+    public String updateSensor(Sensor sensor){
         sensorService.update(sensor);
         return "redirect:/sensor/allSensors";
     }
@@ -74,7 +99,7 @@ public class SensorController extends BaseController{
     @RequestMapping("/search_updateSensor")
     public String search_update(Sensor sensor){
         sensorService.update(sensor);
-        return "redirect:/searchSensor";
+        return "redirect:/sensor/searchSensor";
     }
 
 //    添加传感器
@@ -87,14 +112,19 @@ public class SensorController extends BaseController{
     }
 //  添加传感器
     @RequestMapping("/addSensors")
-    public String addSensor(Sensor sensor){
+    public String addSensor(Sensor sensor,Integer bridge_id,HttpSession session){
         sensorService.add(sensor);
-        return "redirect:/allSensors";
+        Bridge bridge = bridgeService.get(bridge_id);
+//        Bridge bridge = new Bridge();
+//
+//        Bridge bridge1= session.get();
+        return "redirect:/sensor/allSensors";
     }
     //删除传感器
     @RequestMapping("/delSensor/{id}")
     public String delWarn_record(@PathVariable("id") Integer id) {
         sensorService.deleteById(id);
-        return "redirect:/allSensors";
+        return "redirect:/sensor/allSensors";
     }
+
 }

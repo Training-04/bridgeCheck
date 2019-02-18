@@ -35,13 +35,13 @@
                     <td th:text="${#dates.format(wrs.relieve_date,'yyyy-MM-dd')}"></td>
                     <td th:text="${wrs.status}"></td>
                     <td>
-                        <a th:href="@{'/toUpdateW/'+${wrs.warn_id}}">解除报警</a>
+                        <a th:href="@{'/Warn_record/toUpdateW/'+${wrs.warn_id}}">解除报警</a>
                         |
-                        <a th:href="@{'/delWarn_record/'+${wrs.warn_id}}">删除报警</a>
+                        <a th:href="@{'/Warn_record/delWarn_record/'+${wrs.warn_id}}">删除报警</a>
                     </td>
                 </tr>
             </table>
-            <a th:href="@{'/toAddWarn_record'}"><btn type="button" class="btn btn-info">添加</btn></a>
+            <a th:href="@{'/Warn_record/toAddWarn_record'}"><btn type="button" class="btn btn-info">添加</btn></a>
         </div>
         <nav aria-label="Page navigation" style="text-align: center;">
             <ul class="pagination">

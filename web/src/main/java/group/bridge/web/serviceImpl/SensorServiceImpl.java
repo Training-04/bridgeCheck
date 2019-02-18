@@ -31,14 +31,14 @@ public class SensorServiceImpl extends BaseServiceImpl<Sensor,Integer> implement
                 //root接口代表查询的根对象，通过root来获取需要的查询条件
                 //如where id=1 其中的id通过root.get("id")获取
                 //一定要使用Path<T>,保证类型安全
-                Path<String> sensor_name=root.get("sensor_name");
+                Path<String> name=root.get("sensor_name");
                 //然后通过CriteriaBuilder来构造条件，= <> < >等
                 //Expression在java中是一个接口，Predicate实现了这个接口
                 //普通and or > < <>
                 // gt >
                 //第一个为Path<String> sensor_name=root.get("sensor_name");里边的sensor_name
                 //第二个为传进来的参数sensor_name
-                predicate=cb.equal(sensor_name,sensor_name);
+                predicate=cb.equal(name,sensor_name);
                 return predicate;
             }
         };

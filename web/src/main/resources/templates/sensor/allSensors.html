@@ -27,7 +27,7 @@
                 <li><a href="#">系统管理</a></li>
                 <li><a href="#">阈值和报警管理</a></li>
                 <li><a href="#">阈值管理</a></li>
-                <li class="active">修改阈值</li>
+                <li class="active">展示所有传感器</li>
             </ol>
             <table class="table table-hover table-bordered">
                 <tr style="background-color: #e1edf7">
@@ -47,13 +47,13 @@
                     <td th:text="${sensor.threshold1}"></td>
                     <td th:text="${sensor.threshold2}"></td>
                     <td>
-                        <a th:href="@{'/toUpdate/'+${sensor.sensor_id}}">修改阈值</a>
+                        <a th:href="@{'/sensor/toUpdateSensor/'+${sensor.sensor_id}}">修改传感器</a>
                         |
-                        <a th:href="@{'/delSensor/'+${sensor.sensor_id}}">删除传感器</a>
+                        <a th:href="@{'/sensor/delSensor/'+${sensor.sensor_id}}">删除传感器</a>
                     </td>
                 </tr>
             </table>
-            <a th:href="@{/toAddSensors}"><button class="btn btn-primary">添加传感器</button></a>
+            <a th:href="@{/sensor/toAddSensors}"><button class="btn btn-primary">添加传感器</button></a>
         </div>
         <nav aria-label="Page navigation" style="text-align: center;">
             <ul class="pagination">

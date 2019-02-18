@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout" >
+<head>
+    <meta charset="UTF-8">
+    <title>修改桥梁</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div layout:fragment="content">
+    <ol class="breadcrumb">
+        <li><a href="#">系统管理</a></li>
+        <li><a href="#">桥梁管理</a></li>
+        <li><a href="#">展示桥梁</a></li>
+        <li class="active">修改桥梁</li>
+    </ol>
+    <div class="container" style="width:500px">
+        <form th:action="@{/bridge/updateBridge}" th:object="${bridge}" method="post">
+            <div class="form-group">
+                <label for="bridge_id" >桥梁编号:</label>
+                <input type="text" class="form-control " id="bridge_id" th:field="*{bridge_id}" readonly="readonly" >
+            </div>
+            <div class="form-group">
+                <label for="bridge_name">桥梁名称:</label>
+                <input type="text" class="form-control" id="bridge_name" th:field="*{bridge_name}" >
+            </div>
+            <div class="form-group">
+                <label for="design_life">桥梁寿命：</label>
+                <input type="number" class="form-control" id="design_life" th:field="*{design_life}" >
+            </div>
+            <div class="form-group">
+                <label for="bridge_length">桥梁长度：</label>
+                <input type="number" class="form-control" id="bridge_length" th:field="*{bridge_length}" >
+            </div>
+            <div class="form-group">
+                <label for="bridge_info">桥梁信息：</label>
+                <textarea class="form-control" id="bridge_info" th:field="*{bridge_info}"></textarea>
+            </div>
+
+            <div align="center" style="margin-top: 8px;padding-right: 50px;" >
+                <button type="submit" class="btn btn-default">更改</button>
+                <a href="/bridge/allBridges" th:href="@{/bridge/allBridges}"><button type="submit" class="btn btn-default">返回主页面</button></a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

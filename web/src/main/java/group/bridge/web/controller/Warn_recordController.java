@@ -75,7 +75,7 @@ public class Warn_recordController extends BaseController{
     @RequestMapping("/delRelieveWarn_record/{id}")
     public String delRelieveWarn_record(@PathVariable("id") Integer id) {
         warn_recordService.deleteById(id);
-        return "redirect:/relieveWarn_records";
+        return "redirect:/Warn_record/relieveWarn_records";
     }
     //只需要加上下面这段即可，注意不能忘记注解
     @InitBinder

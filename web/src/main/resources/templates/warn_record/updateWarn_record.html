@@ -10,7 +10,7 @@
 <body>
 <div layout:fragment="content">
     <div class="container" style="width:500px">
-        <form th:action="@{/updateWarn_record}" th:object="${wr}" method="post">
+        <form th:action="@{/Warn_record/updateWarn_record}" th:object="${wr}" method="post">
             <div class="form-group">
                 <label for="warn_id" >编号:</label>
                 <input type="text" class="form-control " id="warn_id" th:field="*{warn_id}" readonly="readonly">
@@ -54,7 +54,7 @@
 
             <div align="center" style="margin-top: 8px;padding-right: 50px;" >
                 <button type="submit" class="btn btn-primary">解除报警</button>
-                <a href="/allWarn_records" th:href="@{/allWarn_records}"><button type="submit" class="btn btn-primary">返回主页面</button></a>
+                <a href="/Warn_record/allWarn_records" th:href="@{/Warn_record/allWarn_records}"><button type="submit" class="btn btn-primary">返回主页面</button></a>
             </div>
         </form>
     </div>

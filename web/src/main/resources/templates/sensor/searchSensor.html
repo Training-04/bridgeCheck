@@ -17,7 +17,7 @@
             <li class="active">查找阈值</li>
         </ol>
         <div class="container " style="width: 1000px; margin-top: 100px">
-            <form th:action="@{/searchSensor}" method="post" class="form-horizontal">
+            <form th:action="@{/sensor/searchSensor}" method="post" class="form-horizontal">
                 <div class="form-group" >
                     <label for="search" class="col-sm-1 control-label">查询</label>
                     <div class="col-sm-8">
@@ -44,11 +44,10 @@
                         <td th:text="${sensor.threshold1}"></td>
                         <td th:text="${sensor.threshold2}"></td>
                         <td>
-                            <a th:href="@{'/search_toUpdate/'+${sensor.sensor_id}}">修改阈值</a>
+                            <a th:href="@{'/sensor/search_toUpdate/'+${sensor.sensor_id}}">修改阈值</a>
                         </td>
                     </tr>
                 </table>
-
         </div>
     </div>
 

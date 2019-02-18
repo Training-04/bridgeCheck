@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<!--第二个属性标识这个页面被包装到shared/layout页面内-->
+<head>
+    <meta charset="UTF-8">
+    <title>查询传感器信息页面</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content">
+    <ol class="breadcrumb">
+        <li><a href="#">系统管理</a></li>
+        <li><a href="#">桥梁管理</a></li>
+        <li><a href="#">展示桥梁</a></li>
+        <li class="active">查找桥梁</li>
+    </ol>
+    <div class="container " style="width: 1000px; margin-top: 100px">
+        <form th:action="@{/bridge/searchBridge}" method="post" class="form-horizontal">
+            <div class="form-group" >
+                <label for="search" class="col-sm-1 control-label">查询</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control " name="bridge_name" id="search" placeholder="请输入查询的桥梁名称">
+                </div>
+                <button type="submit" class="btn btn-primary col-sm-offset-1 col-sm-1 ">搜索</button>
+            </div>
+        </form>
+        <table class="table table-hover table-bordered" style="margin-top: 90px;">
+            <tr style="background-color: #e1edf7">
+                <th>编号</th>
+                <th>名称</th>
+                <th>寿命</th>
+                <th>长度</th>
+                <th>信息</th>
+                <th>操作</th>
+            </tr>
+            <tr th:each="bridge:${bridge}">
+                <td th:text="${bridge.bridge_id}"></td>
+                <td th:text="${bridge.bridge_name}"></td>
+                <td th:text="${bridge.design_life}"></td>
+                <td th:text="${bridge.bridge_length}"></td>
+                <td th:text="${bridge.bridge_info}"></td>
+                <td>
+                    <a th:href="@{'/bridge/delBridge/'+${bridge.bridge_id}}">删除</a>
+                    |
+                    <a th:href="@{'/bridge/toUpdate/'+${bridge.bridge_id}}">修改</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
