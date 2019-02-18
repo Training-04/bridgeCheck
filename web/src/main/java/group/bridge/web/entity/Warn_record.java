@@ -14,6 +14,8 @@ public class Warn_record {
     private Integer warn_id;
     @Column(name = "warn_date")
     private Date warn_date;
+    @Column(name = "relieve_date")
+    private Date relieve_date;
     @Column(name = "status")
     private String status;
 //    insertable和updatable(不需要修改，不需要插入该字段的值)属性一般多用于只读的属性，例如主键和外键等。
@@ -70,4 +72,11 @@ public class Warn_record {
         this.sensor_id = sensor_id;
     }
 
+    public Date getRelieve_date() {
+        return relieve_date;
+    }
+
+    public void setRelieve_date(Date relieve_date) {
+        this.relieve_date = relieve_date;
+    }
 }

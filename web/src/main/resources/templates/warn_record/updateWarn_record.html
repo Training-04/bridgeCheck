@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorate="shared/layout" xmlns:margin-top="http://www.w3.org/1999/xhtml">
+      layout:decorate="shared/layout" >
 <head>
     <meta charset="UTF-8">
     <title>解除报警</title>
@@ -25,23 +25,40 @@
             </div>
 
             <div class="form-group">
-                <!--<label for="warn_date">日期：</label>-->
+                <!--<label for="warn_date">报警日期：</label>-->
                 <input type="hidden" class="form-control" id="warn_date" th:field="*{warn_date}" >
             </div>
             <div class="form-group">
+                <label for="relieve_date">解除报警日期：</label>
+                <input type="text" class="form-control" id="relieve_date" th:field="*{relieve_date}" >
+            </div>
+            <script type="text/javascript">
+                function today(){
+                    var today=new Date();
+                    var h=today.getFullYear();
+                    var m=today.getMonth()+1;
+                    var d=today.getDate();
+                    return h+"-"+m+"-"+d;
+                }
+                document.getElementById("relieve_date").value = today();
+            </script>
+
+            <div class="form-group">
                 <label for="status">警报状态：</label>
-                <select id="status" class="form-control" name="status">
-                    <option >未解除</option>
-                    <option >已解除</option>
-                </select>
+                <!--<select id="status" class="form-control" name="status">-->
+                    <!--<option >未解除</option>-->
+                    <!--<option >已解除</option>-->
+                <!--</select>-->
+                <input type="text" id="status" class="form-control" name="status" value="已解除" readonly>
             </div>
 
             <div align="center" style="margin-top: 8px;padding-right: 50px;" >
-                <button type="submit" class="btn btn-default">解除报警</button>
-                <a href="/allWarn_records" th:href="@{/allWarn_records}"><button type="submit" class="btn btn-default">返回主页面</button></a>
+                <button type="submit" class="btn btn-primary">解除报警</button>
+                <a href="/allWarn_records" th:href="@{/allWarn_records}"><button type="submit" class="btn btn-primary">返回主页面</button></a>
             </div>
         </form>
     </div>
 </div>
+
 </body>
 </html>

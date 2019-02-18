@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface SensorService extends BaseService<Sensor, Integer> {
 
-    Sensor addSensor(Sensor sensor);
     List<Sensor> getByName(String sensor_name);
 
 }

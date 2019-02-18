@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<!--第二个属性标识这个页面被包装到shared/layout页面内-->
+<head>
+    <meta charset="UTF-8">
+    <title>展示所有信息页面</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <table class="table table-hover">
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+                <th>寿命</th>
+                <th>长度</th>
+                <th>信息</th>
+                <th>操作</th>
+            </tr>
+            <tr th:each="bridge:${bridge}">
+                <td th:text="${bridge.bridge_id}"></td>
+                <td th:text="${bridge.bridge_name}"></td>
+                <td th:text="${bridge.design_life}"></td>
+                <td th:text="${bridge.bridge_length}"></td>
+                <td th:text="${bridge.bridge_info}"></td>
+                <td><a th:href="@{'/delBridge/'+${bridge.bridge_id}}">删除</a></td>
+            </tr>
+        </table>
+        <a th:href="@{/toAddBridges}"><button class="btn btn-primary">添加桥梁</button></a>
+    </div>
+</div>
+</body>
+</html>

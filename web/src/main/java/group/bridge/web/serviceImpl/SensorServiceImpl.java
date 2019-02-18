@@ -15,10 +15,6 @@ import java.util.List;
 public class SensorServiceImpl extends BaseServiceImpl<Sensor,Integer> implements SensorService {
     @Autowired
     SensorRepository sensorRepository;
-    @Override
-    public Sensor addSensor(Sensor sensor) {
-        return sensorRepository.save(sensor);
-    }
 
     @Override
     protected void setRepository() {
@@ -35,11 +31,7 @@ public class SensorServiceImpl extends BaseServiceImpl<Sensor,Integer> implement
                 //root接口代表查询的根对象，通过root来获取需要的查询条件
                 //如where id=1 其中的id通过root.get("id")获取
                 //一定要使用Path<T>,保证类型安全
-                Path<Integer> sensor_id=root.get("sensor_id");
-                Path<Integer> bridge_id=root.get("bridge_id");
                 Path<String> sensor_name=root.get("sensor_name");
-                Path<String> parameter_unit=root.get("parameter_unit");
-                Path<Double> threshold=root.get("threshold");
                 //然后通过CriteriaBuilder来构造条件，= <> < >等
                 //Expression在java中是一个接口，Predicate实现了这个接口
                 //普通and or > < <>

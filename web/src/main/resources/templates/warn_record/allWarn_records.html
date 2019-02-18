@@ -10,13 +10,20 @@
 </head>
 <body>
     <div layout:fragment="content">
+        <ol class="breadcrumb">
+            <li><a href="#">系统管理</a></li>
+            <li><a href="#">阈值和报警管理</a></li>
+            <li><a href="#">报警管理</a></li>
+            <li class="active">未解除报警页面</li>
+        </ol>
         <div class="container-fluid">
-            <table class="table table-hover">
-                <tr>
+            <table class="table table-hover table-bordered">
+                <tr style="background-color: #e1edf7">
                     <th>编号</th>
                     <th>桥梁编号</th>
                     <th>传感器编号</th>
                     <th>报警日期</th>
+                    <th>解除报警日期</th>
                     <th>警报状态</th>
                     <th>操作</th>
                 </tr>
@@ -25,14 +32,36 @@
                     <td th:text="${wrs.bridge_id}"></td>
                     <td th:text="${wrs.sensor_id}"></td>
                     <td th:text="${#dates.format(wrs.warn_date,'yyyy-MM-dd')}"></td>
+                    <td th:text="${#dates.format(wrs.relieve_date,'yyyy-MM-dd')}"></td>
                     <td th:text="${wrs.status}"></td>
-                    <td><a th:href="@{'/toUpdateW/'+${wrs.warn_id}}">解除报警</a></td>
-                    <td>|</td>
-                    <td><a th:href="@{'/delWarn_record/'+${wrs.warn_id}}">删除报警</a></td>
+                    <td>
+                        <a th:href="@{'/toUpdateW/'+${wrs.warn_id}}">解除报警</a>
+                        |
+                        <a th:href="@{'/delWarn_record/'+${wrs.warn_id}}">删除报警</a>
+                    </td>
                 </tr>
             </table>
-            <a th:href="@{'/toAdd'}"><btn type="button" class="btn btn-info">添加</btn></a>
+            <a th:href="@{'/toAddWarn_record'}"><btn type="button" class="btn btn-info">添加</btn></a>
         </div>
+        <nav aria-label="Page navigation" style="text-align: center;">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </body>
 </html>
