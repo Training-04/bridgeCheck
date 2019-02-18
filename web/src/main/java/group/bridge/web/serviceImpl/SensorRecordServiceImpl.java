@@ -18,8 +18,8 @@ public class SensorRecordServiceImpl extends BaseServiceImpl<SensorRecord, Integ
         this.repository=sensorRecordRepository;
     }
 
-    @Override
-    public Double getAvg(Specification<SensorRecord> specification){
-        return 0.0;
-    }
+    //@Override
+    //public Double getAvg(Specification<SensorRecord> specification){
+    //    return 0.0;
+    //}
 }
