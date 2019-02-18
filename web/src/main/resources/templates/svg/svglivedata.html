@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>SVGLiveData</title>
+    <script type="text/javascript" src="/js/echarts.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+</head>
+<body>
+<div layout:fragment="content" >
+    <div>
+        <select name="language">
+            <optgroup label="Bridge">
+                <option value="B001"> 武汉长江大桥 </option>
+                <option value="B002"> 鹦鹉洲大桥 </option>
+                <option value="B003"> 武汉二七长江大桥 </option>
+                <option value="B004"> 白沙洲大桥 </option>
+                <option value="B005"> 天兴洲大桥 </option>
+            </optgroup>
+        </select>
+    </div>
+    <div style="height: 100%; margin: 0">
+        <div id="container" style="height: 650px"></div>
+        <script type="text/javascript">
+            var dom = document.getElementById("container");
+            var myChart = echarts.init(dom);
+            option = null;
+            option = {
+                title: {
+                    text: '桥梁动态数据一览图',
+                    subtext: '传感器参数'
+                },
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    }
+                },
+                legend: {
+                    data:['微应变','位移','温度','相对沉降量','液位变化','OBL']
+                },
+                toolbox: {
+                    feature: {
+                        magicType: {
+                            type: ['line','bar']
+                        },
+                        restore : {show: true},
+                        saveAsImage: {}
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                dataZoom: {
+                    show: false,
+                    start: 0,
+                    end: 100
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : true,
+                        data : (function(){
+                            var now = new Date();
+                            var res = [];
+                            var len = 15;
+                            while(len--){
+                                res.unshift(now.toLocaleTimeString().replace(/^\D*/,''));
+                                now = new Date(now - 1000);
+                            }
+                            return res;
+                        })()
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        scale: true,
+                        boundaryGap: [0.2, 0.2]
+                    }
+                ],
+                series : [
+                    {
+                        name:'微应变',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'位移',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'温度',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'相对沉降量',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'液位变化',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'OBL',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    }
+
+
+                ]
+            };
+
+            setInterval(function(){
+                var axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
+                var data1 = option.series[0].data;
+                var data2 = option.series[1].data;
+                var data3 = option.series[2].data;
+                var data4 = option.series[3].data;
+                var data5 = option.series[4].data;
+
+                data1.shift();
+                data1.push(Math.round(Math.random() * 1000));
+                data2.shift();
+                data2.push(Math.round(Math.random() * 1000));
+                data3.shift();
+                data3.push(Math.round(Math.random() * 1000));
+                data4.shift();
+                data4.push(Math.round(Math.random() * 1000));
+                data5.shift();
+                data5.push(Math.round(Math.random() * 1000));
+
+                option.xAxis[0].data.shift();
+                option.xAxis[0].data.push(axisData);
+
+                myChart.setOption(option);
+            }, 1000);
+            ;
+
+            if (option && typeof option === "object") {
+                myChart.setOption(option, true);
+            }
+         </script>
+    </div>
+</div>
+</body>
+</html>

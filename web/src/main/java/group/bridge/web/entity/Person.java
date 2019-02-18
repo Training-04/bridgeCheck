@@ -1,13 +1,9 @@
 package group.bridge.web.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-@Entity
-@Table(name = "persons")
+@Entity(name = "persons")
 public class Person {
     @Id
     @Column(name = "id")
@@ -17,11 +13,8 @@ public class Person {
     private String name;
     @Column(name = "age")
     private Integer age;
-//    @mappedBy注解的作用：在JPA中，在@OneToMany里加入mappedBy属性可以避免生成一张中间表。
-//    mappedBy(被映射)的值应该为一的一方中该类的属性。
-//     // 指定mappedBy属性表明该Person实体不控制关联关系
     @OneToMany(cascade =CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "person" )
-    private Set<Car> cars = new HashSet<>();
+    private Set<Car> cars;
 
     public int getId() {
         return id;

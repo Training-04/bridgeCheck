@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
+@RequestMapping("sensor")
 public class SensorController extends BaseController{
     @Autowired
     private SensorService sensorService;

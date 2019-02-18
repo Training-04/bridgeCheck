@@ -33,6 +33,7 @@ public abstract class BaseServiceImpl<T,ID> implements BaseService<T,ID>, Initia
         return true;
     }
 
+
     @Override
     public void delete(T t) {
         repository.delete(t);

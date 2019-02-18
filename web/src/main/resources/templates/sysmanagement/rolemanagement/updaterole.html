@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>修改权限组信息</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css}">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js}"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-*.min.js}"></script>
+
+    <script>
+        $(window).on('load',function () {
+            $('#permission_name').selectpicker({'selectedText':'cat'});
+        });
+    </script>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div style="margin: 10px 100px 10px auto" align="right">
+        <a href="/allRole" th:href="@{/allRole}" class="btn btn-default">Back</a>
+    </div>
+    <div style="border: 1px solid #000000;margin: 100px auto;width: 600px;text-align: center" >
+        <p>修改权限组信息</p>
+        <form class="form-horizontal" role="form" method="post" th:object="${role}" th:action="@{/updateRole}">
+
+            <div class="form-group">
+               <label for="role_id" class="col-sm-3 control-label">编号</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="role_id" id="role_id" th:value="${role.role_id}"
+                           th:field="*{role_id}" readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">重置权限组名</label>
+                <!--实现修改选项时，会默认显示之前的选择-->
+                <div class="col-sm-7">
+                    <select class="form-control" name="role_name" th:value="${role.role_name}" required>
+                        <option th:selected="${role.role_name == '游客'}" value="游客" name="role_name" id="visitor1">游客</option>
+                        <option th:selected="${role.role_name == '管理员'}" value="管理员" name="role_name" id="admin1">管理员</option>
+                        <option th:selected="${role.role_name == '专业人士'}" value="专业人士" name="role_name" id="professional1">专业人士</option>
+                    </select>
+                </div>
+                <!--
+                <div class="col-sm-7">
+                    <label class="radio-inline">
+                        <input type="radio" name="role_name" id="visitor" value="visitor">游客
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="role_name" id="admin" value="admin">管理员
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="role_name" id="professional" value="professional">专业人士
+                    </label>
+                </div>
+                !-->
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">权限组</label>
+                <div class="col-sm-7">
+                    <select class="form-control" name="roleE" th:value="${role.roleE}" required>
+                        <option th:selected="${role.roleE == 'visitor'}" value="visitor" name="roleE" id="visitor">visitor</option>
+                        <option th:selected="${role.roleE == 'admin'}" value="admin" name="roleE" id="admin">admin</option>
+                        <option th:selected="${role.roleE == 'professional'}" value="professional" name="roleE" id="professional">professional</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label hidden for="permission_name" class="col-sm-3 control-label">拥有的权限</label>
+                <div class="col-sm-7" th:each="Permission:${permission}">
+                    <input type="hidden" class="form-control" name="permission_name" id="permission_name"
+                           th:value="${Permission.permission_name}" hidden>
+                </div>
+            </div>
+            <div class="form-group">
+                <label hidden for="permissionE" class="col-sm-3 control-label">权限名</label>
+                <div class="col-sm-7" th:each="Permission:${permission}">
+                    <input type="hidden" class="form-control" name="permissionE" id="permissionE"
+                           th:value="${Permission.permissionE}" hidden>
+                </div>
+            </div>
+            <div class="form-group">
+                <label hidden for="url" class="col-sm-3 control-label">URL</label>
+                <div class="col-sm-7" th:each="Permission:${permission}">
+                    <input type="hidden" class="form-control" name="url" id="url"
+                           th:value="${Permission.url}" >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-7">
+                    <button type="submit" class="btn btn-primary">修改</button>
+                    <button type="reset" class="btn btn-default">取消</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

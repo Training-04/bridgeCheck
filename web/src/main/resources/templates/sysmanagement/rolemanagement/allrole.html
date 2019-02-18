@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>权限组信息</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<script language="JavaScript">
+    function validOperator() {
+        return confirm("确认删除？");
+    }
+</script>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <p>所有权限组信息</p>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>权限组名</th>
+                <th>权限组</th>
+                <!--<th>拥有的权限</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="Role : ${role}">
+                <td th:text="${Role.role_id}">aaa</td>
+                <td th:text="${Role.role_name}">aaa</td>
+                <td th:text="${Role.roleE}">aaa</td>
+                <!--<td>aaa</td>-->
+                <td align="center">
+                    <a th:href="@{'/toUpdateRole/'+${Role.role_id}}">修改</a>&nbsp|&nbsp
+                    <a th:href="@{'/deleteRole/'+${Role.role_id}}" onclick="return confirm('确认删除？')">删除</a>&nbsp|&nbsp
+                    <a th:href="@{'/toroleAddper/'+${Role.role_id}}">添加权限</a>
+                </td>
+            </tr>
+            </tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td align="center"> <a href="/toAddRole">添&nbsp加</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

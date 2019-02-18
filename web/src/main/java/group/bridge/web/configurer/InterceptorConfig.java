@@ -14,7 +14,11 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(new PageInterceptor()).addPathPatterns("/**").
                 excludePathPatterns("/login").
                 excludePathPatterns("/logout").
-                excludePathPatterns("/api/**");
+                excludePathPatterns("/api/**").
+                excludePathPatterns("/**/*.jpg").
+                excludePathPatterns("/**/*.css").
+                excludePathPatterns("/**/*.js").
+                excludePathPatterns("/**/*.png");
         //拦截api
         registry.addInterceptor(new ApiInterceptor()).addPathPatterns("/api/**");
     }

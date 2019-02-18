@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>权限信息</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<script language="JavaScript">
+    function validOperator() {
+        return confirm("确认删除？");
+    }
+</script>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <p>所有权限信息</p>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>权限名</th>
+                <th>权限</th>
+                <th>URL</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="Permission : ${per}">
+                <td th:text="${Permission.permission_id}">aaa</td>
+                <td th:text="${Permission.permission_name}">aaa</td>
+                <td th:text="${Permission.permissionE}">aaa</td>
+                <td th:text="${Permission.url}">aaa</td>
+                <td align="center">
+                    <a th:href="@{'/toUpdatePer/'+${Permission.permission_id}}">修改</a>&nbsp|&nbsp
+                    <a th:href="@{'/deletePer/'+${Permission.permission_id}}" onclick="return confirm('确认删除？')">删除</a>
+                </td>
+            </tr>
+            </tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td align="center"> <a href="/toAddPer">添&nbsp加</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
