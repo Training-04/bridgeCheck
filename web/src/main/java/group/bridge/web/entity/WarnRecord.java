@@ -1,42 +1,80 @@
 package group.bridge.web.entity;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 
 
 @Entity(name = "WarnRecord")
 public class WarnRecord{
+
     @Id
     @Column(name = "warnId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int warnId;
+    private Integer warn_id;
 
     @Column(name = "status")
     private String status;
 
-    @Column(name = "date")
-    private Date date;
+    @Column(name = "warn_date")
+    private Date warn_date;
 
-    @Column(name = "bridgeId")
-    private int bridgeId;
+    @Column(name = "warn_para")
+    private String warn_para;
 
-    @Column(name = "sensorId")
-    private int sensorId;
+    @ManyToOne(cascade =CascadeType.ALL)
+    @JoinColumn(name = "bridge_id")
+    private Bridge bridge;
 
-    public int getWarnId() {return warnId;}
-    public void setWarnId(int warnId) {this.warnId = warnId;}
+    @ManyToOne(cascade =CascadeType.ALL)
+    @JoinColumn(name = "sensor_id")
+    private Sensor sensor;
 
-    public String getStatus() {return status;}
-    public void setStatus(String status) {this.status = status;}
+    public Integer getWarn_id() {
+        return warn_id;
+    }
 
-    public Date getDate() {return date;}
-    public void setDate(Date date) {this.date = date;}
+    public void setWarn_id(Integer warn_id) {
+        this.warn_id = warn_id;
+    }
 
-    public int getBridgeId() {return bridgeId;}
-    public void setBridgeId(int bridgeId) {this.bridgeId = bridgeId;}
+    public String getStatus() {
+        return status;
+    }
 
-    public int getSensorId() {return sensorId;}
-    public void setSensorId(int sensorId) {this.sensorId = sensorId;}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
+    public Date getWarn_date() {
+        return warn_date;
+    }
 
+    public void setWarn_date(Date warn_date) {
+        this.warn_date = warn_date;
+    }
+
+    public String getWarn_para() {
+        return warn_para;
+    }
+
+    public void setWarn_para(String warn_para) {
+        this.warn_para = warn_para;
+    }
+
+    public Bridge getBridge() {
+        return bridge;
+    }
+
+    public void setBridge(Bridge bridge) {
+        this.bridge = bridge;
+    }
+
+    public Sensor getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
+    }
 }

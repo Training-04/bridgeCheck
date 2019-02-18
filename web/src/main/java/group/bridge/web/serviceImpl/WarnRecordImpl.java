@@ -6,15 +6,24 @@ import group.bridge.web.service.WarnRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class WarnRecordImpl extends BaseServiceImpl<WarnRecord, Integer> implements WarnRecordService {
     @Autowired
     WarnRecordRepository warnRecordRepository;
 
-
     @Override
     protected void setRepository() {
         this.repository = warnRecordRepository;
+    }
+
+    public List<WarnRecord> getWarn_record(){
+        return warnRecordRepository.findAllByStatus("未解除");
+    }
+
+    public List<WarnRecord> getRelieveWarn_record(){
+        return warnRecordRepository.findAllByStatus("已解除");
     }
 }
 

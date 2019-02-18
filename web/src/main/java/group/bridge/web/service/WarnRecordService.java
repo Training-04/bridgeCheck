@@ -11,4 +11,7 @@ public interface WarnRecordService extends BaseService<WarnRecord, Integer> {
 //    List<WarnRecord> getAllWarnRecord();
 //    WarnRecord updateWarnRecord(WarnRecord warnRecord);
 //    WarnRecord getWarnRecordByID(Integer wrID);
+
+    List<WarnRecord> getWarn_record();
+    List<WarnRecord> getRelieveWarn_record();
 }
