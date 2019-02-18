@@ -10,10 +10,10 @@
 <body>
 <div layout:fragment="content">
     <div style="margin: 10px 100px 30px auto" align="right">
-        <a href="/allUser" th:href="@{/allUser}" class="btn btn-default">Back</a>
+        <a href="/user/allUser" th:href="@{/user/allUser}" class="btn btn-default">Back</a>
     </div>
 
-    <form class="form-horizontal" role="form" method="post" th:action="@{/search}">
+    <form class="form-horizontal" role="form" method="post" th:action="@{/user/search}">
         <div class="form-group">
             <label for="user_name" class="col-sm-2 control-label">检索</label>
             <div class="col-sm-7">

@@ -2,6 +2,9 @@ package group.bridge.web.entity;
 
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity(name = "role")
@@ -54,6 +57,14 @@ public class Role {
         this.users = users;
     }
 
+    //中间表加用户
+    public void addusers(User user) {
+        if(users==null){
+            users=new HashSet<User>();
+        }
+        this.users.add(user);
+    }
+
     public Set<Permission> getPermissions() {
         return permissions;
     }
@@ -61,4 +72,13 @@ public class Role {
     public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
     }
+
+    //中间表加权限
+    public void addPermissions(Permission permission) {
+        if (permissions == null){
+            permissions = new HashSet<Permission>();
+        }
+        this.permissions.add(permission);
+    }
+
 }

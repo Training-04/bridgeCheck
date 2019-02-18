@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
+@RequestMapping("role")
 public class RoleController extends BaseController{
 
     @Autowired
@@ -47,14 +48,17 @@ public class RoleController extends BaseController{
 
     @RequestMapping("/addRole")
     public String add(Role role,Permission permission){
-        Set<Role> roles=new HashSet<>();
-        roles.add(role);
-        permission.setRoles(roles);
-        Set<Permission> permissions=new HashSet<>();
-        permissions.add(permission);
-        role.setPermissions(permissions);
+        //往中间表添加数据
+//        Set<Role> roles=new HashSet<>();
+//        roles.add(role);
+//        permission.setRoles(roles);
+//        Set<Permission> permissions=new HashSet<>();
+//        permissions.add(permission);
+//        role.setPermissions(permissions);
+        permission.addRoles(role);
+        role.addPermissions(permission);
         roleService.add(role);
-        return "redirect:/allRole";
+        return "redirect:/role/allRole";
     }
 
 
@@ -72,13 +76,13 @@ public class RoleController extends BaseController{
     @RequestMapping("/updateRole")
     public String update(Role role){
         roleService.updateRole(role);
-        return "redirect:/allRole";
+        return "redirect:/role/allRole";
     }
 
     @RequestMapping("/deleteRole/{id}")
     public String delete(@PathVariable("id") int roleID){
         roleService.deleteById(roleID);
-        return "redirect:/allRole";
+        return "redirect:/role/allRole";
     }
 
     @RequestMapping("/toSearchRole")
@@ -119,14 +123,17 @@ public class RoleController extends BaseController{
     @RequestMapping("/roleAddper")
     public String addper(Role role,Permission permission){
         //添加关联表的数据
-        Set<Role> roles=new HashSet<>();
-        roles.add(role);
-        permission.setRoles(roles);
-        Set<Permission> permissions=new HashSet<>();
-        permissions.add(permission);
-        role.setPermissions(permissions);
+//        Set<Role> roles=new HashSet<>();
+//        roles.add(role);
+//        permission.setRoles(roles);
+//        Set<Permission> permissions=new HashSet<>();
+//        permissions.add(permission);
+//        role.setPermissions(permissions);
+        //通过addPermissions(permissions)实现添加新的权限
+        permission.addRoles(role);
+        role.addPermissions(permission);
         roleService.add(role);
-        return "redirect:/allRole";
+        return "redirect:/role/allRole";
     }
 
 }

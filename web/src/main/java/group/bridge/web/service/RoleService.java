@@ -4,6 +4,7 @@ import group.bridge.web.entity.Permission;
 import group.bridge.web.entity.Role;
 
 import java.util.List;
+import java.util.Set;
 
 public interface RoleService extends BaseService<Role,Integer> {
     Role updateRole(Role role);

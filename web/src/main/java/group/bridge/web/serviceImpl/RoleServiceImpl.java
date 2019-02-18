@@ -1,6 +1,7 @@
 package group.bridge.web.serviceImpl;
 
 
+import group.bridge.web.dao.PermissionRepository;
 import group.bridge.web.dao.RoleRepository;
 import group.bridge.web.entity.Permission;
 import group.bridge.web.entity.Role;
@@ -17,6 +18,7 @@ import java.util.List;
 public class RoleServiceImpl extends BaseServiceImpl<Role,Integer> implements RoleService {
     @Autowired
     RoleRepository roleRepository;
+    PermissionRepository permissionRepository;
 
     @Override
     protected void setRepository(){
@@ -58,7 +60,9 @@ public class RoleServiceImpl extends BaseServiceImpl<Role,Integer> implements Ro
         };
         return getByPredicate(roleSpecification);
     }
-//    @Override
+
+
+    //    @Override
 //    public List<Role> findRolenameByUserId() {
 //        Specification<Role> roleSpecification=new Specification<Role>() {
 //            @Override

@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.jws.WebParam;
 import javax.persistence.criteria.*;
@@ -22,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
+@RequestMapping("user")
 public class UserController extends BaseController{
 
     @Autowired
@@ -51,14 +50,17 @@ public class UserController extends BaseController{
     @RequestMapping("/add")
     public String add(User user,Role role){
         //往中间表添加内容
-        Set<User> users=new HashSet<>();
-        users.add(user);
-        role.setUsers(users);
-        Set<Role> roles=new HashSet<>();
-        roles.add(role);
-        user.setRoles(roles);
+//        Set<User> users=new HashSet<>();
+//        users.add(user);
+//        role.setUsers(users);
+        role.addusers(user);
+//        Set<Role> roles=new HashSet<>();
+//        roles.add(role);
+//        user.setRoles(roles);
+        user.addRoles(role);
+        //通过addRoles(roles)实现添加新的角色
         userService.add(user);
-        return "redirect:/allUser";
+        return "redirect:/user/allUser";
     }
 
 
@@ -77,13 +79,13 @@ public class UserController extends BaseController{
     @RequestMapping("/update")
     public String update(User user){
         userService.updateUser(user);
-        return "redirect:/allUser";
+        return "redirect:/user/allUser";
     }
 
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable("id") int userID){
         userService.deleteById(userID);
-        return "redirect:/allUser";
+        return "redirect:/user/allUser";
     }
 
     @RequestMapping("/toSearch")

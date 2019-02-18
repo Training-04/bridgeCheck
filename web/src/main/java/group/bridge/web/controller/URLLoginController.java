@@ -1,5 +1,6 @@
 package group.bridge.web.controller;
 
+import group.bridge.web.util.SessionUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -30,6 +31,8 @@ public class URLLoginController {
         try {
             //完成登录
             subject.login(usernamePasswordToken);
+            //登录成功后对导航栏的操作
+            SessionUtil.setNavigation(request);
             //User user= (User) subject.getPrincipals();
             System.out.println("对用户[" + user_name + "]进行登录验证..验证通过");
             //session.setAttribute("user",user);
@@ -54,6 +57,6 @@ public class URLLoginController {
     @RequestMapping("/404")
     public String unauthorizedRole(){
         System.out.println("------没有权限-------");
-        return "sysmanagement/404";
+        return "404";
     }
 }

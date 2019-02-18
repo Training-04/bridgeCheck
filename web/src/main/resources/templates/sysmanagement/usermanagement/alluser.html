@@ -35,8 +35,8 @@
                 <!--</td>-->
 
                 <td align="center">
-                    <a th:href="@{'/toUpdate/'+${User.user_id}}">修改</a>&nbsp|&nbsp
-                    <a th:href="@{'/delete/'+${User.user_id}}" onclick="return confirm('确认删除？')">删除</a>
+                    <a th:href="@{'/user/toUpdate/'+${User.user_id}}">修改</a>&nbsp|&nbsp
+                    <a th:href="@{'/user/delete/'+${User.user_id}}" onclick="return confirm('确认删除？')">删除</a>
                 </td>
             </tr>
             </tbody>
@@ -45,7 +45,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td align="center"> <a href="/toAdd">添&nbsp加</a></td>
+                <td align="center"> <a href="/user/toAdd">添&nbsp加</a></td>
             </tr>
         </table>
     </div>

@@ -76,6 +76,7 @@ public class ShrioConfig {
         filterChainDefinitionMap.put("/**/*.jpg", "anon");
         filterChainDefinitionMap.put("/**/*.js", "anon");
         filterChainDefinitionMap.put("/url.xml", "anon");
+        //filterChainDefinitionMap.put("/404","anon");
 
         //filterChainDefinitionMap.put("/templates/login/login","anon");
         // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
@@ -85,12 +86,12 @@ public class ShrioConfig {
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         //访问的是后端url地址为 /login的接口
         //对权限URL设置为需要认证
-        filterChainDefinitionMap.put("/sysmanagement/**", "authc");
+        filterChainDefinitionMap.put("/**", "authc");
         //filterChainDefinitionMap.put("/templates/sysmanagement/permissionmanagement/**", "authc");
         //filterChainDefinitionMap.put("/templates/sysmanagement/rolemanagement/**", "authc");
         //filterChainDefinitionMap.put("/templates/sysmanagement/usermanagement/**", "authc");
 
-        filterChainDefinitionMap.put("/**/*.html", "anon");
+        //filterChainDefinitionMap.put("/**/*.html", "anon");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         System.out.println("Shiro拦截器工厂类注入成功");
@@ -109,6 +110,20 @@ public class ShrioConfig {
 //        return hashedCredentialsMatcher;
 //    }
 
+    /*
+        当没有权限时跳转404，
+        解决不跳转而在控制台报错的问题
+     */
+    @Bean(name="simpleMappingExceptionResolver")
+    public SimpleMappingExceptionResolver createsimpleMappingExceptionResolver(){
+        SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
+        Properties mappings = new Properties();
+        mappings.setProperty("UnauthorizedException","404");
+        simpleMappingExceptionResolver.setExceptionAttribute(String.valueOf(mappings));
+
+        return simpleMappingExceptionResolver;
+
+    }
 
     //身份认证realm; (这个需要自己写，账号密码校验；权限等)
     //@return
@@ -172,6 +187,7 @@ public class ShrioConfig {
 //        redisSessionDAO.setRedisManager(redisManager());
 //        return redisSessionDAO;
 //    }
+
     /**
      * shiro session的管理
      */

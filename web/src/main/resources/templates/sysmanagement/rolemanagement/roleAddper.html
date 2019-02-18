@@ -23,11 +23,11 @@
 <body>
 <div layout:fragment="content">
     <div style="margin: 10px 100px 10px auto" align="right">
-        <a href="/allRole" th:href="@{/allRole}" class="btn btn-default">Back</a>
+        <a href="/role/allRole" th:href="@{/role/allRole}" class="btn btn-default">Back</a>
     </div>
     <div style="border: 1px solid #000000;margin: 100px auto;width: 600px;text-align: center" >
         <p>添加权限</p>
-        <form class="form-horizontal" role="form" method="post" th:object="${role}" th:action="@{/roleAddper}">
+        <form class="form-horizontal" role="form" method="post" th:object="${role}" th:action="@{/role/roleAddper}">
 
             <div class="form-group">
                 <label for="role_id" class="col-sm-3 control-label">编号</label>
