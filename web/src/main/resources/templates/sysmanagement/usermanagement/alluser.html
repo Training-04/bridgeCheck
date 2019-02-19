@@ -36,7 +36,8 @@
 
                 <td align="center">
                     <a th:href="@{'/user/toUpdate/'+${User.user_id}}">修改</a>&nbsp|&nbsp
-                    <a th:href="@{'/user/delete/'+${User.user_id}}" onclick="return confirm('确认删除？')">删除</a>
+                    <a th:href="@{'/user/delete/'+${User.user_id}}" onclick="return confirm('确认删除？')">删除</a>&nbsp|&nbsp
+                    <a th:href="@{'/user/touserAddrole/'+${User.user_id}}">添加权限组</a>
                 </td>
             </tr>
             </tbody>

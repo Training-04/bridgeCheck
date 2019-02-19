@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class URLLoginController {
+
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String getlogin() {
         System.out.println("进入登陆界面");
@@ -57,6 +58,6 @@ public class URLLoginController {
     @RequestMapping("/404")
     public String unauthorizedRole(){
         System.out.println("------没有权限-------");
-        return "404";
+        return "/sysmanagement/404";
     }
 }

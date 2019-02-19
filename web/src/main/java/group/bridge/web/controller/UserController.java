@@ -1,5 +1,6 @@
 package group.bridge.web.controller;
 
+import group.bridge.web.entity.Permission;
 import group.bridge.web.entity.Role;
 import group.bridge.web.entity.User;
 import group.bridge.web.service.RoleService;
@@ -47,18 +48,16 @@ public class UserController extends BaseController{
         return "sysmanagement/usermanagement/adduser";
     }
 
-    @RequestMapping("/add")
-    public String add(User user,Role role){
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    public String add(User user,@RequestParam(value = "role_id") List<Integer> role_id){
         //往中间表添加内容
-//        Set<User> users=new HashSet<>();
-//        users.add(user);
-//        role.setUsers(users);
-        role.addusers(user);
-//        Set<Role> roles=new HashSet<>();
-//        roles.add(role);
-//        user.setRoles(roles);
-        user.addRoles(role);
-        //通过addRoles(roles)实现添加新的角色
+
+        Role role;
+        for (int i=0;i<role_id.size();i++){
+            role = roleService.get(role_id.get(i));
+            role.addusers(user);
+            user.addRoles(role);
+        }
         userService.add(user);
         return "redirect:/user/allUser";
     }
@@ -111,5 +110,30 @@ public class UserController extends BaseController{
         model.addAttribute("user",users);
         model.addAttribute("title","查找用户信息");
         return "sysmanagement/usermanagement/searchuser";
+    }
+
+    @RequestMapping("/touserAddrole/{id}")
+    public String roleadd(Model model,@PathVariable("id") int userID,HttpSession session){
+        User user=userService.getUserByID(userID);
+        List<Role> roles=roleService.getAll();
+        session.setAttribute("session",roles);
+        model.addAttribute("user",user);
+        model.addAttribute("cap","添加权限组");
+        model.addAttribute("title","添加权限组");
+        return "sysmanagement/usermanagement/userAddrole";
+    }
+
+    @RequestMapping(value = "/userAddrole",method = RequestMethod.POST)
+    public String addper(User user,@RequestParam(value = "role_id") List<Integer> role_id){
+        //添加关联表的数据
+        //通过addRole(role)实现添加新的权限
+        Role role;
+        for (int i=0;i<role_id.size();i++){
+            role = roleService.get(role_id.get(i));
+            role.addusers(user);
+            user.addRoles(role);
+        }
+        userService.add(user);
+        return "redirect:/user/allUser";
     }
 }

@@ -1,6 +1,7 @@
 package group.bridge.web.configurer;
 
 import group.bridge.web.realm.MyShiroRealm;
+import group.bridge.web.reslover.MyExceptionResolver;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import java.util.LinkedHashMap;
@@ -76,7 +78,7 @@ public class ShrioConfig {
         filterChainDefinitionMap.put("/**/*.jpg", "anon");
         filterChainDefinitionMap.put("/**/*.js", "anon");
         filterChainDefinitionMap.put("/url.xml", "anon");
-        //filterChainDefinitionMap.put("/404","anon");
+        filterChainDefinitionMap.put("/sysmanagement/404","anon");
 
         //filterChainDefinitionMap.put("/templates/login/login","anon");
         // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
@@ -114,15 +116,10 @@ public class ShrioConfig {
         当没有权限时跳转404，
         解决不跳转而在控制台报错的问题
      */
-    @Bean(name="simpleMappingExceptionResolver")
-    public SimpleMappingExceptionResolver createsimpleMappingExceptionResolver(){
-        SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
-        Properties mappings = new Properties();
-        mappings.setProperty("UnauthorizedException","404");
-        simpleMappingExceptionResolver.setExceptionAttribute(String.valueOf(mappings));
-
-        return simpleMappingExceptionResolver;
-
+    @Bean
+    public HandlerExceptionResolver solver(){
+        HandlerExceptionResolver handlerExceptionResolver = new MyExceptionResolver();
+        return handlerExceptionResolver;
     }
 
     //身份认证realm; (这个需要自己写，账号密码校验；权限等)
@@ -242,21 +239,21 @@ public class ShrioConfig {
 //        advisorAutoProxyCreator.setProxyTargetClass(true);
 //        return advisorAutoProxyCreator;
 //    }
-    @Bean(name="simpleMappingExceptionResolver")
-    public SimpleMappingExceptionResolver simpleMappingExceptionResolver(){
-        SimpleMappingExceptionResolver s=new SimpleMappingExceptionResolver();
-        Properties mappings=new Properties();
-        //数据库异常处理
-        mappings.setProperty("DatabaseException", "databaseError");
-        mappings.setProperty("UnauthorizedException","403");
-        // None by default
-        s.setExceptionMappings(mappings);
-        // No default
-        s.setDefaultErrorView("error");
-        // Default is "exception"
-        s.setExceptionAttribute("ex");
-        return s;
-    }
+//    @Bean(name="simpleMappingExceptionResolver")
+//    public SimpleMappingExceptionResolver simpleMappingExceptionResolver(){
+//        SimpleMappingExceptionResolver s=new SimpleMappingExceptionResolver();
+//        Properties mappings=new Properties();
+//        //数据库异常处理
+//        mappings.setProperty("DatabaseException", "databaseError");
+//        mappings.setProperty("UnauthorizedException","404");
+//        // None by default
+//        s.setExceptionMappings(mappings);
+//        // No default
+//        s.setDefaultErrorView("error");
+//        // Default is "exception"
+//        s.setExceptionAttribute("ex");
+//        return s;
+//    }
 
 
     //开启shiro aop注解支持
