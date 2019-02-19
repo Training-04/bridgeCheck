@@ -4,14 +4,718 @@
       layout:decorate="shared/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>SVGStatistics</title>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+
+    <script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
 </head>
 <body>
 <div layout:fragment="content" >
-    <div class="jumbotron" style="min-height: 500px">
-        <h1>路桥检测系统</h1>
-        <p>这是简介</p>
+    <div>
+        <select name="Select_Bridge">
+            <optgroup label="Bridge">
+                <option value="B001"> 武汉长江大桥 </option>
+                <option value="B002"> 鹦鹉洲大桥 </option>
+                <option value="B003"> 武汉二七长江大桥 </option>
+                <option value="B004"> 白沙洲大桥 </option>
+                <option value="B005"> 天兴洲大桥 </option>
+            </optgroup>
+        </select>
+    </div>
+    <div style="height: 100%; margin: 0">
+        <div id="container1" style="height: 400px"></div>
+        <script type="text/javascript">
+            var dom = document.getElementById("container1");
+            var myChart1 = echarts.init(dom);
+            option = null;
+            option = {
+                title: {
+                    text: '桥梁传感器动态均值一览图',
+                    subtext: '传感器参数'
+                },
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    }
+                },
+                legend: {
+                    data:['微应变','位移','温度','相对沉降量','液位变化','OBL']
+                },
+                toolbox: {
+                    feature: {
+                        magicType: {
+                            type: ['line','bar']
+                        },
+                        restore : {show: true},
+                        saveAsImage: {}
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                dataZoom: {
+                    show: false,
+                    start: 0,
+                    end: 100
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : true,
+                        data : (function(){
+                            var now = new Date();
+                            var res = [];
+                            var len = 15;
+                            while(len--){
+                                res.unshift(now.toLocaleTimeString().replace(/^\D*/,''));
+                                now = new Date(now - 10000);
+                            }
+                            return res;
+                        })()
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        scale: true,
+                        boundaryGap: [0.2, 0.2]
+                    }
+                ],
+                series : [
+                    {
+                        name:'微应变',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'位移',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'温度',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'相对沉降量',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'液位变化',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'OBL',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    }
 
+
+                ]
+            };
+
+            setInterval(function(){
+                var axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
+                var data01 = option.series[0].data;
+                var data02 = option.series[1].data;
+                var data03 = option.series[2].data;
+                var data04 = option.series[3].data;
+                var data05 = option.series[4].data;
+
+                data01.shift();
+                data01.push(Math.round(Math.random() * 1000));
+                data02.shift();
+                data02.push(Math.round(Math.random() * 1000));
+                data03.shift();
+                data03.push(Math.round(Math.random() * 1000));
+                data04.shift();
+                data04.push(Math.round(Math.random() * 1000));
+                data05.shift();
+                data05.push(Math.round(Math.random() * 1000));
+
+                option.xAxis[0].data.shift();
+                option.xAxis[0].data.push(axisData);
+
+                myChart1.setOption(option);
+            }, 10000);
+            ;
+
+            if (option && typeof option === "object") {
+                myChart1.setOption(option, true);
+            }
+        </script>
+    </div>
+    <div style="height: 100%; margin: 0">
+        <div id="container2" style="height: 400px"></div>
+        <script type="text/javascript">
+            var dom = document.getElementById("container2");
+            var myChart2 = echarts.init(dom);
+            option = null;
+            option = {
+                title: {
+                    text: '桥梁传感器动态中位值一览图',
+                    subtext: '传感器参数'
+                },
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    }
+                },
+                legend: {
+                    data:['微应变','位移','温度','相对沉降量','液位变化','OBL']
+                },
+                toolbox: {
+                    feature: {
+                        magicType: {
+                            type: ['line','bar']
+                        },
+                        restore : {show: true},
+                        saveAsImage: {}
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                dataZoom: {
+                    show: false,
+                    start: 0,
+                    end: 100
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : true,
+                        data : (function(){
+                            var now = new Date();
+                            var res = [];
+                            var len = 15;
+                            while(len--){
+                                res.unshift(now.toLocaleTimeString().replace(/^\D*/,''));
+                                now = new Date(now - 10000);
+                            }
+                            return res;
+                        })()
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        scale: true,
+                        boundaryGap: [0.2, 0.2]
+                    }
+                ],
+                series : [
+                    {
+                        name:'微应变',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'位移',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'温度',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'相对沉降量',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'液位变化',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'OBL',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    }
+
+
+                ]
+            };
+
+            setInterval(function(){
+                var axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
+                var data11 = option.series[0].data;
+                var data12 = option.series[1].data;
+                var data13 = option.series[2].data;
+                var data14 = option.series[3].data;
+                var data15 = option.series[4].data;
+
+                data11.shift();
+                data11.push(Math.round(Math.random() * 1000));
+                data12.shift();
+                data12.push(Math.round(Math.random() * 1000));
+                data13.shift();
+                data13.push(Math.round(Math.random() * 1000));
+                data14.shift();
+                data14.push(Math.round(Math.random() * 1000));
+                data15.shift();
+                data15.push(Math.round(Math.random() * 1000));
+
+                option.xAxis[0].data.shift();
+                option.xAxis[0].data.push(axisData);
+
+                myChart2.setOption(option);
+            }, 10000);
+            ;
+
+            if (option && typeof option === "object") {
+                myChart2.setOption(option, true);
+            }
+        </script>
+    </div>
+    <div style="height: 100%; margin: 0">
+        <div id="container3" style="height: 400px"></div>
+        <script type="text/javascript">
+            var dom = document.getElementById("container3");
+            var myChart3 = echarts.init(dom);
+            option = null;
+            option = {
+                title: {
+                    text: '桥梁传感器动态方差一览图',
+                    subtext: '传感器参数'
+                },
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    }
+                },
+                legend: {
+                    data:['微应变','位移','温度','相对沉降量','液位变化','OBL']
+                },
+                toolbox: {
+                    feature: {
+                        magicType: {
+                            type: ['line','bar']
+                        },
+                        restore : {show: true},
+                        saveAsImage: {}
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                dataZoom: {
+                    show: false,
+                    start: 0,
+                    end: 100
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : true,
+                        data : (function(){
+                            var now = new Date();
+                            var res = [];
+                            var len = 15;
+                            while(len--){
+                                res.unshift(now.toLocaleTimeString().replace(/^\D*/,''));
+                                now = new Date(now - 10000);
+                            }
+                            return res;
+                        })()
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        scale: true,
+                        boundaryGap: [0.2, 0.2]
+                    }
+                ],
+                series : [
+                    {
+                        name:'微应变',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'位移',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'温度',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'相对沉降量',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'液位变化',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    },
+                    {
+                        name:'OBL',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {},
+                        data:(function () {
+                            var res = [];
+                            var len = 0;
+                            while (len < 15){
+                                res.push(Math.round(Math.random() * 1000));
+                                len++;
+                            }
+                            return res;
+                        })()
+                    }
+
+
+                ]
+            };
+
+            setInterval(function(){
+                var axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
+                var data21 = option.series[0].data;
+                var data22 = option.series[1].data;
+                var data23 = option.series[2].data;
+                var data24 = option.series[3].data;
+                var data25 = option.series[4].data;
+
+                data21.shift();
+                data21.push(Math.round(Math.random() * 1000));
+                data22.shift();
+                data22.push(Math.round(Math.random() * 1000));
+                data23.shift();
+                data23.push(Math.round(Math.random() * 1000));
+                data24.shift();
+                data24.push(Math.round(Math.random() * 1000));
+                data25.shift();
+                data25.push(Math.round(Math.random() * 1000));
+
+                option.xAxis[0].data.shift();
+                option.xAxis[0].data.push(axisData);
+
+                myChart3.setOption(option);
+            }, 10000);
+            ;
+
+            if (option && typeof option === "object") {
+                myChart3.setOption(option, true);
+            }
+        </script>
     </div>
 </div>
 </body>

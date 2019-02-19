@@ -1,24 +1,27 @@
 package group.bridge.web.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
-@Entity(name="bridges")
+@Entity
+@Table(name = "bridge")
 public class Bridge {
     @Id
     @Column(name="bridge_id")
-   // @OneToMany
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bridge_id;
+    private Integer bridge_id;
     @Column(name="bridge_name")
     private String bridge_name;
     @Column(name="design_life")
-    private int design_life;
+    private Integer design_life;
     @Column(name="bridge_length")
-    private double bridge_length;
+    private Integer bridge_length;
     @Column(name="bridge_info")
     private String bridge_info;
+    @OneToMany(cascade =CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "bridge" )
+    private Set<Sensor> sensor;
  
-    public int getBridge_id() {
+    public Integer getBridge_id() {
         return bridge_id;
     }
 
@@ -34,7 +37,7 @@ public class Bridge {
         this.bridge_name = bridge_name;
     }
 
-    public int getDesign_life() {
+    public Integer getDesign_life() {
         return design_life;
     }
 
@@ -42,11 +45,11 @@ public class Bridge {
         this.design_life = design_life;
     }
 
-    public double getBridge_length() {
+    public Integer getBridge_length() {
         return bridge_length;
     }
 
-    public void setBridge_length(double bridge_length) {
+    public void setBridge_length(int bridge_length) {
         this.bridge_length = bridge_length;
     }
 
@@ -56,5 +59,13 @@ public class Bridge {
 
     public void setBridge_info(String bridge_info) {
         this.bridge_info = bridge_info;
+    }
+
+    public Set<Sensor> getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(Set<Sensor> sensor) {
+        this.sensor = sensor;
     }
 }
