@@ -179,7 +179,7 @@ public class SensorController extends BaseController{
     //删除传感器
 //    通过 @PathVariable 可以将 URL 中占位符参数绑定到控制器处理方法的入参中
     @RequestMapping("/delSensor/{id}")
-    public String delWarn_record(@PathVariable("id") Integer id) {
+    public String delSensor(@PathVariable("id") Integer id) {
         sensorService.deleteById(id);
         return "redirect:/sensor/allSensors";
     }

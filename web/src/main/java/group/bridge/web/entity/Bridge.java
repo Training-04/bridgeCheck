@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "bridge")
+@Table(name = "bridges")
 public class Bridge {
     @Id
     @Column(name = "bridge_id")

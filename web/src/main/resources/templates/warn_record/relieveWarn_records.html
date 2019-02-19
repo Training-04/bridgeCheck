@@ -7,6 +7,18 @@
     <meta charset="UTF-8">
     <title>展示警报信息页面</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style type="text/css">
+        #footer{
+            height: 80px;
+            width: 100%;
+            line-height: 25px;
+            text-align: center;
+            background-color: #00AEAE;
+            padding:20px;
+            position: fixed;
+            bottom: 5px;
+        }
+    </style>
 </head>
 <body>
 <div layout:fragment="content">
@@ -20,8 +32,8 @@
         <table class="table table-hover table-bordered">
             <tr style="background-color: #e1edf7">
                 <th>编号</th>
-                <th>桥梁编号</th>
-                <th>传感器编号</th>
+                <th>桥梁名称</th>
+                <th>传感器名称</th>
                 <th>报警日期</th>
                 <th>解除报警日期</th>
                 <th>警报状态</th>
@@ -29,8 +41,8 @@
             </tr>
             <tr th:each="wrs : ${warn_records}">
                 <td th:text="${wrs.warn_id}"></td>
-                <td th:text="${wrs.bridge_id}"></td>
-                <td th:text="${wrs.sensor_id}"></td>
+                <td th:text="${wrs.bridge.bridge_name}"></td>
+                <td th:text="${wrs.sensor.sensor_name}"></td>
                 <td th:text="${#dates.format(wrs.warn_date,'yyyy-MM-dd')}"></td>
                 <td th:text="${#dates.format(wrs.relieve_date,'yyyy-MM-dd')}"></td>
                 <td th:text="${wrs.status}"></td>
@@ -57,6 +69,10 @@
             </ul>
         </nav>
 
+    </div>
+    <div id="footer">
+        <p>关于|广告服务|招聘|客服中心|QQ留言|网站管理|会员登录|购物车</p>
+        <p>Copyright ©2006-1008 All Rights Reserved</p>
     </div>
 </div>
 </body>

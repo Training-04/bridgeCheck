@@ -1,9 +1,8 @@
 package group.bridge.web.serviceImpl;
 
 import group.bridge.web.dao.Warn_recordRepository;
-import group.bridge.web.entity.Person;
-import group.bridge.web.entity.Warn_record;
-import group.bridge.web.service.Warn_recordService;
+import group.bridge.web.entity.WarnRecord;
+import group.bridge.web.service.WarnRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,7 @@ import javax.persistence.criteria.*;
 import java.util.List;
 
 @Service
-public class Warn_recordServiceImpl extends BaseServiceImpl<Warn_record,Integer> implements Warn_recordService {
+public class WarnRecordServiceImpl extends BaseServiceImpl<WarnRecord,Integer> implements WarnRecordService {
     @Autowired
     Warn_recordRepository wrRepository;
 
@@ -23,10 +22,10 @@ public class Warn_recordServiceImpl extends BaseServiceImpl<Warn_record,Integer>
 
     @Override
 
-    public List<Warn_record> getWarn_record() {
-//        Specification<Warn_record> warn_recordSpecification = new Specification<Warn_record>() {
+    public List<WarnRecord> getWarn_record() {
+//        Specification<WarnRecord> warn_recordSpecification = new Specification<WarnRecord>() {
 //            @Override
-//            public Predicate toPredicate(Root<Warn_record> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+//            public Predicate toPredicate(Root<WarnRecord> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
 //                //predicate 最后要返回的查询对象
 //                Predicate predicate;
 //                //root接口代表查询的根对象，通过root来获取需要的查询条件
@@ -47,10 +46,10 @@ public class Warn_recordServiceImpl extends BaseServiceImpl<Warn_record,Integer>
     }
 
     @Override
-    public List<Warn_record> getRelieveWarn_record() {
-        Specification<Warn_record> warn_recordSpecification = new Specification<Warn_record>() {
+    public List<WarnRecord> getRelieveWarn_record() {
+        Specification<WarnRecord> warn_recordSpecification = new Specification<WarnRecord>() {
             @Override
-            public Predicate toPredicate(Root<Warn_record> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+            public Predicate toPredicate(Root<WarnRecord> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
                 //predicate 最后要返回的查询对象
                 Predicate predicate;
                 //root接口代表查询的根对象，通过root来获取需要的查询条件

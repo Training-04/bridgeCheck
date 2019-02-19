@@ -1,20 +1,20 @@
 package group.bridge.web.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(name = "sensor")
+@Table(name = "sensors")
 public class Sensor {
 
     @Id
     @Column(name = "sensor_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sensor_id;
-//    @Column(name = "bride_id",insertable = false,updatable = false)
-//    @Column(name = "bridge_id")
-//    private Integer bridge_id;
     @Column(name = "sensor_name")
     private String sensor_name;
+    @Column(name = "para_unit_cn")
+    private String para_unit_cn;
     @Column(name = "parameter_unit")
     private String parameter_unit;
     @Column(name = "threshold1")
@@ -25,6 +25,10 @@ public class Sensor {
     @ManyToOne(cascade =CascadeType.ALL)
     @JoinColumn(name = "bridge_id")
     private Bridge bridge;//所属桥梁
+
+//    一个传感器有多个报警记录
+    @OneToMany(cascade =CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "sensor" )
+    private Set<WarnRecord> warnRecord;
 
     public Integer getSensor_id() {
         return sensor_id;
@@ -41,6 +45,14 @@ public class Sensor {
 
     public void setSensor_name(String sensor_name) {
         this.sensor_name = sensor_name;
+    }
+
+    public String getPara_unit_cn() {
+        return para_unit_cn;
+    }
+
+    public void setPara_unit_cn(String para_unit_cn) {
+        this.para_unit_cn = para_unit_cn;
     }
 
     public String getParameter_unit() {
@@ -75,11 +87,11 @@ public class Sensor {
         this.bridge = bridge;
     }
 
-//    public Integer getBridge_id() {
-//        return bridge_id;
-//    }
-//
-//    public void setBridge_id(Integer bridge_id) {
-//        this.bridge_id = bridge_id;
-//    }
+    public Set<WarnRecord> getWarnRecord() {
+        return warnRecord;
+    }
+
+    public void setWarnRecord(Set<WarnRecord> warnRecord) {
+        this.warnRecord = warnRecord;
+    }
 }
