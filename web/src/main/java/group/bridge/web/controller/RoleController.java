@@ -79,8 +79,15 @@ public class RoleController extends BaseController{
         return "sysmanagement/rolemanagement/updaterole";
     }
 
-    @RequestMapping("/updateRole")
-    public String update(Role role){
+    @RequestMapping(value = "/updateRole",method = RequestMethod.POST)
+    public String update(Role role,@RequestParam("permission_id") List<Integer> permission_id){
+
+        //对需要修改的role的permissions赋值
+        Set<Permission> permissions = new HashSet<>();
+        for (int i=0;i<permission_id.size();i++){
+            permissions.add(permissionService.get(permission_id.get(i)));
+        }
+        role.setPermissions(permissions);
         roleService.updateRole(role);
         return "redirect:/role/allRole";
     }
@@ -119,6 +126,8 @@ public class RoleController extends BaseController{
     public String roleadd(Model model,@PathVariable("id") int roleID,HttpSession session){
         Role role=roleService.getRoleByID(roleID);
         List<Permission> per=permissionService.getAll();
+        Set<Permission> permissions=role.getPermissions();
+        model.addAttribute("permission",permissions);
         session.setAttribute("session",per);
         model.addAttribute("role",role);
         model.addAttribute("cap","添加权限");
@@ -127,12 +136,27 @@ public class RoleController extends BaseController{
     }
 
     @RequestMapping(value = "/roleAddper",method = RequestMethod.POST)
-    public String addper(Role role,@RequestParam(value = "permission_id") List<Integer> permission_id){
+    public String addper(Role role,@RequestParam(value = "permission_id") List<Integer> permission_id,
+                         @RequestParam("permissionid") List<Integer> permissionid){
         //添加关联表的数据
         //通过addPermissions(permissions)实现添加新的权限
+
+        //获取role原有的权限，存储在permissions中
+        Set<Permission> permissions = new HashSet<>();
+        for (int i=0;i<permissionid.size();i++){
+            permissions.add(permissionService.get(permissionid.get(i)));
+        }
+        //获取role新添加的权限
         Permission permission;
-        for (int i=0;i<permission_id.size();i++){
-            permission = permissionService.get(permission_id.get(i));
+        for (int j=0;j<permission_id.size();j++){
+            permission = permissionService.get(permission_id.get(j));
+            //此时permissions存放的是原有权限加新的权限
+            permissions.add(permission);
+        }
+        //role.setPermissions(permissions);
+        //遍历Set<Object>中的数据，将原有的和新添加的权限存储到中间表中
+        for (Permission per:permissions){
+            permission = per;
             permission.addRoles(role);
             role.addPermissions(permission);
         }

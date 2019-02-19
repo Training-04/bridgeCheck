@@ -75,8 +75,15 @@ public class UserController extends BaseController{
     }
 
 
-    @RequestMapping("/update")
-    public String update(User user){
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    public String update(User user,@RequestParam("role_id") List<Integer> role_id){
+
+        //对需要修改的role的permissions付赋值
+        Set<Role> roles = new HashSet<>();
+        for (int i=0;i<role_id.size();i++){
+            roles.add(roleService.get(role_id.get(i)));
+        }
+        user.setRoles(roles);
         userService.updateUser(user);
         return "redirect:/user/allUser";
     }
@@ -116,6 +123,8 @@ public class UserController extends BaseController{
     public String roleadd(Model model,@PathVariable("id") int userID,HttpSession session){
         User user=userService.getUserByID(userID);
         List<Role> roles=roleService.getAll();
+        Set<Role> roleSet = user.getRoles();
+        model.addAttribute("role",roleSet);
         session.setAttribute("session",roles);
         model.addAttribute("user",user);
         model.addAttribute("cap","添加权限组");
@@ -124,12 +133,27 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping(value = "/userAddrole",method = RequestMethod.POST)
-    public String addper(User user,@RequestParam(value = "role_id") List<Integer> role_id){
+    public String addper(User user,@RequestParam(value = "role_id") List<Integer> role_id,
+                         @RequestParam("roleid") List<Integer> roleid){
         //添加关联表的数据
-        //通过addRole(role)实现添加新的权限
+
+        //获取user原有的权限组，存储在roles中
+        Set<Role> roles = new HashSet<>();
+        for (int j=0;j<roleid.size();j++){
+            roles.add(roleService.get(roleid.get(j)));
+        }
+
+        //获取user新添加的权限组
         Role role;
         for (int i=0;i<role_id.size();i++){
             role = roleService.get(role_id.get(i));
+            //此时roles存放的是原有权限组加新的权限组
+            roles.add(role);
+        }
+        //通过addRole(role)实现添加新的权限
+        //遍历Set<Object>中的数据，将原有的和新添加的权限组存储到中间表中
+        for (Role ro:roles){
+            role = ro;
             role.addusers(user);
             user.addRoles(role);
         }

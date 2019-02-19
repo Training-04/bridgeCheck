@@ -56,27 +56,15 @@
 
                 </div>
             </div>
-            <!--<div class="form-group">-->
-                <!--<label hidden for="permission_name" class="col-sm-3 control-label">拥有的权限</label>-->
-                <!--<div class="col-sm-7" th:each="Permission:${permission}">-->
-                    <!--<input type="hidden" class="form-control" name="permission_name" id="permission_name"-->
-                           <!--th:value="${Permission.permission_name}" hidden>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-                <!--<label hidden for="permissionE" class="col-sm-3 control-label">权限名</label>-->
-                <!--<div class="col-sm-7" th:each="Permission:${permission}">-->
-                    <!--<input type="hidden" class="form-control" name="permissionE" id="permissionE"-->
-                           <!--th:value="${Permission.permissionE}" hidden>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-                <!--<label hidden for="url" class="col-sm-3 control-label">URL</label>-->
-                <!--<div class="col-sm-7" th:each="Permission:${permission}">-->
-                    <!--<input type="hidden" class="form-control" name="url" id="url"-->
-                           <!--th:value="${Permission.url}" >-->
-                <!--</div>-->
-            <!--</div>-->
+
+            <div class="form-group">
+                <label hidden for="permission_id" class="col-sm-3 control-label">拥有的权限</label>
+                <div class="col-sm-7" th:each="Permission:${permission}">
+                    <input class="form-control" name="permission_id" id="permission_id"
+                           th:value="${Permission.permission_id}" type="hidden">
+                </div>
+            </div>
+
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-7">
