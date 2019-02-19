@@ -55,7 +55,7 @@ public abstract class BaseServiceImpl<T,ID> implements BaseService<T,ID>, Initia
 
     @Override
     public T get(ID id) {
-        return repository.getOne(id);
+        return repository.findById(id).orElse(null);
     }
     @Override
     public List<T> getByPredicate(Specification<T> specification){

@@ -15,6 +15,11 @@ public class DemoController extends BaseController{
     public String demo() {
         return "common/index";
     }
+    @RequestMapping(value = "ajaxdemo")
+    public String ajaxDemo() {
+        return "demo/ajax";
+    }
+
 
 
 }
