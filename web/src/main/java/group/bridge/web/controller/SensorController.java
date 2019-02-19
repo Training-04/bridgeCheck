@@ -7,9 +7,11 @@ import group.bridge.web.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -88,6 +90,16 @@ public class SensorController extends BaseController{
         return "sensor/searchThreshold";
     }
 
+    //搜索相应名称的阈值
+    @RequestMapping("/searchThreshold2")
+    public String getByName3(Model model,@ModelAttribute("sensor_name") String sensor_name){
+        List<Sensor> lists = sensorService.getByName(sensor_name);
+        model.addAttribute("title","查询传感器阈值信息页面");
+        model.addAttribute("sensor",lists);
+        return "sensor/searchThreshold";
+    }
+
+
     //搜索相应名称的传感器（中介）
     @RequestMapping("/toSearchSensor")
     public String toSearch(Model model){
@@ -104,6 +116,15 @@ public class SensorController extends BaseController{
         return "sensor/searchSensor";
     }
 
+    //搜索相应名称的传感器
+    @RequestMapping("/searchSensor2")
+    public String getByName2(Model model,@ModelAttribute("sensor_name") String sensor_name){
+        List<Sensor> lists = sensorService.getByName(sensor_name);
+        model.addAttribute("title","查询传感器信息页面");
+        model.addAttribute("sensor",lists);
+        return "sensor/searchSensor";
+    }
+
 //    在搜索页面更改阈值
     @RequestMapping("/search_toUpdateThreshold/{id}")
     public String sensor_toUpdate(Model model, @PathVariable("id") Integer id){
@@ -114,9 +135,10 @@ public class SensorController extends BaseController{
     }
     //在搜索页面更改阈值
     @RequestMapping("/search_updateThreshold")
-    public String search_update(Sensor sensor){
+    public String search_update(Sensor sensor,@RequestParam(value = "sensor_name") String sensor_name, RedirectAttributes model){
         sensorService.update(sensor);
-        return "sensor/searchThreshold";
+        model.addFlashAttribute("sensor_name", sensor_name);
+        return "redirect:/sensor/searchThreshold2";
     }
 
     //    在搜索页面更改传感器
@@ -129,9 +151,10 @@ public class SensorController extends BaseController{
     }
     //在搜索页面更改传感器
     @RequestMapping("/search_updateSensor")
-    public String search_updateSensor(Sensor sensor){
+    public String search_updateSensor(Sensor sensor, @RequestParam(value = "sensor_name") String sensor_name, RedirectAttributes model){
         sensorService.update(sensor);
-        return "sensor/searchSensor";
+        model.addFlashAttribute("sensor_name", sensor_name);
+        return "redirect:/sensor/searchSensor2";
     }
 
 //    添加传感器
@@ -160,5 +183,4 @@ public class SensorController extends BaseController{
         sensorService.deleteById(id);
         return "redirect:/sensor/allSensors";
     }
-
 }
