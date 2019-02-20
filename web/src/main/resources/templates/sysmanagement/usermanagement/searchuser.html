@@ -43,7 +43,7 @@
                 <td th:text="${User.user_name}">aaa</td>
                 <td th:text="${User.password}">aaa</td>
                 <td style="width:40%; word-wrap:break-word;word-break:keep-all;">
-                    <c:foreach th:each="Role:${role}" th:text="${Role.role_name} +' || '">aaa</c:foreach>
+                    <c:foreach th:each="Role:${User.roles}" th:text="${Role.role_name} +' || '">aaa</c:foreach>
                 </td>
             </tr>
             </tbody>

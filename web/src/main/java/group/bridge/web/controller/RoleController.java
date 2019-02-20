@@ -107,16 +107,8 @@ public class RoleController extends BaseController{
     }
 
     @RequestMapping("/searchRole")
-    public String search(Model model,String role_name,HttpSession session){
+    public String search(Model model,String role_name){
         List<Role> roles=roleService.findRoleByName(role_name);
-        Role role;
-        Set<Permission> permissions = null;
-        for (int i=0;i<roles.size();i++){
-            role=roles.get(i);
-            permissions=role.getPermissions();
-            model.addAttribute("permission",permissions);
-        }
-        //session.setAttribute("session",permissions);
 
         model.addAttribute("role",roles);
         model.addAttribute("title","查找权限组信息");

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -97,23 +98,20 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("/search")
-    public String search(Model model,String user_name,HttpSession session){
+    public String search(Model model,String user_name){
         List<User> users=userService.findUserByName(user_name);
-        User user;
-        Set<Role> roles;
-        //Set<Role> temp = new HashSet<>();
-
-        for (int i=0;i<users.size();i++)
-        {
-            user=users.get(i);
-            roles=user.getRoles();
-            //temp.addAll(roles);
-            //temp.add(roles);
-
-            model.addAttribute("role",roles);
-        }
-        //session.setAttribute("session",roles);
-
+//        User user;
+//        Set<Role> roles = new HashSet<>();
+//        Set<Set<Role>> temp = new HashSet<>();
+//
+//        for (int i=0;i<users.size();i++)
+//        {
+//            user=users.get(i);
+//            roles=user.getRoles();
+//            temp.add(roles);
+//
+//            model.addAttribute("role",temp);
+//        }
         model.addAttribute("user",users);
         model.addAttribute("title","查找用户信息");
         return "sysmanagement/usermanagement/searchuser";

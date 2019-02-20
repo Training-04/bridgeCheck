@@ -44,7 +44,7 @@
                 <td th:text="${Role.role_name}">aaa</td>
                 <td th:text="${Role.roleE}">aaa</td>
                 <td style="width:40%; word-wrap:break-word;word-break:keep-all;">
-                    <c:foreach th:each="Permission:${permission}" th:text="${Permission.permission_name} +' || '">aaa</c:foreach>
+                    <c:foreach th:each="Permission:${Role.permissions}" th:text="${Permission.permission_name} +' || '">aaa</c:foreach>
                 </td>
             </tr>
             </tbody>
