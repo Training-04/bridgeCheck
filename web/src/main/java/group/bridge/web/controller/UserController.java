@@ -1,21 +1,16 @@
 package group.bridge.web.controller;
 
-import group.bridge.web.entity.Permission;
 import group.bridge.web.entity.Role;
 import group.bridge.web.entity.User;
 import group.bridge.web.service.RoleService;
 import group.bridge.web.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.WebParam;
-import javax.persistence.criteria.*;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -102,18 +97,23 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("/search")
-    public String search(Model model,String user_name){
+    public String search(Model model,String user_name,HttpSession session){
         List<User> users=userService.findUserByName(user_name);
         User user;
-        List<Role> roleList=new ArrayList();
-        Set<Role> roles = null;
+        Set<Role> roles;
+        //Set<Role> temp = new HashSet<>();
+
         for (int i=0;i<users.size();i++)
         {
             user=users.get(i);
             roles=user.getRoles();
+            //temp.addAll(roles);
+            //temp.add(roles);
+
+            model.addAttribute("role",roles);
         }
-        roleList.addAll(roles);
-        model.addAttribute("role",roleList);
+        //session.setAttribute("session",roles);
+
         model.addAttribute("user",users);
         model.addAttribute("title","查找用户信息");
         return "sysmanagement/usermanagement/searchuser";
@@ -154,6 +154,29 @@ public class UserController extends BaseController{
         //遍历Set<Object>中的数据，将原有的和新添加的权限组存储到中间表中
         for (Role ro:roles){
             role = ro;
+            role.addusers(user);
+            user.addRoles(role);
+        }
+        userService.add(user);
+        return "redirect:/user/allUser";
+    }
+
+    @RequestMapping("/touserupdaterole/{id}")
+    public String userupdaterole(Model model,@PathVariable("id") int userID,HttpSession session){
+        User user = userService.getUserByID(userID);
+        Set<Role> roles = user.getRoles();
+        session.setAttribute("session",roles);
+        model.addAttribute("user",user);
+        model.addAttribute("cap","修改权限组");
+        model.addAttribute("title","修改已拥有的权限组");
+        return "sysmanagement/usermanagement/userupdaterole";
+    }
+
+    @RequestMapping(value = "/userupdaterole",method = RequestMethod.POST)
+    public String uupdaterole(User user,@RequestParam(value = "role_id") List<Integer> role_id){
+        Role role;
+        for (int i=0;i<role_id.size();i++){
+            role = roleService.get(role_id.get(i));
             role.addusers(user);
             user.addRoles(role);
         }

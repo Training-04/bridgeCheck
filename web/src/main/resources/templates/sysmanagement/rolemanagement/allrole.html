@@ -34,7 +34,8 @@
                 <td align="center">
                     <a th:href="@{'/role/toUpdateRole/'+${Role.role_id}}">修改</a>&nbsp|&nbsp
                     <a th:href="@{'/role/deleteRole/'+${Role.role_id}}" onclick="return confirm('确认删除？')">删除</a>&nbsp|&nbsp
-                    <a th:href="@{'/role/toroleAddper/'+${Role.role_id}}">添加权限</a>
+                    <a th:href="@{'/role/toroleAddper/'+${Role.role_id}}">添加权限</a>&nbsp|&nbsp
+                    <a th:href="@{'/role/toroleupdateper/'+${Role.role_id}}">修改权限</a>
                 </td>
             </tr>
             </tbody>

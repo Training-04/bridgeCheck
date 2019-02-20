@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -106,17 +107,17 @@ public class RoleController extends BaseController{
     }
 
     @RequestMapping("/searchRole")
-    public String search(Model model,String role_name){
+    public String search(Model model,String role_name,HttpSession session){
         List<Role> roles=roleService.findRoleByName(role_name);
         Role role;
-        List<Permission> permissionList=new ArrayList();
         Set<Permission> permissions = null;
         for (int i=0;i<roles.size();i++){
             role=roles.get(i);
             permissions=role.getPermissions();
+            model.addAttribute("permission",permissions);
         }
-        permissionList.addAll(permissions);
-        model.addAttribute("permission",permissionList);
+        //session.setAttribute("session",permissions);
+
         model.addAttribute("role",roles);
         model.addAttribute("title","查找权限组信息");
         return "sysmanagement/rolemanagement/searchrole";
@@ -157,6 +158,34 @@ public class RoleController extends BaseController{
         //遍历Set<Object>中的数据，将原有的和新添加的权限存储到中间表中
         for (Permission per:permissions){
             permission = per;
+            permission.addRoles(role);
+            role.addPermissions(permission);
+        }
+        roleService.add(role);
+        return "redirect:/role/allRole";
+    }
+
+    @RequestMapping("/toroleupdateper/{id}")
+    public String roleupdateper(Model model,@PathVariable("id") int roleID,HttpSession session){
+        Role role=roleService.getRoleByID(roleID);
+        //List<Permission> per=permissionService.getAll();
+        Set<Permission> permissions=role.getPermissions();
+        //model.addAttribute("permission",permissions);
+        session.setAttribute("session",permissions);
+        model.addAttribute("role",role);
+        model.addAttribute("cap","修改权限");
+        model.addAttribute("title","修改权限");
+        return "sysmanagement/rolemanagement/roleupdateper";
+    }
+
+    @RequestMapping(value = "/roleupdateper",method = RequestMethod.POST)
+    public String rupdatep(Role role,@RequestParam(value = "permission_id") List<Integer> permission_id){
+        //添加关联表的数据
+        //通过addPermissions(permissions)实现添加新的权限
+        //获取role修改后的权限
+        Permission permission;
+        for (int j=0;j<permission_id.size();j++){
+            permission = permissionService.get(permission_id.get(j));
             permission.addRoles(role);
             role.addPermissions(permission);
         }

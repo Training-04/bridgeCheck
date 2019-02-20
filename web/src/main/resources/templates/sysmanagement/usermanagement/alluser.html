@@ -30,14 +30,12 @@
                 <td th:text="${User.user_id}">aaa</td>
                 <td th:text="${User.user_name}">aaa</td>
                 <td th:text="${User.password}">aaa</td>
-                <!--<td th:each="Role : ${role}">-->
-                    <!--<font th:text="${Role.role_name}">aaa</font>-->
-                <!--</td>-->
 
                 <td align="center">
                     <a th:href="@{'/user/toUpdate/'+${User.user_id}}">修改</a>&nbsp|&nbsp
                     <a th:href="@{'/user/delete/'+${User.user_id}}" onclick="return confirm('确认删除？')">删除</a>&nbsp|&nbsp
-                    <a th:href="@{'/user/touserAddrole/'+${User.user_id}}">添加权限组</a>
+                    <a th:href="@{'/user/touserAddrole/'+${User.user_id}}">添加权限组</a>&nbsp|&nbsp
+                    <a th:href="@{'/user/touserupdaterole/'+${User.user_id}}">修改权限组</a>
                 </td>
             </tr>
             </tbody>

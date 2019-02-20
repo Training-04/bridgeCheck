@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorate="shared/layout">
+      layout:decorate="shared/layout" xmlns:c="">
 <head>
     <meta charset="UTF-8">
     <title>查找用户</title>
@@ -42,8 +42,8 @@
                 <td th:text="${User.user_id}">aaa</td>
                 <td th:text="${User.user_name}">aaa</td>
                 <td th:text="${User.password}">aaa</td>
-                <td th:each="Role:${role}">
-                    <font th:text="${Role.role_name}">aaa</font>
+                <td style="width:40%; word-wrap:break-word;word-break:keep-all;">
+                    <c:foreach th:each="Role:${role}" th:text="${Role.role_name} +' || '">aaa</c:foreach>
                 </td>
             </tr>
             </tbody>
