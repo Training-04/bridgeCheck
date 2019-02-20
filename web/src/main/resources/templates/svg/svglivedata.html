@@ -21,7 +21,7 @@
 <div layout:fragment="content" >
     <div>
         <select name="Select_Bridge">
-            <optgroup label="Bridge">
+            <optgroup label="Bridge" id="bridge">
                 <option value="B001"> 武汉长江大桥 </option>
                 <option value="B002"> 鹦鹉洲大桥 </option>
                 <option value="B003"> 武汉二七长江大桥 </option>
@@ -33,6 +33,7 @@
     <div style="height: 100%; margin: 0">
         <div id="container" style="height: 650px"></div>
         <script type="text/javascript">
+            var select_bridge = document.getElementById("bridge").value;
             var dom = document.getElementById("container");
             var myChart = echarts.init(dom);
             option = null;
@@ -235,6 +236,21 @@
                 var data3 = option.series[2].data;
                 var data4 = option.series[3].data;
                 var data5 = option.series[4].data;
+
+
+                //$.ajax({
+                //    url : "localhost:8088/echarts/ajax_sensor_record",
+                //    type : 'get',
+                //    dataType : 'json',
+                //    data : {bridge_id : select_bridge, sensor_name : '温度', curTime : new Date()},
+                //    success : function(data){
+                //        //处理获取得到的数据
+//
+                 //   },
+                //    error : function () {
+                //        //alert('请求失败')
+                //    }
+                //});
 
                 data1.shift();
                 data1.push(Math.round(Math.random() * 1000));

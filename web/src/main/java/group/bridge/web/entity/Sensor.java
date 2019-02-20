@@ -3,7 +3,7 @@ package group.bridge.web.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "sensor")
+@Table(name = "sensors")
 public class Sensor {
 
     @Id

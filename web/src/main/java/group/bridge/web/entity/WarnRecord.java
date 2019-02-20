@@ -5,11 +5,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 
 
-@Entity(name = "WarnRecord")
+@Entity(name = "warn_records")
 public class WarnRecord{
 
     @Id
-    @Column(name = "warnId")
+    @Column(name = "warn_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer warn_id;
 
@@ -18,6 +18,9 @@ public class WarnRecord{
 
     @Column(name = "warn_date")
     private Date warn_date;
+
+    @Column(name = "relieve_date")
+    private Date relieve_date;
 
     @Column(name = "warn_para")
     private String warn_para;
@@ -52,6 +55,14 @@ public class WarnRecord{
 
     public void setWarn_date(Date warn_date) {
         this.warn_date = warn_date;
+    }
+
+    public Date getRelieve_date() {
+        return relieve_date;
+    }
+
+    public void setRelieve_date(Date relieve_date) {
+        this.relieve_date = relieve_date;
     }
 
     public String getWarn_para() {

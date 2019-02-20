@@ -18,8 +18,8 @@
 <body>
 <div layout:fragment="content" >
     <div>
-        <select id = "year" name = "choose_year">
-            <optgroup label="year">
+        <select id="year" name = "choose_year">
+            <optgroup label="year" >
                 <option value= 2019> 2019年 </option>
                 <option value= 2018> 2018年 </option>
                 <option value= 2017> 2017年 </option>
@@ -27,8 +27,8 @@
                 <option value= 2015> 2015年 </option>
                 <option value= 2014> 2014年 </option>
                 <option value= 2013> 2013年 </option>
-                <option value= 2012> 2013年 </option>
-                <option value= 2011> 2012年 </option>
+                <option value= 2012> 2012年 </option>
+                <option value= 2011> 2011年 </option>
                 <option value= 2010> 2010年 </option>
             </optgroup>
         </select>
@@ -36,15 +36,17 @@
     <div style="height: 100%; margin: 0">
         <div id="container" style="height: 650px"></div>
         <script type="text/javascript">
+            var year_label = document.getElementById("year").value;
+            var old_year_label = year_label;
             var dom = document.getElementById("container");
             var myChart = echarts.init(dom);
             var app = {};
             option = null;
             //获取随机数据（数值最大的12个标红）与业务逻辑不同，后续需要修改
-            function getVirtulData(year) {
-                year = year || '2017';
-                var date = +echarts.number.parseDate(year + '-01-01');
-                var end = +echarts.number.parseDate((+year + 1) + '-01-01');
+            function getVirtulData() {
+                //year_label = year || '2017';
+                var date = +echarts.number.parseDate(year_label + '-01-01');
+                var end = +echarts.number.parseDate((+year_label + 1) + '-01-01');
                 var dayTime = 3600 * 24 * 1000;
                 var data = [];
                 for (var time = date; time < end; time += dayTime) {
@@ -56,17 +58,20 @@
                 return data;
             }
 
-            //var a = document.getElementById("year");
-            //var b = a.options[a.selectedIndex].value;
+            var title = year_label.toString()+'年桥梁历史报警记录';
+            var up_startdate = year_label.toString()+'-01-01';
+            var up_enddate = year_label.toString()+'-06-30';
+            var down_startdate = year_label.toString()+'-07-01';
+            var down_enddate = year_label.toString()+'-12-31';
 
-            var data = getVirtulData(2019);
+            var data = getVirtulData();
 
             option = {
                 backgroundColor: '#a9c6c5',
 
                 title: {
                     top: 30,
-                    text: '2019年历史桥梁报警记录',
+                    text: title,
                     subtext: '数据来源自传感器',
                     left: 'center',
                     textStyle: {
@@ -87,7 +92,7 @@
                 calendar: [{
                     top: 100,
                     left: 'center',
-                    range: ['2019-01-01', '2019-06-30'],
+                    range: [up_startdate, up_enddate],
                     splitLine: {
                         show: true,
                         lineStyle: {
@@ -112,7 +117,7 @@
                 }, {
                     top: 340,
                     left: 'center',
-                    range: ['2019-07-01', '2019-12-31'],
+                    range: [down_startdate, down_enddate],
                     splitLine: {
                         show: true,
                         lineStyle: {
@@ -218,7 +223,184 @@
                     }
                 ]
             };
+
+            setInterval(function(){
+                year_label = document.getElementById("year").value;
+                //alert(year_label.toString()+old_year_label.toString());
+                if(year_label != old_year_label)
+                {
+                    //alert(${warn});
+                    title = year_label.toString()+'年桥梁历史报警记录';
+                    up_startdate = year_label.toString()+'-01-01';
+                    up_enddate = year_label.toString()+'-06-30';
+                    down_startdate = year_label.toString()+'-07-01';
+                    down_enddate = year_label.toString()+'-12-31';
+                    data = getVirtulData();
+
+                    option = {
+                        backgroundColor: '#a9c6c5',
+
+                        title: {
+                            top: 30,
+                            text: title,
+                            subtext: '数据来源自传感器',
+                            left: 'center',
+                            textStyle: {
+                                color: '#000000'
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'item'
+                        },
+                        legend: {
+                            top: '30',
+                            left: '100',
+                            data: ['正常', '报警'],
+                            textStyle: {
+                                color: '#000000'
+                            }
+                        },
+                        calendar: [{
+                            top: 100,
+                            left: 'center',
+                            range: [up_startdate, up_enddate],
+                            splitLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: '#000',
+                                    width: 4,
+                                    type: 'solid'
+                                }
+                            },
+                            yearLabel: {
+                                formatter: '{start}  上半年',
+                                textStyle: {
+                                    color: '#000000'
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: '#323c48',
+                                    borderWidth: 1,
+                                    borderColor: '#111'
+                                }
+                            }
+                        }, {
+                            top: 340,
+                            left: 'center',
+                            range: [down_startdate, down_enddate],
+                            splitLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: '#000',
+                                    width: 4,
+                                    type: 'solid'
+                                }
+                            },
+                            yearLabel: {
+                                formatter: '{start}  下半年',
+                                textStyle: {
+                                    color: '#000000'
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: '#323c48',
+                                    borderWidth: 1,
+                                    borderColor: '#111'
+                                }
+                            }
+                        }],
+                        series: [
+                            {
+                                name: '正常',
+                                type: 'scatter',
+                                coordinateSystem: 'calendar',
+                                data: data,
+                                symbolSize: function (val) {
+                                    return val[1] / 500;
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        //color: '#ddb926'
+                                        color: '#76dd52'
+                                    }
+                                }
+                            },
+                            {
+                                name: '正常',
+                                type: 'scatter',
+                                coordinateSystem: 'calendar',
+                                calendarIndex: 1,
+                                data: data,
+                                symbolSize: function (val) {
+                                    return val[1] / 500;
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color: '#76dd52'
+                                    }
+                                }
+                            },
+                            {
+                                name: '报警',
+                                type: 'effectScatter',
+                                coordinateSystem: 'calendar',
+                                calendarIndex: 1,
+                                data: data.sort(function (a, b) {
+                                    return b[1] - a[1];
+                                }).slice(0, 20),
+                                symbolSize: function (val) {
+                                    return val[1] / 500;
+                                },
+                                showEffectOn: 'render',
+                                rippleEffect: {
+                                    brushType: 'stroke'
+                                },
+                                hoverAnimation: true,
+                                itemStyle: {
+                                    normal: {
+                                        //color: '#f4e925',
+                                        color: '#f44747',
+                                        shadowBlur: 10,
+                                        shadowColor: '#333'
+                                    }
+                                },
+                                zlevel: 1
+                            },
+                            {
+                                name: '报警',
+                                type: 'effectScatter',
+                                coordinateSystem: 'calendar',
+                                data: data.sort(function (a, b) {
+                                    return b[1] - a[1];
+                                }).slice(0, 20),
+                                symbolSize: function (val) {
+                                    return val[1] / 500;
+                                },
+                                showEffectOn: 'render',
+                                rippleEffect: {
+                                    brushType: 'stroke'
+                                },
+                                hoverAnimation: true,
+                                itemStyle: {
+                                    normal: {
+                                        color: '#f44747',
+                                        shadowBlur: 10,
+                                        shadowColor: '#333'
+                                    }
+                                },
+                                zlevel: 1
+                            }
+                        ]
+                    };
+
+                    old_year_label = year_label;
+                    myChart.setOption(option);
+                }
+            }, 1000);
             ;
+
             if (option && typeof option === "object") {
                 myChart.setOption(option, true);
             }

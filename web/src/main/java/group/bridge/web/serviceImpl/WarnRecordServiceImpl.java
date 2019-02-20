@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class WarnRecordImpl extends BaseServiceImpl<WarnRecord, Integer> implements WarnRecordService {
+public class WarnRecordServiceImpl extends BaseServiceImpl<WarnRecord, Integer> implements WarnRecordService {
     @Autowired
     WarnRecordRepository warnRecordRepository;
 
