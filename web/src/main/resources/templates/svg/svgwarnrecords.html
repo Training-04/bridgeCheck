@@ -20,6 +20,7 @@
     <div>
         <select id="year" name = "choose_year">
             <optgroup label="year" >
+                <option value= 2019> 2019年 </option>
                 <option value= 2018> 2018年 </option>
                 <option value= 2017> 2017年 </option>
                 <option value= 2016> 2016年 </option>
@@ -31,26 +32,6 @@
                 <option value= 2010> 2010年 </option>
             </optgroup>
         </select>
-        <button onclick="array()">返回多个数据</button><br />
-        <script>
-            function array() {
-                $.ajax({
-                    type: 'get',
-                    url: "/ajax/ajax_warn_records",
-                    async: true,
-                    data:"",
-                    datatype: "json",
-                    success:function(result){
-                        alert(result);
-                        var obj = eval("("+result+")");
-                        alert(obj[0].warn_date);
-                    },
-                    error:function(result){
-                        alert("请求错误");
-                    }
-                });
-            }
-        </script>
     </div>
     <div style="height: 100%; margin: 0">
         <div id="container" style="height: 650px"></div>
@@ -84,7 +65,6 @@
                         for (var time = date; time < end; time += dayTime) {
                             var flag = false;
                             for(var index = 0; index < obj.length; index++){
-                                //var cur_wrdate =  +charts.number.parseDate(obj[index].warn_date);
                                 var cur_wrdate = obj[index].warn_date;
                                 if(cur_wrdate>=time && cur_wrdate < time+dayTime){
                                     flag = true;
@@ -264,9 +244,6 @@
                         type: 'effectScatter',
                         coordinateSystem: 'calendar',
                         data: data.filter(isWarnRecord),
-                        //data: data.sort(function (a, b) {
-                        //    return b[1] - a[1];
-                        //}).slice(0, 5),
                         symbolSize: function (val) {
                             return val[1] / 500;
                         },
@@ -287,17 +264,18 @@
                 ]
             };
 
+            //实时检查更新数据(每秒执行一次)
             setInterval(function(){
                 year_label = document.getElementById("year").value;
-                //alert(year_label.toString()+old_year_label.toString());
                 if(year_label != old_year_label)
                 {
-                    //alert(${warn});
                     title = year_label.toString()+'年桥梁历史报警记录';
                     up_startdate = year_label.toString()+'-01-01';
                     up_enddate = year_label.toString()+'-06-30';
                     down_startdate = year_label.toString()+'-07-01';
                     down_enddate = year_label.toString()+'-12-31';
+                    var blank = [];
+                    data = blank;
                     data = getWarnData();
 
                     option = {

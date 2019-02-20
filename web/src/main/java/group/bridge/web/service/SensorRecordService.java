@@ -12,7 +12,7 @@ public interface SensorRecordService extends BaseService<SensorRecord, Integer>{
     //Double getAvg(Specification<SensorRecord> specification);
 
     //获取指定桥梁指定传感器数据
-    List<SensorRecord> getSensor_records(Integer bridge_id, String sensor_name);
+    List<SensorRecord> getSensor_records(Integer bridge_id, String para_cn);
 
     //获取指定桥梁的最新传感器数据
     List<SensorRecord> getLastSensor_records(Integer bridge_id, String sensor_name, Date curTime);

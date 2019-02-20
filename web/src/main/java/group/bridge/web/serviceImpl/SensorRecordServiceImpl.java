@@ -23,8 +23,8 @@ public class SensorRecordServiceImpl extends BaseServiceImpl<SensorRecord, Integ
     }
 
     @Override
-    public List<SensorRecord> getSensor_records(Integer bridge_id, String sensor_name){
-        return sensorRecordRepository.findByBridgeId(bridge_id, sensor_name);
+    public List<SensorRecord> getSensor_records(Integer bridge_id, String para_cn){
+        return sensorRecordRepository.findByBridgeId(bridge_id, para_cn);
     }
 
     @Override

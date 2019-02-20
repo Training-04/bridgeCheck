@@ -42,4 +42,18 @@ public class RealTimeController {
         System.out.println(str);
         return str;
     }
+
+    @RequestMapping("/ajax_history_records")
+    public String getHistorySensorRecord(Integer bridge_id, String para_cn){
+        String str = "";
+        ObjectMapper mapper = new ObjectMapper();
+        try{
+            List<SensorRecord> seRecord = sensorRecordService.getSensor_records(bridge_id, para_cn);
+            str = mapper.writeValueAsString(seRecord);
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        System.out.println(str);
+        return str;
+    }
 }

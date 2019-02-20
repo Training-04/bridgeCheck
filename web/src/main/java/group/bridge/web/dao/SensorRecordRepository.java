@@ -22,8 +22,8 @@ public interface SensorRecordRepository extends BaseRepository<SensorRecord, Int
 
     //根据桥梁id查询指定传感器记录
     @Query(nativeQuery = true,
-            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensors.bridge_id = :bridge_id AND sensors.sensor_name = :sensor_name")
-    List<SensorRecord> findByBridgeId(@Param("bridge_id") Integer bridge_id, @Param("sensor_name") String sensor_name);
+            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensors.bridge_id = :bridge_id AND sensors.para_unit_cn = :para_unit_cn")
+    List<SensorRecord> findByBridgeId(@Param("bridge_id") Integer bridge_id, @Param("para_unit_cn") String para_unit_cn);
 
     //根据桥梁id查询指定传感器记录(实时)
     @Query(nativeQuery = true,

@@ -20,247 +20,261 @@
 <body>
 <div layout:fragment="content" >
     <div>
-        <select name="Select_Bridge" id="bridge">
+        <select id="bridge" name="Select_Bridge">
             <optgroup label="Bridge">
-                <option value="B001"> 武汉长江大桥 </option>
-                <option value="B002"> 鹦鹉洲大桥 </option>
-                <option value="B003"> 武汉二七长江大桥 </option>
-                <option value="B004"> 白沙洲大桥 </option>
-                <option value="B005"> 天兴洲大桥 </option>
+                <option value="1"> 武汉长江大桥 </option>
+                <option value="2"> 武汉长江二桥 </option>
+                <option value="3"> 武汉二七长江大桥 </option>
+                <option value="4"> 白沙洲大桥 </option>
+                <option value="5"> 鹦鹉洲大桥 </option>
             </optgroup>
         </select>
-        <select name="Select_Range" id="range">
-            <optgroup label="Range">
-                <option value="Range1"> 近1小时 </option>
-                <option value="Range2"> 近3小时 </option>
-                <option value="Range3"> 近1天 </option>
-                <option value="Range4"> 近7天 </option>
+        <select id="sensor" name="Senlect_Sensor">
+            <optgroup label="Sensor">
+                <option value="温度"> 温度 </option>
+                <option value="位移"> 位移 </option>
+                <option value="微应变"> 微应变 </option>
+                <option value="液位变化"> 液位变化 </option>
+                <option value="相对沉降量"> 相对沉降量 </option>
+                <option value="OBL"> OBL </option>
             </optgroup>
         </select>
     </div>
     <div style="height: 100%; margin: 0">
-        <div id="container" style="height: 650px"></div>
+        <div id="container" style="height: 550px"></div>
         <script type="text/javascript">
             var dom = document.getElementById("container");
             var myChart = echarts.init(dom);
+            var app = {};
+
+            var bridge_label = document.getElementById("bridge").value;
+            var sensor_label = document.getElementById("sensor").value;
+            var pre_bridge_label = bridge_label;
+            var pre_sensor_label = sensor_label;
+
             option = null;
-            option = {
-                title: {
-                    text: '桥梁历史数据一览图',
-                    subtext: '传感器参数'
-                },
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        label: {
-                            backgroundColor: '#6a7985'
+
+            var para_text;
+            var date = [];
+            var data = [];
+
+            //造数据
+            /*
+            var base = +new Date(2010, 1, 1, 15, 30, 15);
+            var oneDay = 24 * 3600 * 1000;
+            var date = [];
+
+            var data = [Math.random() * 300];
+
+            for (var i = 1; i < 20000; i++) {
+                var now = new Date(base += oneDay);
+                date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
+                data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
+            }
+*/
+            //获取传感器历史数据函数（需要调用）
+            function getHisSensorData(){
+                $.ajax({
+                    type: 'post',
+                    url: "/ajax/ajax_history_records",
+                    async: false,
+                    data: {bridge_id : bridge_label, para_cn : sensor_label},
+                    datatype: 'json',
+                    success: function(result){
+                        //alert(result);
+                        var obj = eval("("+result+")");
+                        var para_unit = obj[0].sensor.parameter_unit;
+                        para_text = "数据来自桥梁各传感器（单位："+para_unit+"）";
+                        //alert(obj[0].sensor.sensor_id);
+                        //base = obj[0].date;
+                        var sum = obj.length;
+                        for (var index = 0; index < sum; index++){
+                            var thisdate = new Date(obj[index].date);
+                            var d_date = thisdate.getFullYear().toString()+"/"+(thisdate.getMonth()+1).toString()+"/"+thisdate.getDate().toString();
+                            var d_time = thisdate.getHours().toString()+":"+thisdate.getMinutes().toString()+":"+thisdate.getSeconds().toString();
+                            var curDate = d_date+" "+d_time;
+                            date.push(curDate);
+                            data.push(obj[index].value);
                         }
+                    },
+                    error: function(result){
+                        alert("数据请求错误！");
+                    }
+                });
+            }
+
+            //获取历史数据
+            getHisSensorData();
+
+            option = {
+                tooltip: {
+                    trigger: 'axis',
+                    position: function (pt) {
+                        return [pt[0], '10%'];
                     }
                 },
-                legend: {
-                    data:['微应变','位移','温度','相对沉降量','液位变化','OBL']
+                title: {
+                    left: 'center',
+                    text: '桥梁传感器历史数据一览图',
+                    subtext: para_text
                 },
                 toolbox: {
                     feature: {
-                        magicType: {
-                            type: ['line','bar']
+                        dataZoom: {
+                            yAxisIndex: 'none'
                         },
-                        restore : {show: true},
+                        restore: {},
                         saveAsImage: {}
                     }
                 },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    //日期数据
+                    data: date
                 },
-                dataZoom: {
-                    show: false,
+                yAxis: {
+                    type: 'value',
+                    boundaryGap: [0, '100%']
+                },
+                dataZoom: [{
+                    type: 'inside',
                     start: 0,
-                    end: 100
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : true,
-                        data : (function(){
-                            var now = new Date();
-                            var res = [];
-                            var len = 15;
-                            while(len--){
-                                res.unshift(now.toLocaleTimeString().replace(/^\D*/,''));
-                                now = new Date(now - 1000);
-                            }
-                            return res;
-                        })()
+                    end: 10
+                }, {
+                    start: 0,
+                    end: 10,
+                    handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                    handleSize: '80%',
+                    handleStyle: {
+                        color: '#fff',
+                        shadowBlur: 3,
+                        shadowColor: 'rgba(0, 0, 0, 0.6)',
+                        shadowOffsetX: 2,
+                        shadowOffsetY: 2
                     }
-                ],
-                yAxis : [
+                }],
+                series: [
                     {
-                        type : 'value',
-                        scale: true,
-                        boundaryGap: [0.2, 0.2]
+                        name:sensor_label,
+                        type:'line',
+                        smooth:true,
+                        symbol: 'none',
+                        sampling: 'average',
+                        itemStyle: {
+                            //color: 'rgb(255, 70, 131)'
+                            color: '#66ff71'
+                        },
+                        areaStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                //color: 'rgb(255, 158, 68)'
+                                color: '#b8ff9a'
+                            }, {
+                                offset: 1,
+                                //color: 'rgb(255, 70, 131)'
+                                color: '#deffdf'
+                            }])
+                        },
+                        //传感器记录数据
+                        data: data
                     }
-                ],
-                series : [
-                    {
-                        name:'微应变',
-                        type:'line',
-                        stack: '总量',
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'top'
-                            }
-                        },
-                        areaStyle: {},
-                        data:(function () {
-                            var res = [];
-                            var len = 0;
-                            while (len < 15){
-                                res.push(Math.round(Math.random() * 1000));
-                                len++;
-                            }
-                            return res;
-                        })()
-                    },
-                    {
-                        name:'位移',
-                        type:'line',
-                        stack: '总量',
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'top'
-                            }
-                        },
-                        areaStyle: {},
-                        data:(function () {
-                            var res = [];
-                            var len = 0;
-                            while (len < 15){
-                                res.push(Math.round(Math.random() * 1000));
-                                len++;
-                            }
-                            return res;
-                        })()
-                    },
-                    {
-                        name:'温度',
-                        type:'line',
-                        stack: '总量',
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'top'
-                            }
-                        },
-                        areaStyle: {},
-                        data:(function () {
-                            var res = [];
-                            var len = 0;
-                            while (len < 15){
-                                res.push(Math.round(Math.random() * 1000));
-                                len++;
-                            }
-                            return res;
-                        })()
-                    },
-                    {
-                        name:'相对沉降量',
-                        type:'line',
-                        stack: '总量',
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'top'
-                            }
-                        },
-                        areaStyle: {},
-                        data:(function () {
-                            var res = [];
-                            var len = 0;
-                            while (len < 15){
-                                res.push(Math.round(Math.random() * 1000));
-                                len++;
-                            }
-                            return res;
-                        })()
-                    },
-                    {
-                        name:'液位变化',
-                        type:'line',
-                        stack: '总量',
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'top'
-                            }
-                        },
-                        areaStyle: {},
-                        data:(function () {
-                            var res = [];
-                            var len = 0;
-                            while (len < 15){
-                                res.push(Math.round(Math.random() * 1000));
-                                len++;
-                            }
-                            return res;
-                        })()
-                    },
-                    {
-                        name:'OBL',
-                        type:'line',
-                        stack: '总量',
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'top'
-                            }
-                        },
-                        areaStyle: {},
-                        data:(function () {
-                            var res = [];
-                            var len = 0;
-                            while (len < 15){
-                                res.push(Math.round(Math.random() * 1000));
-                                len++;
-                            }
-                            return res;
-                        })()
-                    }
-
-
                 ]
             };
+            ;
 
             setInterval(function(){
-                var axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
-                var data1 = option.series[0].data;
-                var data2 = option.series[1].data;
-                var data3 = option.series[2].data;
-                var data4 = option.series[3].data;
-                var data5 = option.series[4].data;
+                bridge_label = document.getElementById("bridge").value;
+                sensor_label = document.getElementById("sensor").value;
+                if(bridge_label != pre_bridge_label || sensor_label != pre_sensor_label){
 
-                data1.shift();
-                data1.push(Math.round(Math.random() * 1000));
-                data2.shift();
-                data2.push(Math.round(Math.random() * 1000));
-                data3.shift();
-                data3.push(Math.round(Math.random() * 1000));
-                data4.shift();
-                data4.push(Math.round(Math.random() * 1000));
-                data5.shift();
-                data5.push(Math.round(Math.random() * 1000));
+                    //更新数据和图表
+                    var blank1 = [];
+                    var blank2 = [];
+                    date = blank1;
+                    data = blank2;
+                    getHisSensorData();
 
-                option.xAxis[0].data.shift();
-                option.xAxis[0].data.push(axisData);
-
-                myChart.setOption(option);
+                    option = {
+                        tooltip: {
+                            trigger: 'axis',
+                            position: function (pt) {
+                                return [pt[0], '10%'];
+                            }
+                        },
+                        title: {
+                            left: 'center',
+                            text: '桥梁传感器历史数据一览图',
+                            subtext: para_text
+                        },
+                        toolbox: {
+                            feature: {
+                                dataZoom: {
+                                    yAxisIndex: 'none'
+                                },
+                                restore: {},
+                                saveAsImage: {}
+                            }
+                        },
+                        xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                            //日期数据
+                            data: date
+                        },
+                        yAxis: {
+                            type: 'value',
+                            boundaryGap: [0, '100%']
+                        },
+                        dataZoom: [{
+                            type: 'inside',
+                            start: 0,
+                            end: 10
+                        }, {
+                            start: 0,
+                            end: 10,
+                            handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                            handleSize: '80%',
+                            handleStyle: {
+                                color: '#fff',
+                                shadowBlur: 3,
+                                shadowColor: 'rgba(0, 0, 0, 0.6)',
+                                shadowOffsetX: 2,
+                                shadowOffsetY: 2
+                            }
+                        }],
+                        series: [
+                            {
+                                name:sensor_label,
+                                type:'line',
+                                smooth:true,
+                                symbol: 'none',
+                                sampling: 'average',
+                                itemStyle: {
+                                    //color: 'rgb(255, 70, 131)'
+                                    color: '#66ff71'
+                                },
+                                areaStyle: {
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                        offset: 0,
+                                        //color: 'rgb(255, 158, 68)'
+                                        color: '#b8ff9a'
+                                    }, {
+                                        offset: 1,
+                                        //color: 'rgb(255, 70, 131)'
+                                        color: '#deffdf'
+                                    }])
+                                },
+                                //传感器记录数据
+                                data: data
+                            }
+                        ]
+                    };
+                    pre_bridge_label = bridge_label;
+                    pre_sensor_label = sensor_label;
+                    myChart.setOption(option);
+                }
             }, 1000);
-            ;
 
             if (option && typeof option === "object") {
                 myChart.setOption(option, true);
