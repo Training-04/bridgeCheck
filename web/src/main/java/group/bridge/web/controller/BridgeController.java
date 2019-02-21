@@ -18,7 +18,7 @@ public class BridgeController {
     @Autowired
     private BridgeService bridgeService;
 
-//    在添加传感器页面中自动加载桥梁的名称
+//    在添加传感器页面中自动加载下拉列表中的桥梁的名称
     @RequestMapping("/getBridges")
     public String getAllBridges(HttpSession session){
         List<Bridge> lists = bridgeService.getAll();
@@ -44,13 +44,6 @@ public class BridgeController {
     @RequestMapping("/addBridges")
     public String addBridge(Bridge bridge){
         bridgeService.add(bridge);
-        return "redirect:/bridge/allBridges";
-    }
-
-    //删除桥梁
-    @RequestMapping("/delBridge/{id}")
-    public String delWarn_record(@PathVariable("id") Integer id) {
-        bridgeService.deleteById(id);
         return "redirect:/bridge/allBridges";
     }
 
@@ -84,5 +77,12 @@ public class BridgeController {
         model.addAttribute("title","查询传感器信息页面");
         model.addAttribute("bridge",lists);
         return "bridge/searchBridge";
+    }
+
+    //删除桥梁
+    @RequestMapping("/delBridge/{id}")
+    public String delBridge(@PathVariable("id") Integer id) {
+        bridgeService.deleteById(id);
+        return "redirect:/bridge/allBridges";
     }
 }

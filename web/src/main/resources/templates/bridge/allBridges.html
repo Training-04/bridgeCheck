@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorate="shared/layout">
+      layout:decorate="shared/layout" >
 <!--第二个属性标识这个页面被包装到shared/layout页面内-->
 <head>
     <meta charset="UTF-8">
@@ -35,6 +35,7 @@
                 <th>寿命</th>
                 <th>长度</th>
                 <th>信息</th>
+                <th>包含的传感器名称</th>
                 <th>操作</th>
             </tr>
             <tr th:each="bridge:${bridge}">
@@ -43,11 +44,13 @@
                 <td th:text="${bridge.design_life}"></td>
                 <td th:text="${bridge.bridge_length}"></td>
                 <td th:text="${bridge.bridge_info}"></td>
+                <td style="width:30%;word-wrap: break-word;word-break: keep-all">
+                    <c forEach th:each="s:${bridge.sensor}" th:text="${s.sensor_name} + ' | '"></c>
+                </td>
                 <td>
                     <a th:href="@{'/bridge/delBridge/'+${bridge.bridge_id}}">删除桥梁</a>
                     |
                     <a th:href="@{'/bridge/toUpdate/'+${bridge.bridge_id}}">修改桥梁</a>
-
                 </td>
             </tr>
         </table>
