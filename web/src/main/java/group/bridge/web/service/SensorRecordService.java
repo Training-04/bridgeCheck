@@ -15,7 +15,8 @@ public interface SensorRecordService extends BaseService<SensorRecord, Integer>{
     List<SensorRecord> getSensor_records(Integer bridge_id, String para_cn);
 
     //获取指定桥梁的最新传感器数据
-    List<SensorRecord> getLastSensor_records(Integer bridge_id, String sensor_name, Date curTime);
+    List<SensorRecord> getLastSensor_records(Integer bridge_id, String para_cn, Date curTime);
 
-
+    //获取指定桥梁15秒内传感器数据
+    List<SensorRecord> get15SecSensor_records(Integer bridge_id, String para_cn, Date curTime);
 }

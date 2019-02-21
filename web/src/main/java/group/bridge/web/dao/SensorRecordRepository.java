@@ -27,46 +27,11 @@ public interface SensorRecordRepository extends BaseRepository<SensorRecord, Int
 
     //根据桥梁id查询指定传感器记录(实时)
     @Query(nativeQuery = true,
-            value = "SELECT sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensors.bridge_id = :bridge_id AND sensors.sensor_name = :sensor_name AND sensor_records.date >= :curTime")
-    List<SensorRecord> findByBridgeId_LIVE(@Param("bridge_id") Integer bridge_id, @Param("sensor_name") String sensor_name, @Param("curTime") Date curTime);
+            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensors.bridge_id = :bridge_id AND sensors.para_unit_cn = :para_unit_cn AND sensor_records.date >= :curTime AND sensor_records.date < :endTime")
+    List<SensorRecord> findByBridgeId_LIVE(@Param("bridge_id") Integer bridge_id, @Param("para_unit_cn") String para_unit_cn, @Param("curTime") Date curTime, @Param("endTime") Date endTime);
 
-/*
-
-    //根据桥梁id查询微应变参数
-    @Query("SELECT record FROM sensor_records " +
-            //"INNER JOIN sensor ON sensor.sensor_id = sensor_records.sensor_id " +
-            "WHERE sensor.bridge_id = :bridge_id AND sensor.sensor_name = '微应变'")
-    List<SensorRecord> findMicrostrainByBridgeId(@Param("bridge_id") Integer bridge_id);
-
-    //根据桥梁id查询温度参数
-    @Query("SELECT record FROM sensor_records " +
-            //"INNER JOIN sensor ON sensor.sensor_id = sensor_records.sensor_id " +
-            "WHERE sensor.bridge_id = :bridge_id AND sensor.sensor_name = '温度'")
-    List<SensorRecord> findTemperatureByBridgeId(@Param("bridge_id") Integer bridge_id);
-
-    //根据桥梁id查询位移参数
-    @Query("SELECT record FROM sensor_records " +
-            //"INNER JOIN sensor ON sensor.sensor_id = sensor_records.sensor_id " +
-            "WHERE sensor.bridge_id = :bridge_id AND sensor.sensor_name = '位移'")
-    List<SensorRecord> findDisplacementByBridgeId(@Param("bridge_id") Integer bridge_id);
-
-    //根据桥梁id查询相对沉降量参数
-    @Query("SELECT record FROM sensor_records " +
-            //"INNER JOIN sensor ON sensor.sensor_id = sensor_records.sensor_id " +
-            "WHERE sensor.bridge_id = :bridge_id AND sensor.sensor_name = '相对沉降量'")
-    List<SensorRecord> findRelativeSedimentationByBridgeId(@Param("bridge_id") Integer bridge_id);
-
-    //根据桥梁id查询液位变化参数
-    @Query("SELECT record FROM sensor_records " +
-            //"INNER JOIN sensor ON sensor.sensor_id = sensor_records.sensor_id " +
-            "WHERE sensor.bridge_id = :bridge_id AND sensor.sensor_name = '液位变化'")
-    List<SensorRecord> findLiquidchangeByBridgeId(@Param("bridge_id") Integer bridge_id);
-
-    //根据桥梁id查询OBL参数
-    @Query("SELECT record FROM sensor_records " +
-            //"INNER JOIN sensor ON sensor.sensor_id = sensor_records.sensor_id " +
-            "WHERE sensor.bridge_id = :bridge_id AND sensor.sensor_name = 'OBL'")
-    List<SensorRecord> findOBLByBridgeId(@Param("bridge_id") Integer bridge_id);
-
-    */
+    //根据桥梁ID查询传感器记录（前15秒)
+    @Query(nativeQuery = true,
+            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensors.bridge_id = :bridge_id AND sensors.para_unit_cn = :para_unit_cn AND sensor_records.date <= :curTime AND sensor_records.date > :startTime")
+    List<SensorRecord> findByBridgeID_BEFORE(@Param("bridge_id") Integer bridge_id, @Param("para_unit_cn") String para_unit_cn, @Param("curTime") Date curTime, @Param("startTime") Date startTime);
 }

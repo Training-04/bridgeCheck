@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sun.jvm.hotspot.runtime.ObjectMonitor;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -49,6 +50,34 @@ public class RealTimeController {
         ObjectMapper mapper = new ObjectMapper();
         try{
             List<SensorRecord> seRecord = sensorRecordService.getSensor_records(bridge_id, para_cn);
+            str = mapper.writeValueAsString(seRecord);
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        System.out.println(str);
+        return str;
+    }
+
+    @RequestMapping("/ajax_live_records")
+    public String getLiveSensorRecord(Integer bridge_id, String para_cn, Date curTime){
+        String str = "";
+        ObjectMapper mapper = new ObjectMapper();
+        try{
+            List<SensorRecord> seRecord = sensorRecordService.getLastSensor_records(bridge_id, para_cn, curTime);
+            str = mapper.writeValueAsString(seRecord);
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        System.out.println(str);
+        return str;
+    }
+
+    @RequestMapping("/ajax_15Sec_records")
+    public String get15SecSensorRecord(Integer bridge_id, String para_cn, Date curTime){
+        String str = "";
+        ObjectMapper mapper = new ObjectMapper();
+        try{
+            List<SensorRecord> seRecord = sensorRecordService.get15SecSensor_records(bridge_id, para_cn, curTime);
             str = mapper.writeValueAsString(seRecord);
         }catch (Exception ex){
             System.out.println(ex.getMessage());
