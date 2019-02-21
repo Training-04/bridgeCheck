@@ -131,7 +131,7 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping(value = "/userAddrole",method = RequestMethod.POST)
-    public String addper(User user,@RequestParam(value = "role_id") List<Integer> role_id,
+    public String uaddrole(User user,@RequestParam(value = "role_id") List<Integer> role_id,
                          @RequestParam("roleid") List<Integer> roleid){
         //添加关联表的数据
 

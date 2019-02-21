@@ -57,7 +57,7 @@
                 <label for="role_id" class="col-sm-3 control-label">所属权限组</label>
                 <div class="col-sm-7">
                     <select class="form-control show-tick selectpicker" id="role_id"
-                            name="role_id" data-live-search="true" multiple="multiple">
+                            name="role_id" data-live-search="true" multiple="multiple" required>
                         <option name="role_id" id="role" th:each="Role:${session.session}"
                                 th:value="${Role.role_id}" th:text="${Role.role_name}">aaa</option>
                     </select>

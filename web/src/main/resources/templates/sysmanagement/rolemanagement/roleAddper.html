@@ -59,7 +59,7 @@
                 <label class="col-sm-3 control-label">新的权限</label>
                 <div class="col-sm-7">
                     <select class="form-control show-tick selectpicker" id="permission_id"
-                            name="permission_id" data-live-search="true" multiple="multiple">
+                            name="permission_id" data-live-search="true" multiple="multiple" required>
                         <option name="permission_id" id="per" th:each="Permission:${session.session}"
                                 th:value="${Permission.permission_id}"
                                 th:text="${Permission.permission_name}">aaa</option>
