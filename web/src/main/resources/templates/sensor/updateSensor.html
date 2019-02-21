@@ -23,14 +23,18 @@
             </div>
             <div class="form-group">
                 <label for="bridge_name">桥梁编号:</label>
-                <input type="text" class="form-control" id="bridge_name" th:field="*{bridge}" >
+                <input type="text" class="form-control" id="bridge_name" th:field="*{bridge}" readonly="readonly">
             </div>
             <div class="form-group">
                 <label for="sensor_name">传感器名称：</label>
                 <input type="text" class="form-control" id="sensor_name" th:field="*{sensor_name}">
             </div>
             <div class="form-group">
-                <label for="parameter_unit">数值单位：</label>
+                <label for="para_unit_cn">数值单位：</label>
+                <input type="text" class="form-control" id="para_unit_cn" th:field="*{para_unit_cn}" >
+            </div>
+            <div class="form-group">
+                <label for="parameter_unit">单位符号：</label>
                 <input type="text" class="form-control" id="parameter_unit" th:field="*{parameter_unit}" >
             </div>
             <div class="form-group">

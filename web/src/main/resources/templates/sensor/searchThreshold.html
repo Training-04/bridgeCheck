@@ -31,7 +31,8 @@
                 <th>编号</th>
                 <th>桥梁名称</th>
                 <th>名称</th>
-                <th>单位</th>
+                <th>单位名称</th>
+                <th>单位符号</th>
                 <th>一级阈值</th>
                 <th>二级阈值</th>
                 <th>操作</th>
@@ -40,6 +41,7 @@
                 <td th:text="${sensor.sensor_id}"></td>
                 <td th:text="${sensor.bridge?.bridge_name}"></td>
                 <td th:text="${sensor.sensor_name}"></td>
+                <td th:text="${sensor.para_unit_cn}"></td>
                 <td th:text="${sensor.parameter_unit}"></td>
                 <td th:text="${sensor.threshold1}"></td>
                 <td th:text="${sensor.threshold2}"></td>

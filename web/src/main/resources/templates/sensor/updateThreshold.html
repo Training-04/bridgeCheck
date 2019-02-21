@@ -30,8 +30,12 @@
                 <input type="hidden" class="form-control" id="sensor_name" th:field="*{sensor_name}" readonly="readonly">
             </div>
             <div class="form-group">
-                <!--<label for="parameter_unit">数值单位：</label>-->
-                <input type="hidden" class="form-control" id="parameter_unit" th:field="*{parameter_unit}" readonly="readonly" >
+                <!--<label for="para_unit_cn">单位名称：</label>-->
+                <input type="hidden" class="form-control" id="para_unit_cn" th:field="*{para_unit_cn}" readonly="readonly">
+            </div>
+            <div class="form-group">
+                <!--<label for="parameter_unit">单位符号：</label>-->
+                <input type="hidden" class="form-control" id="parameter_unit" th:field="*{parameter_unit}" readonly="readonly">
             </div>
             <div class="form-group">
                 <label for="threshold1">一级阈值：</label>
