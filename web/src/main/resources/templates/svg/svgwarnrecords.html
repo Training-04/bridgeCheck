@@ -113,7 +113,7 @@
             var data = getWarnData();
 
             option = {
-                backgroundColor: '#a9c6c5',
+                backgroundColor: '#ffffff',
 
                 title: {
                     top: 30,
@@ -193,7 +193,7 @@
                         coordinateSystem: 'calendar',
                         data: data,
                         symbolSize: function (val) {
-                            return val[1] / 500;
+                            return Math.floor(Math.random() * val[1]) / 500;
                         },
                         itemStyle: {
                             normal: {
@@ -208,7 +208,7 @@
                         calendarIndex: 1,
                         data: data,
                         symbolSize: function (val) {
-                            return val[1] / 500;
+                            return Math.floor(Math.random() * val[1]) / 500;
                         },
                         itemStyle: {
                             normal: {
@@ -279,7 +279,7 @@
                     data = getWarnData();
 
                     option = {
-                        backgroundColor: '#a9c6c5',
+                        backgroundColor: '#ffffff',
 
                         title: {
                             top: 30,
@@ -359,7 +359,7 @@
                                 coordinateSystem: 'calendar',
                                 data: data,
                                 symbolSize: function (val) {
-                                    return val[1] / 500;
+                                    return Math.floor(Math.random() * val[1]) / 500;
                                 },
                                 itemStyle: {
                                     normal: {
@@ -374,7 +374,7 @@
                                 calendarIndex: 1,
                                 data: data,
                                 symbolSize: function (val) {
-                                    return val[1] / 500;
+                                    return Math.floor(Math.random() * val[1]) / 500;
                                 },
                                 itemStyle: {
                                     normal: {

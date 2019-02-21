@@ -29,7 +29,7 @@
                 <option value="5"> 鹦鹉洲大桥 </option>
             </optgroup>
         </select>
-        <select id="sensor" name="Senlect_Sensor">
+        <select id="sensor" name="Select_Sensor">
             <optgroup label="Sensor">
                 <option value="温度"> 温度 </option>
                 <option value="位移"> 位移 </option>
@@ -90,9 +90,7 @@
                         var sum = obj.length;
                         for (var index = 0; index < sum; index++){
                             var thisdate = new Date(obj[index].date);
-                            var d_date = thisdate.getFullYear().toString()+"/"+(thisdate.getMonth()+1).toString()+"/"+thisdate.getDate().toString();
-                            var d_time = thisdate.getHours().toString()+":"+thisdate.getMinutes().toString()+":"+thisdate.getSeconds().toString();
-                            var curDate = d_date+" "+d_time;
+                            var curDate = thisdate.toLocaleString();
                             date.push(curDate);
                             data.push(obj[index].value);
                         }
