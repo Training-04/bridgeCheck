@@ -5,12 +5,10 @@ import group.bridge.web.entity.SensorRecord;
 import group.bridge.web.entity.WarnRecord;
 import group.bridge.web.service.SensorRecordService;
 import group.bridge.web.service.WarnRecordService;
-import net.bytebuddy.implementation.auxiliary.AuxiliaryType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sun.jvm.hotspot.runtime.ObjectMonitor;
 
 import java.util.Date;
 import java.util.List;
