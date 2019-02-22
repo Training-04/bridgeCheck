@@ -4,8 +4,8 @@
     <Url text="系统管理" isLink="false" path="systemMenu">
             <Url text="数据列表" isLink="false" path="userMenu">
                 <Url text="实时数据列表" isLink="true" path="/real_time_datalist" />
-                <Url text="历史数据列表" isLink="true" path="/history_datalist" />
-                <Url text="历史警告信息" isLink="true" path="/history_warn_record" />
+                <Url text="历史数据列表" isLink="true" path="/history_datalist/1" />
+                <Url text="历史警告信息" isLink="true" path="/history_warn_record/1" />
                 <Url text="数据统计列表" isLink="true" path="/statistic_datalist" />
             </Url>
     </Url>

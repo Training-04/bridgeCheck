@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 
-@Entity(name = "WarnRecord")
-public class WarnRecord{
+@Entity(name = "warn_records")
+public class WarnRecord {
     @Id
-    @Column(name = "warnId")
+    @Column(name = "warn_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int warnId;
+    private Integer warn_id;
 
     @Column(name = "status")
     private String status;
@@ -17,26 +17,66 @@ public class WarnRecord{
     @Column(name = "date")
     private Date date;
 
-    @Column(name = "bridgeId")
-    private int bridgeId;
+    // @Column(name = "relieve_date")
+    // private Date relieve_date;
 
-    @Column(name = "sensorId")
-    private int sensorId;
+    // 报警参数= :数值+单位 > 阈值
+    @Column(name = "warn_para")
+    private String warn_para;
 
-    public int getWarnId() {return warnId;}
-    public void setWarnId(int warnId) {this.warnId = warnId;}
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bridge_id")
+    private Bridge bridge;
 
-    public String getStatus() {return status;}
-    public void setStatus(String status) {this.status = status;}
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sensor_id")
+    private Sensor sensor;
 
-    public Date getDate() {return date;}
-    public void setDate(Date date) {this.date = date;}
+    public Integer getWarn_id() {
+        return warn_id;
+    }
 
-    public int getBridgeId() {return bridgeId;}
-    public void setBridgeId(int bridgeId) {this.bridgeId = bridgeId;}
+    public void setWarn_id(Integer warn_id) {
+        this.warn_id = warn_id;
+    }
 
-    public int getSensorId() {return sensorId;}
-    public void setSensorId(int sensorId) {this.sensorId = sensorId;}
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getWarn_para() {
+        return warn_para;
+    }
+
+    public void setWarn_para(String warn_para) {
+        this.warn_para = warn_para;
+    }
+
+    public Bridge getBridge() {
+        return bridge;
+    }
+
+    public void setBridge(Bridge bridge) {
+        this.bridge = bridge;
+    }
+
+    public Sensor getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
+    }
 }

@@ -1,9 +1,6 @@
 package group.bridge.web.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity(name="sensor_records")
@@ -11,20 +8,21 @@ public class SensorRecord {
 
     @Id
     @Column(name="record_id")
-    private int record_id;
+    private Integer record_id;
     @Column(name="date")
     private Date date;
     @Column(name="value")
-    private double value;
-    @Column(name="sensor_id")
-    //@ManyToOne
-    private int sensor_id;
+    private Double value;
 
-    public int getRecord_id() {
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sensor_id")
+    private Sensor sensor;
+
+    public Integer getRecord_id() {
         return record_id;
     }
 
-    public void setRecord_id(int record_id) {
+    public void setRecord_id(Integer record_id) {
         this.record_id = record_id;
     }
 
@@ -36,19 +34,19 @@ public class SensorRecord {
         this.date = date;
     }
 
-    public double getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
-    public int getSensor_id() {
-        return sensor_id;
+    public Sensor getSensor() {
+        return sensor;
     }
 
-    public void setSensor_id(int sensor_id) {
-        this.sensor_id = sensor_id;
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
     }
 }

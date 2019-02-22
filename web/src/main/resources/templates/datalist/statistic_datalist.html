@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultrap.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/layoutit.css" />
+    <script src="/js/jquery-1.10.2.js"></script>
+    <script src="/js/bootstrap.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="container">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <br>
+            <br>
+            <select id="bridge" name = "choose_bridge">
+                <optgroup label="bridge" >
+                    <option value= 1> 武汉长江大桥 </option>
+                    <option value= 2> 港珠澳跨海大桥 </option>
+                    <option value= 3> 杭州湾跨海大桥 </option>
+                    <option value= 4> 巫山长江大桥 </option>
+                    <option value= 5> 黄石长江大桥 </option>
+
+                </optgroup>
+            </select>
+
+            <br>
+            <select id="sensor" name = "choose_sensor">
+                <optgroup label="sensor" >
+                    <option value= "微应变"> 微应变 </option>
+                    <option value= "温度"> 温度 </option>
+                    <option value= "相对沉降量"> 相对沉降量 </option>
+                    <option value= "液位变化"> 液位变化 </option>
+                </optgroup>
+            </select>
+
+            <select id="timeStep" name = "choose_timeStep">
+                <optgroup label="timeStep" >
+                    <option value= 3> 3s </option>
+                    <option value= 5> 5s</option>
+                    <option value= 10> 10s</option>
+                    <option value= 3600> 1h</option>
+                    <option value= 86400> 1d </option>
+                </optgroup>
+            </select>
+            <div align="center"><h1>数据统计列表</h1></div>
+            <br>
+            <br>
+<!--                <div align="center" >
+                    <input type="datetime-local"  value="2019-01-17T10:37:59" min="2018-12-25" max="2019-03-15" >
+                --
+                <input type="datetime-local"  value="2019-01-18T10:37:59" min="2018-12-25" max="2019-03-15">
+            </div>
+-->
+            <hr width="850" size="1" color="#000000">
+            <br><br>
+            <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>桥梁</th>
+                    <th>测量项目</th>
+                    <th>均值</th>
+                    <th>方差</th>
+                    <th>中值</th>
+                    <th>极大值</td>
+                    <th>极小值</th>
+                </tr>
+                </thead>
+                <tbody id="table_body">
+                <script>
+                    function getJson(){
+                        var d = {};
+                        d.para_unit_cn = document.getElementById('sensor').value;
+                        d.bridge = document.getElementById('bridge').value;
+                        $.ajax({
+                            type: 'POST',
+                            url: "/ajax_statistic_datalist",
+                            async: true,
+                            data: JSON.stringify(d),
+                            contentType: "application/json;charset=utf-8",
+                            success:function(result){
+                                var srList = JSON.parse(result);
+                                var valueArray = [];
+                                for( var i = 0; i < srList.length; i++)
+                                {
+                                    valueArray[i] = srList[i].value;
+                                    // alert(valueArray[i]);
+                                }
+
+                                var timeStep = document.getElementById('timeStep').value;
+                                for (var i = 0; i < srList.length; i++) {
+                                    var average=0; // 平均值
+                                    var min=99999;   // 极小值
+                                    var max=0;  // 极大值
+                                    var variance=0; // 方差
+                                    var middle;  // 中位数
+                                    var j = 0;
+                                //    alert("timeStep" +timeStep);
+                                    for(; j < timeStep && i < srList.length; i++, j++)
+                                    {
+                                        var value = srList[i].value;
+                                //        alert("value" + value)
+                                        average += value;
+                                        if( min > value) min = value;
+                                        if( max < value) max = value;
+                                    }
+                                    average /= j;
+
+                                    variance = getvariance(valueArray.slice(i-j, i)).toFixed(2);
+                                    var sortmiddle = valueArray.slice(i-j, i).sort();
+
+
+                                    middle = sortmiddle[Math.floor((j)/2)];
+                                  //  alert(sortmiddle+ "+" + middle + "+" + Math.floor((j)/2));
+
+                                 //   alert("test" + max);
+
+
+                                    var tr = document.createElement('tr');
+                                    // 桥梁
+                                    var bridgeTd = document.createElement('td');
+                                    bridgeTd.innerHTML = srList[i-j].sensor.bridge.bridge_info;
+                                    //alert(srList[0].sensor.bridge.bridge_info);
+
+                                    // 项目
+                                    var paraTd = document.createElement('td');
+                                    paraTd.innerHTML = srList[i-j].sensor.para_unit_cn;
+                                    //alert(srList[i].sensor.para_unit_cn);
+
+                                    // 平均值
+                                    var avgTd = document.createElement('td');
+                                    avgTd.innerHTML = average.toFixed(2) + " " + srList[i-j].sensor.parameter_unit;
+                                    //alert(srList[i].record_id);
+
+                                    // 方差
+                                    var varianceTd = document.createElement('td');
+                                    varianceTd.innerHTML = variance + " " + srList[i-j].sensor.parameter_unit;
+                                    //alert(srList[i].value + " " + srList[0].sensor.parameter_unit);
+
+                                    // 中值
+                                    var midTd = document.createElement('td');
+                                    midTd.innerHTML = middle + " " + srList[i-j].sensor.parameter_unit;
+
+
+                                    // 极大值
+                                    var maxTd = document.createElement('td');
+                                    maxTd.innerHTML = max + " " + srList[i-j].sensor.parameter_unit;
+
+                                    // 极小值
+                                    var minTd = document.createElement('td');
+                                    minTd.innerHTML = min + " " + srList[i-j].sensor.parameter_unit;
+
+
+                                    tr.appendChild(bridgeTd);
+                                    tr.appendChild(paraTd);
+                                    tr.appendChild(avgTd);
+                                    tr.appendChild(varianceTd);
+                                    tr.appendChild(midTd);
+                                    tr.appendChild(maxTd);
+                                    tr.appendChild(minTd);
+
+
+                                    document.getElementsByTagName("tbody")[0].appendChild(tr);
+                                }
+                            },
+                            error:function(xhr){
+                                alert("错误提示：" + xhr.status + " " + xhr.statusText);
+                            }
+                        });
+                    }
+
+                    function getvariance( numbers ){
+                        var mean = 0;
+                        var sum = 0;
+                        for(var i=0;i<numbers.length;i++){
+                            sum += numbers[i];
+                        }
+                        mean = sum / numbers.length;
+                        sum = 0;
+                        for(var i=0;i<numbers.length;i++){
+                            sum += Math.pow(numbers[i] - mean , 2);
+                        }
+                        return sum / numbers.length;
+                    }
+
+                    var bridgeId = document.getElementById("bridge").value;
+                    var para_unit_cn = document.getElementById("sensor").value;
+                    var timeStep = document.getElementById("timeStep").value;
+
+                    var prePara_unit_cn = para_unit_cn  ;
+                    var pretimeStep = timeStep;
+                    var preBridgeId = bridgeId;
+
+                    function change()
+                    {
+                        bridgeId = document.getElementById("bridge").value;
+                        para_unit_cn = document.getElementById("sensor").value;
+                        timeStep = document.getElementById("timeStep").value;
+                       // alert(bridgeId + " " + preBridgeId  + "| " + timeStep + " " + pretimeStep + "|" +para_unit_cn + " " + prePara_unit_cn);
+                        if(bridgeId != preBridgeId || pretimeStep != timeStep || prePara_unit_cn != para_unit_cn){
+                            preBridgeId = bridgeId;
+                            pretimeStep = timeStep;
+                            prePara_unit_cn = para_unit_cn;
+                            $("#table_body").empty();
+                            getJson();
+
+                        }
+                    }
+
+                    getJson();
+              //      setInterval("changeBridge()", 200);
+                    setInterval("change()", 200);
+
+                </script>
+                </tbody>
+            </table>
+
+
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+
+
+
+</div>
+</body>
+
+</html>

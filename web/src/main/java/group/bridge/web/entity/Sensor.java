@@ -1,29 +1,42 @@
 package group.bridge.web.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
-@Entity(name="sensors")
+@Entity
+@Table(name = "sensors")
 public class Sensor {
 
     @Id
-    @Column(name="sensor_id")
+    @Column(name = "sensor_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int sensor_id;
-    @Column(name="sensor_name")
+    private Integer sensor_id;
+    @Column(name = "sensor_name")
     private String sensor_name;
-    @Column(name="bridge_id")
-   // @ManyToOne
-    private int bridge_id;
-    @Column(name="parameter_unit")
+    @Column(name = "parameter_unit")
     private String parameter_unit;
-    @Column(name="threshold")
-    private double threshold;
 
-    public int getSensor_id() {
+    @Column(name = "para_unit_cn")
+    private String para_unit_cn;
+
+    @Column(name = "threshold1")
+    private Double threshold1;
+
+    @Column(name = "threshold2")
+    private Double threshold2;
+
+    // 将外键设置为bridge_id
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bridge_id")
+    private Bridge bridge;
+
+    public Integer getSensor_id() {
         return sensor_id;
     }
 
-    public void setSensor_id(int sensor_id) {
+    public void setSensor_id(Integer sensor_id) {
         this.sensor_id = sensor_id;
     }
 
@@ -35,14 +48,6 @@ public class Sensor {
         this.sensor_name = sensor_name;
     }
 
-    public int getBridge_id() {
-        return bridge_id;
-    }
-
-    public void setBridge_id(int bridge_id) {
-        this.bridge_id = bridge_id;
-    }
-
     public String getParameter_unit() {
         return parameter_unit;
     }
@@ -51,11 +56,37 @@ public class Sensor {
         this.parameter_unit = parameter_unit;
     }
 
-    public double getThreshold() {
-        return threshold;
+    public String getPara_unit_cn() {
+        return para_unit_cn;
     }
 
-    public void setThreshold(double threshold) {
-        this.threshold = threshold;
+    public void setPara_unit_cn(String para_unit_cn) {
+        this.para_unit_cn = para_unit_cn;
+    }
+
+    public Double getThreshold1() {
+        return threshold1;
+    }
+
+    public void setThreshold1(Double threshold1) {
+        this.threshold1 = threshold1;
+    }
+
+    public Double getThreshold2() {
+        return threshold2;
+    }
+
+    public void setThreshold2(Double threshold2) {
+        this.threshold2 = threshold2;
+    }
+
+    public Bridge getBridge() {
+        return bridge;
+    }
+
+    public void setBridge(Bridge bridge) {
+        this.bridge = bridge;
     }
 }
+
+
