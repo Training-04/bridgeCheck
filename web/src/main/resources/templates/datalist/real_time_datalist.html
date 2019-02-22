@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultrap.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="container">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <br>
+            <div align="center"><h1>实时数据列表</h1></div>
+
+            <div align="center" >
+
+                <br>
+                <br>
+                    <select id="bridge" name = "choose_bridge">
+                        <optgroup label="bridge" >
+                            <option value= 1> 武汉长江大桥 </option>
+                            <option value= 2> 港珠澳跨海大桥 </option>
+                            <option value= 3> 杭州湾跨海大桥 </option>
+                            <option value= 4> 巫山长江大桥 </option>
+                            <option value= 5> 黄石长江大桥 </option>
+
+                        </optgroup>
+                    </select>
+                &nbsp&nbsp&nbsp
+<!--                <input type="text" size="17"  id="1" readonly >
+                <script>
+                    function updateTime(){
+                        var date = new Date();
+                        var time = date.toLocaleString();
+                        document.getElementById("1").value = time;
+                    }
+                    setInterval("location.reload()", 10000);
+                    setInterval("updateTime()", 1)
+                </script>-->
+                <br>
+            </div>
+
+            <hr width="850" size="1" color="#000000">
+            <br><br>
+            <table  class="table table-hover table-condensed">
+                <thead>
+                <tr style="align-content: center">
+                    <th style="align-content: center">编号</th>
+                    <th align="center">测量值</th>
+                    <th align="center">测量项目</th>
+                    <th style="align-content: center">时间</th>
+                    <th align="center">桥梁</th>
+                    <th align="center">传感器</th>
+                </tr>
+                </thead>
+                <tbody id="table_body">
+
+                <script>
+                    function dateformat(str){
+                        if(str == null || str == "" || typeof(str)=="undefined"){
+                            return "";
+                        }
+
+                        var date  = new Date(str);
+                        var year = date.getFullYear();
+                        var month = (date.getMonth() + 1).toString();
+                        var day = (date.getDate()).toString();
+                        var hour = (date.getHours()).toString();
+                        var min = (date.getMinutes()).toString();
+                        var sec = (date.getSeconds()).toString();
+
+                        if( month.length == 1) {month = "0" + month;}
+                        if( day.length == 1){day = "0" + day;}
+                        if( hour.length == 1){hour = "0" + hour;}
+                        if( min.length == 1){min = "0" + min;}
+                        if( sec.length == 1){sec = "0" + sec;}
+
+                        var date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
+                        return date;
+                    }
+                    function getJson(){
+                        var d = {};
+                        d.bridge = document.getElementById('bridge').value;
+                        $.ajax({
+                            type: 'POST',
+                            url: "/ajax_realtime",
+                            async: true,
+                            data: JSON.stringify(d),
+                            contentType: "application/json;charset=utf-8",
+                            success:function(result){
+                                var srList = JSON.parse(result);
+                                for (var i = 0; i < srList.length; i++) {
+                                    var tr = document.createElement('tr');
+
+                                    var idTd = document.createElement('td');
+                                    idTd.innerHTML = srList[i].record_id;
+                                    //alert(srList[i].record_id);
+
+                                    var valueTd = document.createElement('td');
+                                    valueTd.innerHTML = srList[i].value + " " + srList[i].sensor.parameter_unit;
+                                    //alert(srList[i].value + " " + srList[0].sensor.parameter_unit);
+
+                                    var paraTd = document.createElement('td');
+                                    paraTd.innerHTML = srList[i].sensor.para_unit_cn;
+                                    //alert(srList[i].sensor.para_unit_cn);
+
+                                    var bridgeTd = document.createElement('td');
+                                    bridgeTd.innerHTML = srList[i].sensor.bridge.bridge_info;
+                                    //alert(srList[0].sensor.bridge.bridge_info);
+
+                                    var dateTd = document.createElement('td');
+                                    // 转换时间
+                                    dateTd.innerHTML =  dateformat(srList[i].date);
+                                   // alert(srList[i].date);
+
+                                    var sensorTd = document.createElement('td');
+                                    sensorTd.innerHTML = srList[i].sensor.sensor_name;
+                                 //   alert(srList[0].sensor.sensor_name);
+
+                                    tr.appendChild(idTd);
+                                    tr.appendChild(valueTd);
+                                    tr.appendChild(paraTd);
+                                    tr.appendChild(dateTd);
+                                    tr.appendChild(bridgeTd);
+                                    tr.appendChild(sensorTd);
+
+                                    document.getElementsByTagName("tbody")[0].appendChild(tr);
+                                }
+                            },
+                            error:function(xhr){
+                                alert("错误提示：" + xhr.status + " " + xhr.statusText);
+                            }
+                        });
+                    }
+                    function generateTable(){
+                        $("#table_body").empty();
+                        getJson();
+                    }
+
+                    var bridgeId = document.getElementById("bridge").value;
+                    var preBridgeId = bridgeId;
+
+                    function changeBridge()
+                    {
+                        bridgeId = document.getElementById("bridge").value;
+                        if(bridgeId != preBridgeId){
+                            $("#table_body").empty();
+                            getJson();
+                            preBridgeId = bridgeId;
+                        }
+                    }
+
+                    generateTable();
+                    setInterval("changeBridge()", 200);
+                    setInterval("generateTable()", 1000*10);
+
+                </script>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+
+
+
+</div>
+</body>
+
+</html>

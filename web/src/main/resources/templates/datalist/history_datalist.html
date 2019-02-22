@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrap.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="container">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <br>
+            <div align="center"><h1>历史数据列表</h1></div>
+            <br>
+            <br>
+<!--            <div align="center" >
+                <input type="datetime-local"  value="2019-01-17T10:37:59" min="2018-12-25" max="2019-03-15" >
+                --
+                <input type="datetime-local"  value="2019-01-18T10:37:59" min="2018-12-25" max="2019-03-15">
+            </div>
+-->
+            <hr width="850" size="1" color="#000000">
+            <br><br>
+            <table class="table table-hover table-condensed">
+                <thead>
+                <tr style="align-content: center">
+                    <th style="align-content: center">编号</th>
+                    <th align="center">测量值</th>
+                    <th align="center">测量项目</th>
+                    <th style="align-content: center">时间</th>
+                    <th align="center">桥梁</th>
+                    <th align="center">传感器</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sensorRecord:${sr}">
+                    <td th:text="${sensorRecord.record_id}">aaa</td>
+                    <td th:text="${sensorRecord.value+ ' ' +sensorRecord.sensor.parameter_unit}">aaa</td>
+                    <td th:text="${sensorRecord.sensor.para_unit_cn}">aaa</td>
+                    <td th:text="${sensorRecord.date}">aaa</td>
+                    <td th:text="${sensorRecord.sensor.bridge.bridge_info}">aaa</td>
+                    <td th:text="${sensorRecord.sensor.sensor_name}">aaa</td>
+                </tr>
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation" style="text-align: center;">
+                <ul class="pagination" style="text-align: center;">
+                    <li th:class="${pageIndex==1}?'disabled':''"><a th:href="@{'/history_datalist/'+${pageIndex-1}}">上一页</a></li>
+                    <li th:if="${pageIndex-3 >=1}" ><a th:href="@{'/history_datalist/'+${pageIndex-3}}" th:text="${pageIndex -3}" >1</a></li>
+                    <li th:if="${pageIndex-2 >=1}" ><a th:href="@{'/history_datalist/'+${pageIndex-2}}" th:text="${pageIndex -2}" >1</a></li>
+                    <li th:if="${pageIndex-1 >=1}" ><a th:href="@{'/history_datalist/'+${pageIndex-1}}" th:text="${pageIndex -1}" >1</a></li>
+                    <li class="active"><a href="#" th:text="${pageIndex}" >1</a></li>
+                    <li th:if="${pageIndex+1 <=pageTotal}" ><a th:href="@{'/history_datalist/'+${pageIndex+1}}" th:text="${pageIndex +1}" >1</a></li>
+                    <li th:if="${pageIndex+2 <=pageTotal}" ><a th:href="@{'/history_datalist/'+${pageIndex+2}}" th:text="${pageIndex +2}" >1</a></li>
+                    <li th:if="${pageIndex+3 <=pageTotal}" ><a th:href="@{'/history_datalist/'+${pageIndex+3}}" th:text="${pageIndex +3}" >1</a></li>
+
+                    <li th:class="${pageIndex==pageTotal}?'disabled' : ''" ><a th:href="@{'/history_datalist/'+${pageIndex+1}}">下一页</a></li>
+                </ul><br>
+            </nav>
+
+            <nav aria-label="Page navigation" style="text-align: center;">
+                <div class="pagination">
+                    <ul class="pagination" th:each="pagenum:${pagenum}">
+                        <li><a href="/getpage/(pagenum-1)">Prev</a></li>
+                        <li class="active">
+                            <a href="/getpage/1">1</a>
+                        </li>
+                        <li><a href="/getpage/2">2</a></li>
+                        <li><a href="/getpage/3">3</a></li>
+                        <li><a href="/getpage/4">4</a></li>
+                        <li><a href="/getpage/(pagenum+1)">Next</a></li>
+                    </ul>
+                </div>
+            </nav>
+        <div class="col-lg-1"></div>
+    </div>
+
+
+
+</div>
+</body>
+
+</html>
