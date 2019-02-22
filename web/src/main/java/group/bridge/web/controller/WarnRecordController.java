@@ -24,7 +24,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("Warn_record")
-public class Warn_recordController extends BaseController{
+public class WarnRecordController extends BaseController{
     @Autowired
     private WarnRecordService warn_recordService;
     @Autowired
