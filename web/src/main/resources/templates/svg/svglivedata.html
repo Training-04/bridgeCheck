@@ -6,27 +6,17 @@
     <meta charset="UTF-8">
     <title>SVGLiveData</title>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
-    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
-
-    <script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
 </head>
 <body>
 <div layout:fragment="content" >
     <div>
-        <select name="Select_Bridge">
+        <select id="bridge" name="Select_Bridge">
             <optgroup label="Bridge">
-                <option value="B001"> 武汉长江大桥 </option>
-                <option value="B002"> 鹦鹉洲大桥 </option>
-                <option value="B003"> 武汉二七长江大桥 </option>
-                <option value="B004"> 白沙洲大桥 </option>
-                <option value="B005"> 天兴洲大桥 </option>
+                <option value="1"> 武汉长江大桥 </option>
+                <option value="2"> 武汉长江二桥 </option>
+                <option value="3"> 武汉二七长江大桥 </option>
+                <option value="4"> 白沙洲大桥 </option>
+                <option value="5"> 鹦鹉洲大桥 </option>
             </optgroup>
         </select>
     </div>
@@ -36,6 +26,253 @@
             var dom = document.getElementById("container");
             var myChart = echarts.init(dom);
             option = null;
+            var bridge_label = document.getElementById("bridge").value;
+            var pre_bridge_label = bridge_label;
+
+            //页面数据存储
+            var count = 1;
+            var date_tag = new Date(2018, 0, 1, 8, 0, 14);//当前时间(因数据库数据关系，当前时间设置为2018/01/01 08:00:14)
+            var date_tag0 = new Date(2018, 0, 1, 8, 0, 0);
+            var curDate = new Date();
+            curDate = date_tag;
+            var date = [];                   //时间
+            var temp_data = [];              //温度
+            var displacement_data = [];      //位移
+            var microstrain_data = [];       //微应变
+            var OBL_data = [];               //OBL
+            var liquidlevel_data = [];       //液位变化
+            var relasedimen_data = [];       //相对沉降量
+
+
+            //获取传感器15s数据函数
+            function get15SecSensorRecord(){
+                $.ajax({
+                    type: 'post',
+                    url: "/ajax/ajax_15Sec_records",
+                    async: false,
+                    data: {bridge_id: bridge_label, para_cn: '温度', curTime : curDate},
+                    datatype: 'json',
+                    success: function(result){
+                        //alert(result);
+                        var obj = eval("("+result+")");
+                        var sum = obj.length;
+                        for (var index = 0; index < sum; index++){
+                            var thisdate = new Date(obj[index].date);
+                            var curdate = thisdate.toLocaleString();
+                            date.push(curdate);
+                            temp_data.push(obj[index].value);
+                        }
+                    },
+                    error: function (result) {
+                        //alert("数据请求错误！");
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: "/ajax/ajax_15Sec_records",
+                    async: false,
+                    data: {bridge_id: bridge_label, para_cn: '位移', curTime : curDate},
+                    datatype: 'json',
+                    success: function(result){
+                        //alert(result);
+                        var obj = eval("("+result+")");
+                        var sum = obj.length;
+                        for (var index = 0; index < sum; index++){
+                            displacement_data.push(obj[index].value);
+                        }
+                    },
+                    error: function (result) {
+                        //alert("数据请求错误！");
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: "/ajax/ajax_15Sec_records",
+                    async: false,
+                    data: {bridge_id: bridge_label, para_cn: '微应变', curTime : curDate},
+                    datatype: 'json',
+                    success: function(result){
+                        //alert(result);
+                        var obj = eval("("+result+")");
+                        var sum = obj.length;
+                        for (var index = 0; index < sum; index++){
+                            microstrain_data.push(obj[index].value);
+                        }
+                    },
+                    error: function (result) {
+                        //alert("数据请求错误！");
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: "/ajax/ajax_15Sec_records",
+                    async: false,
+                    data: {bridge_id: bridge_label, para_cn: '液位变化', curTime : curDate},
+                    datatype: 'json',
+                    success: function(result){
+                        //alert(result);
+                        var obj = eval("("+result+")");
+                        var sum = obj.length;
+                        for (var index = 0; index < sum; index++){
+                            liquidlevel_data.push(obj[index].value);
+                        }
+                    },
+                    error: function (result) {
+                        //alert("数据请求错误！");
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: "/ajax/ajax_15Sec_records",
+                    async: false,
+                    data: {bridge_id: bridge_label, para_cn: '相对沉降量', curTime : curDate},
+                    datatype: 'json',
+                    success: function(result){
+                        //alert(result);
+                        var obj = eval("("+result+")");
+                        var sum = obj.length;
+                        for (var index = 0; index < sum; index++){
+                            relasedimen_data.push(obj[index].value);
+                        }
+                    },
+                    error: function (result) {
+                        //alert("数据请求错误！");
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: "/ajax/ajax_15Sec_records",
+                    async: false,
+                    data: {bridge_id: bridge_label, para_cn: 'OBL', curTime : curDate},
+                    datatype: 'json',
+                    success: function(result){
+                        //alert(result);
+                        var obj = eval("("+result+")");
+                        var sum = obj.length;
+                        for (var index = 0; index < sum; index++){
+                            OBL_data.push(obj[index].value);
+                        }
+                    },
+                    error: function (result) {
+                        //alert("数据请求错误！");
+                    }
+                });
+            }
+
+            //实时获取传感器每秒数据函数
+            function getLiveSensorRecord() {
+                $.ajax({
+                    type: 'post',
+                    url: "/ajax/ajax_live_records",
+                    async: false,
+                    data: {bridge_id: bridge_label, para_cn: '温度', curTime : curDate},
+                    datatype: 'json',
+                    success: function(result){
+                        //alert(result);
+                        var obj = eval("("+result+")");
+                        //alert(obj[0].date);
+                        var thisdate = new Date(obj[0].date);
+                        var curdate = thisdate.toLocaleString();
+                        date.shift();
+                        temp_data.shift();
+                        date.push(curdate);
+                        temp_data.push(obj[0].value);
+
+                    },
+                    error: function (result) {
+                        //alert("数据请求错误！");
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: "/ajax/ajax_live_records",
+                    async: false,
+                    data: {bridge_id: bridge_label, para_cn: '位移', curTime : curDate},
+                    datatype: 'json',
+                    success: function(result){
+                        //alert(result);
+                        var obj = eval("("+result+")");
+                        displacement_data.shift();
+                        displacement_data.push(obj[0].value);
+
+                    },
+                    error: function (result) {
+                        //alert("数据请求错误！");
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: "/ajax/ajax_live_records",
+                    async: false,
+                    data: {bridge_id: bridge_label, para_cn: '微应变', curTime : curDate},
+                    datatype: 'json',
+                    success: function(result){
+                        //alert(result);
+                        var obj = eval("("+result+")");
+                        microstrain_data.shift();
+                        microstrain_data.push(obj[0].value);
+
+                    },
+                    error: function (result) {
+                        //alert("数据请求错误！");
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: "/ajax/ajax_live_records",
+                    async: false,
+                    data: {bridge_id: bridge_label, para_cn: '相对沉降量', curTime : curDate},
+                    datatype: 'json',
+                    success: function(result){
+                        //alert(result);
+                        var obj = eval("("+result+")");
+                        relasedimen_data.shift();
+                        relasedimen_data.push(obj[0].value);
+
+                    },
+                    error: function (result) {
+                        //alert("数据请求错误！");
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: "/ajax/ajax_live_records",
+                    async: false,
+                    data: {bridge_id: bridge_label, para_cn: '液位变化', curTime : curDate},
+                    datatype: 'json',
+                    success: function(result){
+                        //alert(result);
+                        var obj = eval("("+result+")");
+                        liquidlevel_data.shift();
+                        liquidlevel_data.push(obj[0].value);
+
+                    },
+                    error: function (result) {
+                        //alert("数据请求错误！");
+                    }
+                });
+                $.ajax({
+                    type: 'post',
+                    url: "/ajax/ajax_live_records",
+                    async: false,
+                    data: {bridge_id: bridge_label, para_cn: 'OBL', curTime : curDate},
+                    datatype: 'json',
+                    success: function(result){
+                        //alert(result);
+                        var obj = eval("("+result+")");
+                        OBL_data.shift();
+                        OBL_data.push(obj[0].value);
+
+                    },
+                    error: function (result) {
+                        //alert("数据请求错误！");
+                    }
+                });
+            }
+
+            //获取15s数据
+            get15SecSensorRecord();
+
             option = {
                 title: {
                     text: '桥梁动态数据一览图',
@@ -77,16 +314,7 @@
                     {
                         type : 'category',
                         boundaryGap : true,
-                        data : (function(){
-                            var now = new Date();
-                            var res = [];
-                            var len = 15;
-                            while(len--){
-                                res.unshift(now.toLocaleTimeString().replace(/^\D*/,''));
-                                now = new Date(now - 1000);
-                            }
-                            return res;
-                        })()
+                        data : date
                     }
                 ],
                 yAxis : [
@@ -108,15 +336,7 @@
                             }
                         },
                         areaStyle: {},
-                        data:(function () {
-                            var res = [];
-                            var len = 0;
-                            while (len < 15){
-                                res.push(Math.round(Math.random() * 1000));
-                                len++;
-                            }
-                            return res;
-                        })()
+                        data: microstrain_data
                     },
                     {
                         name:'位移',
@@ -129,15 +349,7 @@
                             }
                         },
                         areaStyle: {},
-                        data:(function () {
-                            var res = [];
-                            var len = 0;
-                            while (len < 15){
-                                res.push(Math.round(Math.random() * 1000));
-                                len++;
-                            }
-                            return res;
-                        })()
+                        data: displacement_data
                     },
                     {
                         name:'温度',
@@ -150,15 +362,7 @@
                             }
                         },
                         areaStyle: {},
-                        data:(function () {
-                            var res = [];
-                            var len = 0;
-                            while (len < 15){
-                                res.push(Math.round(Math.random() * 1000));
-                                len++;
-                            }
-                            return res;
-                        })()
+                        data: temp_data
                     },
                     {
                         name:'相对沉降量',
@@ -171,15 +375,7 @@
                             }
                         },
                         areaStyle: {},
-                        data:(function () {
-                            var res = [];
-                            var len = 0;
-                            while (len < 15){
-                                res.push(Math.round(Math.random() * 1000));
-                                len++;
-                            }
-                            return res;
-                        })()
+                        data: relasedimen_data
                     },
                     {
                         name:'液位变化',
@@ -192,15 +388,7 @@
                             }
                         },
                         areaStyle: {},
-                        data:(function () {
-                            var res = [];
-                            var len = 0;
-                            while (len < 15){
-                                res.push(Math.round(Math.random() * 1000));
-                                len++;
-                            }
-                            return res;
-                        })()
+                        data: liquidlevel_data
                     },
                     {
                         name:'OBL',
@@ -213,46 +401,37 @@
                             }
                         },
                         areaStyle: {},
-                        data:(function () {
-                            var res = [];
-                            var len = 0;
-                            while (len < 15){
-                                res.push(Math.round(Math.random() * 1000));
-                                len++;
-                            }
-                            return res;
-                        })()
+                        data: OBL_data
                     }
 
 
                 ]
             };
+            ;
 
             setInterval(function(){
-                var axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
-                var data1 = option.series[0].data;
-                var data2 = option.series[1].data;
-                var data3 = option.series[2].data;
-                var data4 = option.series[3].data;
-                var data5 = option.series[4].data;
+                //alert(curDate);
+                bridge_label = document.getElementById("bridge").value;
+                if(bridge_label != pre_bridge_label){
 
-                data1.shift();
-                data1.push(Math.round(Math.random() * 1000));
-                data2.shift();
-                data2.push(Math.round(Math.random() * 1000));
-                data3.shift();
-                data3.push(Math.round(Math.random() * 1000));
-                data4.shift();
-                data4.push(Math.round(Math.random() * 1000));
-                data5.shift();
-                data5.push(Math.round(Math.random() * 1000));
+                    //重置数据
+                    count = -15;
+                    curDate = date_tag0;
 
-                option.xAxis[0].data.shift();
-                option.xAxis[0].data.push(axisData);
+                    getLiveSensorRecord();
 
+                    pre_bridge_label = bridge_label;
+                }else{
+                    count++;
+                    var time = curDate.getTime();
+                    var new_curDate = new Date(time + 1000);
+                    curDate = new_curDate;
+                    if(count <= 6){
+                        getLiveSensorRecord();
+                    }
+                }
                 myChart.setOption(option);
             }, 1000);
-            ;
 
             if (option && typeof option === "object") {
                 myChart.setOption(option, true);

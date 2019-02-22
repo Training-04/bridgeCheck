@@ -1,9 +1,15 @@
 package group.bridge.web.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "bridge_id")
 @Table(name = "bridges")
 public class Bridge {
     @Id
@@ -12,20 +18,20 @@ public class Bridge {
     private Integer bridge_id;
     @Column(name = "bridge_name" )
     private String bridge_name;
-    @Column(name = "design_life")
-    private int design_life;
-    @Column(name = "bridge_length")
-    private double bridge_length;
-    @Column(name = "bridge_info")
+    @Column(name="design_life")
+    private Integer design_life;
+    @Column(name="bridge_length")
+    private Integer bridge_length;
+    @Column(name="bridge_info")
     private String bridge_info;
     @OneToMany(cascade =CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "bridge" )
     private Set<Sensor> sensor;
-
+ 
     public Integer getBridge_id() {
         return bridge_id;
     }
 
-    public void setBridge_id(Integer bridge_id) {
+    public void setBridge_id(int bridge_id) {
         this.bridge_id = bridge_id;
     }
 
@@ -37,7 +43,7 @@ public class Bridge {
         this.bridge_name = bridge_name;
     }
 
-    public int getDesign_life() {
+    public Integer getDesign_life() {
         return design_life;
     }
 
@@ -45,11 +51,11 @@ public class Bridge {
         this.design_life = design_life;
     }
 
-    public double getBridge_length() {
+    public Integer getBridge_length() {
         return bridge_length;
     }
 
-    public void setBridge_length(double bridge_length) {
+    public void setBridge_length(int bridge_length) {
         this.bridge_length = bridge_length;
     }
 

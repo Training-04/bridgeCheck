@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<!--第二个属性标识这个页面被包装到shared/layout页面内-->
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax-test</title>
+    <script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
+</head>
+<body>
+<!--div的内容就会自动写到母版页内-->
+<div layout:fragment="content">
+    <div style="height: 100%; margin: 0">
+        <div id="container" style="height: 650px"></div>
+        <script type="text/javascript">
+
+            function formatJsonToSeries(data){
+                jsondata = JSON.parse(data);
+                for (index in jsondata){
+                    //var id = jsondata[index].record_id;
+                    //var date = jsondata[index].date;
+                    var value = jsondata[index].value;
+                    alert(value);
+                }
+            }
+            //ajax测试
+            $.ajax({
+                type: 'POST',
+                url: "http://localhost:8080/ajax/ajax_test",
+                data: {bridge_id : 1, sensor_name : "temp"},
+                dataType: 'text',
+                success : function(data){
+                    //处理获取得到的数据
+                    //formatJsonToSeries(data);
+                    alert(data);
+                },
+                error : function () {
+                    alert('请求失败');
+                }
+            });
+        </script>
+    </div>
+</div>
+</body>
+</html>

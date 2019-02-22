@@ -1,10 +1,16 @@
 package group.bridge.web.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "sensors")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "sensor_id")
 public class Sensor {
 
     @Id
@@ -37,7 +43,6 @@ public class Sensor {
     public void setSensor_id(Integer sensor_id) {
         this.sensor_id = sensor_id;
     }
-
 
     public String getSensor_name() {
         return sensor_name;

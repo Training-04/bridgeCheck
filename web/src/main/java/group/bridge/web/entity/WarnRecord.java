@@ -1,31 +1,32 @@
 package group.bridge.web.entity;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 
-@Entity
-@Table(name = "warn_records")
-public class WarnRecord {
+
+@Entity(name = "warn_records")
+public class WarnRecord{
 
     @Id
     @Column(name = "warn_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer warn_id;
-    //    报警参数
-    @Column(name = "warn_para")
-    private String warn_para;
-    @Column(name = "warn_date")
-    private Date warn_date;
-    @Column(name = "relieve_date")
-    private Date relieve_date;
+
     @Column(name = "status")
     private String status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bridge_id")
-    private Bridge bridge;
+    @Column(name = "warn_date")
+    private Date warn_date;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Column(name = "relieve_date")
+    private Date relieve_date;
+
+    @Column(name = "warn_para")
+    private String warn_para;
+
+
+    @ManyToOne(cascade =CascadeType.ALL)
     @JoinColumn(name = "sensor_id")
     private Sensor sensor;
 
@@ -37,12 +38,12 @@ public class WarnRecord {
         this.warn_id = warn_id;
     }
 
-    public String getWarn_para() {
-        return warn_para;
+    public String getStatus() {
+        return status;
     }
 
-    public void setWarn_para(String warn_para) {
-        this.warn_para = warn_para;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Date getWarn_date() {
@@ -61,20 +62,12 @@ public class WarnRecord {
         this.relieve_date = relieve_date;
     }
 
-    public String getStatus() {
-        return status;
+    public String getWarn_para() {
+        return warn_para;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Bridge getBridge() {
-        return bridge;
-    }
-
-    public void setBridge(Bridge bridge) {
-        this.bridge = bridge;
+    public void setWarn_para(String warn_para) {
+        this.warn_para = warn_para;
     }
 
     public Sensor getSensor() {
