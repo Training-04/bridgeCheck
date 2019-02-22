@@ -22,10 +22,6 @@ public class WarnRecord {
     private String status;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bridge_id")
-    private Bridge bridge;
-
-    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sensor_id")
     private Sensor sensor;
 
@@ -67,14 +63,6 @@ public class WarnRecord {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Bridge getBridge() {
-        return bridge;
-    }
-
-    public void setBridge(Bridge bridge) {
-        this.bridge = bridge;
     }
 
     public Sensor getSensor() {

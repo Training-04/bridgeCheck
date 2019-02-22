@@ -63,10 +63,7 @@ public class Warn_recordController extends BaseController{
     }
 
     @RequestMapping("/addWarn_records")
-    public String addWarn_record(WarnRecord wr, @RequestParam(value = "bridge_id") Integer bridge_id,
-                                 @RequestParam(value = "sensor_id") Integer sensor_id) {
-        Bridge bridge = bridgeService.get(bridge_id);
-        wr.setBridge(bridge);
+    public String addWarn_record(WarnRecord wr, @RequestParam(value = "sensor_id") Integer sensor_id) {
         Sensor sensor = sensorService.get(sensor_id);
         wr.setSensor(sensor);
         warn_recordService.add(wr);

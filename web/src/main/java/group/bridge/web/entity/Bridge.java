@@ -13,9 +13,9 @@ public class Bridge {
     @Column(name = "bridge_name" )
     private String bridge_name;
     @Column(name = "design_life")
-    private int design_life;
+    private Integer design_life;
     @Column(name = "bridge_length")
-    private double bridge_length;
+    private Double bridge_length;
     @Column(name = "bridge_info")
     private String bridge_info;
     @OneToMany(cascade =CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "bridge" )
@@ -37,19 +37,19 @@ public class Bridge {
         this.bridge_name = bridge_name;
     }
 
-    public int getDesign_life() {
+    public Integer getDesign_life() {
         return design_life;
     }
 
-    public void setDesign_life(int design_life) {
+    public void setDesign_life(Integer design_life) {
         this.design_life = design_life;
     }
 
-    public double getBridge_length() {
+    public Double getBridge_length() {
         return bridge_length;
     }
 
-    public void setBridge_length(double bridge_length) {
+    public void setBridge_length(Double bridge_length) {
         this.bridge_length = bridge_length;
     }
 
