@@ -1,6 +1,6 @@
 package group.bridge.web.serviceImpl;
 
-import group.bridge.web.dao.Warn_recordRepository;
+import group.bridge.web.dao.WarnRecordRepository;
 import group.bridge.web.entity.WarnRecord;
 import group.bridge.web.service.WarnRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class WarnRecordServiceImpl extends BaseServiceImpl<WarnRecord,Integer> implements WarnRecordService {
     @Autowired
-    Warn_recordRepository wrRepository;
+    WarnRecordRepository wrRepository;
 
     @Override
     protected void setRepository() {
