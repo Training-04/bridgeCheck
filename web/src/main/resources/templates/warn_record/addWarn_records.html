@@ -17,13 +17,13 @@
                     <!--<label for="warn_id">编号</label>-->
                     <input type="hidden" class="form-control" id="warn_id" name="warn_id">
                 </div>
-                <div class="form-group">
-                    <label for="bridge_id">桥梁名称</label>
-                    <select class="form-control" id="bridge_id" name="bridge_id">
-                        <option value="">--请选择--</option>
-                        <option th:each="bridge:${session.bridges}"  th:value="${bridge.bridge_id}" th:text="${bridge.bridge_name}"></option>
-                    </select>
-                </div>
+                <!--<div class="form-group">-->
+                    <!--<label for="bridge_id">桥梁名称</label>-->
+                    <!--<select class="form-control" id="bridge_id" name="bridge_id">-->
+                        <!--<option value="">&#45;&#45;请选择&#45;&#45;</option>-->
+                        <!--<option th:each="bridge:${session.bridges}"  th:value="${bridge.bridge_id}" th:text="${bridge.bridge_name}"></option>-->
+                    <!--</select>-->
+                <!--</div>-->
                 <div class="form-group">
                     <label for="sensor_id">传感器名称</label>
                     <select class="form-control" id="sensor_id" name="sensor_id">
