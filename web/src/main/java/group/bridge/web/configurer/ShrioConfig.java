@@ -1,6 +1,7 @@
 package group.bridge.web.configurer;
 
 import group.bridge.web.realm.MyShiroRealm;
+import group.bridge.web.reslover.MyExceptionResolver;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import java.util.LinkedHashMap;
@@ -76,6 +78,7 @@ public class ShrioConfig {
         filterChainDefinitionMap.put("/**/*.jpg", "anon");
         filterChainDefinitionMap.put("/**/*.js", "anon");
         filterChainDefinitionMap.put("/url.xml", "anon");
+        filterChainDefinitionMap.put("/sysmanagement/404","anon");
 
         //filterChainDefinitionMap.put("/templates/login/login","anon");
         // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
@@ -85,13 +88,13 @@ public class ShrioConfig {
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         //访问的是后端url地址为 /login的接口
         //对权限URL设置为需要认证
-        filterChainDefinitionMap.put("/sysmanagement/**", "authc");
+        filterChainDefinitionMap.put("/**", "authc");
         //filterChainDefinitionMap.put("/templates/sysmanagement/permissionmanagement/**", "authc");
         //filterChainDefinitionMap.put("/templates/sysmanagement/rolemanagement/**", "authc");
         //filterChainDefinitionMap.put("/templates/sysmanagement/usermanagement/**", "authc");
         filterChainDefinitionMap.put("/**", "authc");
 
-        filterChainDefinitionMap.put("/**/*.html", "anon");
+        //filterChainDefinitionMap.put("/**/*.html", "anon");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         System.out.println("Shiro拦截器工厂类注入成功");
@@ -110,6 +113,15 @@ public class ShrioConfig {
 //        return hashedCredentialsMatcher;
 //    }
 
+    /*
+        当没有权限时跳转404，
+        解决不跳转而在控制台报错的问题
+     */
+    @Bean
+    public HandlerExceptionResolver solver(){
+        HandlerExceptionResolver handlerExceptionResolver = new MyExceptionResolver();
+        return handlerExceptionResolver;
+    }
 
     //身份认证realm; (这个需要自己写，账号密码校验；权限等)
     //@return
@@ -173,6 +185,7 @@ public class ShrioConfig {
 //        redisSessionDAO.setRedisManager(redisManager());
 //        return redisSessionDAO;
 //    }
+
     /**
      * shiro session的管理
      */
@@ -227,21 +240,21 @@ public class ShrioConfig {
 //        advisorAutoProxyCreator.setProxyTargetClass(true);
 //        return advisorAutoProxyCreator;
 //    }
-    @Bean(name="simpleMappingExceptionResolver")
-    public SimpleMappingExceptionResolver simpleMappingExceptionResolver(){
-        SimpleMappingExceptionResolver s=new SimpleMappingExceptionResolver();
-        Properties mappings=new Properties();
-        //数据库异常处理
-        mappings.setProperty("DatabaseException", "databaseError");
-        mappings.setProperty("UnauthorizedException","403");
-        // None by default
-        s.setExceptionMappings(mappings);
-        // No default
-        s.setDefaultErrorView("error");
-        // Default is "exception"
-        s.setExceptionAttribute("ex");
-        return s;
-    }
+//    @Bean(name="simpleMappingExceptionResolver")
+//    public SimpleMappingExceptionResolver simpleMappingExceptionResolver(){
+//        SimpleMappingExceptionResolver s=new SimpleMappingExceptionResolver();
+//        Properties mappings=new Properties();
+//        //数据库异常处理
+//        mappings.setProperty("DatabaseException", "databaseError");
+//        mappings.setProperty("UnauthorizedException","404");
+//        // None by default
+//        s.setExceptionMappings(mappings);
+//        // No default
+//        s.setDefaultErrorView("error");
+//        // Default is "exception"
+//        s.setExceptionAttribute("ex");
+//        return s;
+//    }
 
 
     //开启shiro aop注解支持

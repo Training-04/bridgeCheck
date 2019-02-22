@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorate="shared/layout">
+      layout:decorate="shared/layout" xmlns:c="">
 <head>
     <meta charset="UTF-8">
     <title>查找用户</title>
@@ -10,10 +10,10 @@
 <body>
 <div layout:fragment="content">
     <div style="margin: 10px 100px 30px auto" align="right">
-        <a href="/allUser" th:href="@{/allUser}" class="btn btn-default">Back</a>
+        <a href="/user/allUser" th:href="@{/user/allUser}" class="btn btn-default">Back</a>
     </div>
 
-    <form class="form-horizontal" role="form" method="post" th:action="@{/search}">
+    <form class="form-horizontal" role="form" method="post" th:action="@{/user/search}">
         <div class="form-group">
             <label for="user_name" class="col-sm-2 control-label">检索</label>
             <div class="col-sm-7">
@@ -42,8 +42,8 @@
                 <td th:text="${User.user_id}">aaa</td>
                 <td th:text="${User.user_name}">aaa</td>
                 <td th:text="${User.password}">aaa</td>
-                <td th:each="Role:${role}">
-                    <font th:text="${Role.role_name}">aaa</font>
+                <td style="width:40%; word-wrap:break-word;word-break:keep-all;">
+                    <c:foreach th:each="Role:${User.roles}" th:text="${Role.role_name} +' || '">aaa</c:foreach>
                 </td>
             </tr>
             </tbody>

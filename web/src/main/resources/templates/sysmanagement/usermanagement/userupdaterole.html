@@ -4,7 +4,7 @@
       layout:decorate="shared/layout">
 <head>
     <meta charset="UTF-8">
-    <title>添加权限</title>
+    <title>修改已拥有的权限组</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css}">
@@ -16,53 +16,48 @@
     <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-*.min.js}"></script>
     <script>
         $(window).on('load',function () {
-            $('#permission_name').selectpicker({'selectedText':'cat'});
+            $('#role_name').selectpicker({'selectedText':'cat'});
         });
     </script>
 </head>
 <body>
 <div layout:fragment="content">
     <div style="margin: 10px 100px 10px auto" align="right">
-        <a href="/role/allRole" th:href="@{/role/allRole}" class="btn btn-default">Back</a>
+        <a href="/user/allUser" th:href="@{/user/allUser}" class="btn btn-default">Back</a>
     </div>
     <div style="border: 1px solid #000000;margin: 100px auto;width: 600px;text-align: center" >
-        <p>添加权限</p>
-        <form class="form-horizontal" role="form" method="post" th:object="${role}" th:action="@{/role/roleAddper}">
+        <p>修改已拥有的权限组</p>
+        <form class="form-horizontal" role="form" method="post" th:object="${user}" th:action="@{/user/userupdaterole}">
 
             <div class="form-group">
-                <label for="role_id" class="col-sm-3 control-label">编号</label>
+                <label for="user_id" class="col-sm-3 control-label">编号</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" name="role_id" id="role_id" th:field="*{role_id}" readonly />
+                    <input type="text" class="form-control" name="user_id" id="user_id" th:field="*{user_id}" readonly />
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">权限组名</label>
+                <label for="user_name" class="col-sm-3 control-label">用户名</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" name="role_name" id="roleE" th:field="*{roleE}" readonly>
+                    <input type="text" class="form-control" name="user_name" id="user_name" th:field="*{user_name}" readonly>
                 </div>
             </div>
+
             <div class="form-group">
-                <label class="col-sm-3 control-label">权限组</label>
+                <label for="password" class="col-sm-3 control-label">密码</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" name="roleE" id="role_name" th:field="*{role_name}" readonly>
+                    <input type="text" class="form-control" name="password" id="password" th:field="*{password}" readonly>
                 </div>
             </div>
+
             <div class="form-group">
-                <label hidden for="permissionid" class="col-sm-3 control-label">拥有的权限</label>
-                <div class="col-sm-7" th:each="Permission:${permission}">
-                    <input class="form-control" name="permissionid" id="permissionid"
-                           th:value="${Permission.permission_id}" type="hidden">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">新的权限</label>
+                <label for="role_id" class="col-sm-3 control-label">拥有的权限组</label>
                 <div class="col-sm-7">
-                    <select class="form-control show-tick selectpicker" id="permission_id"
-                            name="permission_id" data-live-search="true" multiple="multiple" required>
-                        <option name="permission_id" id="per" th:each="Permission:${session.session}"
-                                th:value="${Permission.permission_id}"
-                                th:text="${Permission.permission_name}">aaa</option>
+                    <select class="form-control show-tick selectpicker" id="role_id"
+                            name="role_id" data-live-search="true" multiple="multiple" required>
+                        <option name="role_id" id="roid" th:each="Role:${session.session}"
+                                th:value="${Role.role_id}"
+                                th:text="${Role.role_name}">aaa</option>
                     </select>
                 </div>
             </div>

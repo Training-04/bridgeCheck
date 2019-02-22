@@ -32,8 +32,8 @@
                 <td th:text="${Permission.permissionE}">aaa</td>
                 <td th:text="${Permission.url}">aaa</td>
                 <td align="center">
-                    <a th:href="@{'/toUpdatePer/'+${Permission.permission_id}}">修改</a>&nbsp|&nbsp
-                    <a th:href="@{'/deletePer/'+${Permission.permission_id}}" onclick="return confirm('确认删除？')">删除</a>
+                    <a th:href="@{'/permission/toUpdatePer/'+${Permission.permission_id}}">修改</a>&nbsp|&nbsp
+                    <a th:href="@{'/permission/deletePer/'+${Permission.permission_id}}" onclick="return confirm('确认删除？')">删除</a>
                 </td>
             </tr>
             </tbody>
@@ -42,7 +42,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td align="center"> <a href="/toAddPer">添&nbsp加</a></td>
+                <td align="center"> <a href="/permission/toAddPer">添&nbsp加</a></td>
             </tr>
         </table>
     </div>

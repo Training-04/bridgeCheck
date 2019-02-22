@@ -61,22 +61,30 @@ public class MyShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         System.out.println("身份认证方法：MyShiroRealm.doGetAuthenticationInfo()");
 
+        User user = null;
 
         //获取用户的输入的账号
         UsernamePasswordToken token=(UsernamePasswordToken) authenticationToken;
         //获取用户名
         String user_name= (String) token.getPrincipal();
         System.out.println(token.getCredentials());
-        //通过username从数据库中查找 User对象，如果找到，没找到.
+        //通过username从数据库中查找 User对象，如果找到则成功登陆，没找到则在后台显示问题，页面仍然是登陆界面.
         //通过用户名获取用户对象
-        List<User> users= (List<User>) this.userService.findUserByName(user_name);
+        List<User> users= this.userService.findUserByName(user_name);
         //将获得的List数组取值给User对象
-        User user = users.get(0);
-        System.out.println("----->>userInfo="+user);
-        if (user==null){
+        if (users.size()!=0){
+            user = users.get(0);
+            System.out.println("----->>userInfo="+user);
+            if (user==null){
+                //throw new AuthenticationException("用户不存在");
+                return null;
+            }
+        }
+        else {
             //throw new AuthenticationException("用户不存在");
             return null;
         }
+
 
         //进行认证，将正确数据给shiro处理
         //密码不用自己比对，AuthenticationInfo认证信息对象，一个接口，new他的实现类对象SimpleAuthenticationInfo

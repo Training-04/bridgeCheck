@@ -4,22 +4,22 @@
     <Url text="系统管理" isLink="false" path="systemMenu">
         <Url text="用户管理" isLink="false" path="userMenu">
                 <Url text="信息管理" isLink="false" path="informMenu" >
-                    <Url text="添加用户信息" isLink="true" path="/toAdd" />
-                    <Url text="删除用户信息" isLink="true" path="/allUser" />
-                    <Url text="修改用户信息" isLink="true" path="/allUser" />
-                    <Url text="查看用户信息" isLink="true" path="/toSearch" />
+                    <Url text="添加用户信息" isLink="true" path="/user/toAdd" />
+                    <Url text="删除用户信息" isLink="true" path="/user/allUser" />
+                    <Url text="修改用户信息" isLink="true" path="/user/allUser" />
+                    <Url text="查看用户信息" isLink="true" path="/user/toSearch" />
                 </Url>
                 <Url text="权限组管理" isLink="false" path="roleMenu" >
-                    <Url text="添加权限组" isLink="true" path="/toAddRole" />
-                    <Url text="删除权限组" isLink="true" path="/allRole" />
-                    <Url text="修改权限组" isLink="true" path="/allRole" />
-                    <Url text="查看权限组" isLink="true" path="/toSearchRole" />
+                    <Url text="添加权限组" isLink="true" path="/role/toAddRole" />
+                    <Url text="删除权限组" isLink="true" path="/role/allRole" />
+                    <Url text="修改权限组" isLink="true" path="/role/allRole" />
+                    <Url text="查看权限组" isLink="true" path="/role/toSearchRole" />
                 </Url>
                 <Url text="权限管理" isLink="false" path="permissionMenu" >
-                    <Url text="添加权限" isLink="true" path="/toAddPer" />
-                    <Url text="删除权限" isLink="true" path="/allPer" />
-                    <Url text="修改权限" isLink="true" path="/allPer" />
-                    <Url text="查看权限" isLink="true" path="/toSearchPer" />
+                    <Url text="添加权限" isLink="true" path="/permission/toAddPer" />
+                    <Url text="删除权限" isLink="true" path="/permission/allPer" />
+                    <Url text="修改权限" isLink="true" path="/permission/allPer" />
+                    <Url text="查看权限" isLink="true" path="/permission/toSearchPer" />
                 </Url>
         </Url>
         <Url text="阈值和报警管理" path="thresholdAndwrMenu">
