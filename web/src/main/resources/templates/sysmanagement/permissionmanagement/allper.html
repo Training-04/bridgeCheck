@@ -21,16 +21,16 @@
             <tr>
                 <th>序号</th>
                 <th>权限名</th>
-                <th>权限</th>
-                <th>URL</th>
+                <!--<th>权限</th>-->
+                <!--<th>URL</th>-->
             </tr>
             </thead>
             <tbody>
             <tr th:each="Permission : ${per}">
                 <td th:text="${Permission.permission_id}">aaa</td>
                 <td th:text="${Permission.permission_name}">aaa</td>
-                <td th:text="${Permission.permissionE}">aaa</td>
-                <td th:text="${Permission.url}">aaa</td>
+                <!--<td th:text="${Permission.permissionE}">aaa</td>-->
+                <!--<td th:text="${Permission.url}">aaa</td>-->
                 <td align="center">
                     <a th:href="@{'/permission/toUpdatePer/'+${Permission.permission_id}}">修改</a>&nbsp|&nbsp
                     <a th:href="@{'/permission/deletePer/'+${Permission.permission_id}}" onclick="return confirm('确认删除？')">删除</a>

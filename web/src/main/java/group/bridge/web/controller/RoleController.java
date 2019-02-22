@@ -41,7 +41,7 @@ public class RoleController extends BaseController{
     }
 
     @RequestMapping("/toAddRole")
-    @RequiresPermissions("roleInfo:toAddRole")
+    @RequiresPermissions("添加权限组信息")
     public String toAdd(Model model, HttpSession session){
         List<Permission> per=permissionService.getAll();
         session.setAttribute("session",per);
@@ -100,7 +100,8 @@ public class RoleController extends BaseController{
     }
 
     @RequestMapping("/toSearchRole")
-    @RequiresPermissions("roleInfo:toSearchRole")
+    //@RequiresPermissions("roleInfo:toSearchRole")
+    @RequiresPermissions("查看权限组信息")
     public String toSearch(Model model){
         model.addAttribute("title","查找权限组信息");
         return "sysmanagement/rolemanagement/searchrole";

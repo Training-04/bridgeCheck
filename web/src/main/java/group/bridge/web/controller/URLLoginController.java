@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-//@Controller
+@Controller
 public class URLLoginController {
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
@@ -23,11 +23,11 @@ public class URLLoginController {
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String dologin(HttpServletRequest request, String user_name, String password){
+    public String dologin(HttpServletRequest request, String userName, String password){
         System.out.println("进入登陆处理");
         HttpSession session=request.getSession();
-        System.out.println("对用户["+user_name+"]密码["+password+"]验证");
-        UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(user_name,password);
+        System.out.println("对用户["+userName+"]密码["+password+"]验证");
+        UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(userName,password);
         Subject subject= SecurityUtils.getSubject();
         try {
             //完成登录
@@ -35,15 +35,15 @@ public class URLLoginController {
             //登录成功后对导航栏的操作
             SessionUtil.setNavigation(request);
             //User user= (User) subject.getPrincipals();
-            System.out.println("对用户[" + user_name + "]进行登录验证..验证通过");
+            System.out.println("对用户[" + userName + "]进行登录验证..验证通过");
             //session.setAttribute("user",user);
             return "redirect:/index";
         }catch (UnknownAccountException uae){
-            System.out.println("对用户[" + user_name + "]进行登录验证..验证未通过,未知账户");
+            System.out.println("对用户[" + userName + "]进行登录验证..验证未通过,未知账户");
             request.setAttribute("message", "未知账户");
             return "/login/login";
         }catch (IncorrectCredentialsException ice){
-            System.out.println("对用户[" + user_name + "]进行登录验证..验证未通过,密码不正确");
+            System.out.println("对用户[" + userName + "]进行登录验证..验证未通过,密码不正确");
             request.setAttribute("message", "密码不正确");
             return "/login/login";
         }

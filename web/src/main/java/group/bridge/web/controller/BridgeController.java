@@ -2,12 +2,14 @@ package group.bridge.web.controller;
 
 import group.bridge.web.entity.Bridge;
 import group.bridge.web.service.BridgeService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -28,6 +30,7 @@ public class BridgeController {
 
     //    得到所有的桥梁
     @RequestMapping("/allBridges")
+    @RequiresPermissions("展示桥梁")
     public String getAllBridges(Model model){
         List<Bridge> lists = bridgeService.getAll();
         model.addAttribute("bridge",lists);
@@ -65,6 +68,7 @@ public class BridgeController {
 
     //搜索相应名称的桥梁（中介）
     @RequestMapping("/toSearchBridge")
+    @RequiresPermissions("查找桥梁")
     public String toSearch(Model model){
         model.addAttribute("title","查询桥梁信息页面");
         return "bridge/searchBridge";

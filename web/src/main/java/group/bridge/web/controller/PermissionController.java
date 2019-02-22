@@ -30,7 +30,9 @@ public class PermissionController extends BaseController {
 
 
     @RequestMapping("/toAddPer")
-    @RequiresPermissions("perInfo:toAddPer")
+    //@RequiresPermissions("perInfo:toAddPer")
+    @RequiresPermissions("添加权限信息")
+
     public String toAdd(Model model){
         model.addAttribute("title","添加权限");
         return "sysmanagement/permissionmanagement/addper";
@@ -66,7 +68,8 @@ public class PermissionController extends BaseController {
     }
 
     @RequestMapping("/toSearchPer")
-    @RequiresPermissions("perInfo:toSearchPer")
+    //@RequiresPermissions("perInfo:toSearchPer")
+    @RequiresPermissions("查询权限信息")
     public String toSearch(Model model){
         model.addAttribute("title","查找权限信息");
         return "sysmanagement/permissionmanagement/searchper";
