@@ -18,7 +18,7 @@ public class Bridge {
     private Integer bridge_length;
     @Column(name="bridge_info")
     private String bridge_info;
-    @OneToMany(cascade =CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "bridge" )
+    @OneToMany(cascade =CascadeType.MERGE,fetch = FetchType.LAZY,mappedBy = "bridge" )
     private Set<Sensor> sensor;
  
     public Integer getBridge_id() {

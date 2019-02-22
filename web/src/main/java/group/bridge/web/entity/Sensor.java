@@ -21,7 +21,7 @@ public class Sensor {
     @Column(name = "threshold2")
     private Double threshold2;
     //表示将外键名设置为bridge_id
-    @ManyToOne(cascade =CascadeType.ALL)
+    @ManyToOne(cascade =CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "bridge_id")
     private Bridge bridge;//所属桥梁
 

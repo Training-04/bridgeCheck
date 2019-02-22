@@ -21,10 +21,11 @@ public interface BaseService<T,ID> {
     Page<T> getAll(Pageable pageable);
 
     T get(ID id);
+    T get2(ID id);
 
 //    只需要把specification作为参数传进去即可获得List.
 
-
+    List<T> getAllNotCascade();
 
     List<T> getByPredicate(Specification<T> specification);
 
