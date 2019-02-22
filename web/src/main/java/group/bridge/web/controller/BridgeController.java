@@ -30,7 +30,7 @@ public class BridgeController {
 
     //    得到所有的桥梁
     @RequestMapping("/allBridges")
-    @RequiresPermissions("展示桥梁")
+    //@RequiresPermissions("展示桥梁")
     public String getAllBridges(Model model){
         List<Bridge> lists = bridgeService.getAll();
         model.addAttribute("bridge",lists);
@@ -39,6 +39,7 @@ public class BridgeController {
 
     //    添加桥梁
     @RequestMapping("/toAddBridges")
+    @RequiresPermissions("test")
     public String toAdd(Model model){
         model.addAttribute("title","添加桥梁页面");
         return "bridge/addBridges";

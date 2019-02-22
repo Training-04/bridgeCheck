@@ -19,7 +19,8 @@ public class PermissionController extends BaseController {
     PermissionService permissionService;
 
     @RequestMapping("/allPer")
-    @RequiresPermissions("perInfo:allPer")
+    //@RequiresPermissions("perInfo:allPer")
+    @RequiresPermissions("所有权限信息")
     public String getAllPer(Model model, HttpSession session){
         List<Permission> lists=permissionService.getAll();
         model.addAttribute("per",lists);

@@ -27,7 +27,8 @@ public class UserController extends BaseController{
 
 
     @RequestMapping("/allUser")
-    @RequiresPermissions("userInfo:allUser")
+    //@RequiresPermissions("userInfo:allUser")
+    @RequiresPermissions("所有用户信息")
     public String getAllUser(Model model){
         List<User> lists=userService.getAll();
         model.addAttribute("user",lists);

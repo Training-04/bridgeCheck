@@ -32,7 +32,8 @@ public class RoleController extends BaseController{
     PermissionService permissionService;
 
     @RequestMapping("/allRole")
-    @RequiresPermissions("roleInfo:allRole")
+    //@RequiresPermissions("roleInfo:allRole")
+    @RequiresPermissions("所有权限组信息")
     public String getAllRole(Model model){
         List<Role> lists=roleService.getAll();
         model.addAttribute("role",lists);
