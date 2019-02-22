@@ -28,7 +28,7 @@
                     <label for="sensor_id">传感器名称</label>
                     <select class="form-control" id="sensor_id" name="sensor_id">
                         <option value="">--请选择--</option>
-                        <option th:each="sensor:${session.sensors}"  th:value="${sensor.sensor_id}" th:text="${sensor.sensor_name}"></option>
+                        <option th:each="sensor:${session.sensors}"  th:value="${sensor.sensor_id}" th:text="${sensor.bridge.bridge_name}+'-->'+${sensor.sensor_name}"></option>
                     </select>
                 </div>
                 <div class="form-group">
