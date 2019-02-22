@@ -9,10 +9,10 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "bridges")
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "bridge_id")
-@Table(name = "bridges")
 public class Bridge {
     @Id
     @Column(name="bridge_id")
