@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout" >
+<head>
+    <meta charset="UTF-8">
+    <title>修改阈值</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div layout:fragment="content">
+    <ol class="breadcrumb">
+        <li><a href="#">系统管理</a></li>
+        <li><a href="#">阈值和报警管理</a></li>
+        <li><a href="#">阈值管理</a></li>
+        <li><a href="#">查找阈值</a></li>
+        <li class="active">修改阈值</li>
+    </ol>
+    <div class="container" style="width:500px">
+        <form th:action="@{/sensor/search_updateThreshold}" th:object="${sensor}" method="post">
+            <div class="form-group">
+                <label for="sensor_id" >编号:</label>
+                <input type="text" class="form-control " id="sensor_id" th:field="*{sensor_id}" readonly="readonly">
+            </div>
+            <div class="form-group">
+                <label for="bridge_name">桥梁名称:</label>
+                <input type="text" class="form-control" id="bridge_name" th:field="*{bridge}" readonly="readonly">
+            </div>
+            <div class="form-group">
+                <!--<label for="sensor_name">传感器名称：</label>-->
+                <input type="hidden" class="form-control" id="sensor_name" th:field="*{sensor_name}" readonly="readonly">
+            </div>
+            <div class="form-group">
+                <!--<label for="para_unit_cn">单位名称：</label>-->
+                <input type="hidden" class="form-control" id="para_unit_cn" th:field="*{para_unit_cn}" readonly="readonly">
+            </div>
+            <div class="form-group">
+                <!--<label for="parameter_unit">单位符号：</label>-->
+                <input type="hidden" class="form-control" id="parameter_unit" th:field="*{parameter_unit}" readonly="readonly">
+            </div>
+            <div class="form-group">
+                <label for="threshold1">一级阈值：</label>
+                <input type="text" class="form-control" id="threshold1" th:field="*{threshold1}" required>
+            </div>
+            <div class="form-group">
+                <label for="threshold2">二级阈值：</label>
+                <input type="text" class="form-control" id="threshold2" th:field="*{threshold2}" required>
+            </div>
+
+            <div align="center" style="margin-top: 8px;padding-right: 50px;" >
+                <button type="submit" class="btn btn-default">更改</button>
+                <a href="/sensor/searchThreshold" th:href="@{/sensor/searchThreshold}"><button type="submit" class="btn btn-default">返回主页面</button></a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

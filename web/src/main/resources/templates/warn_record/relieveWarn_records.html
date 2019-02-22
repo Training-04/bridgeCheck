@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<!--第二个属性标识这个页面被包装到shared/layout页面内-->
+<head>
+    <meta charset="UTF-8">
+    <title>展示警报信息页面</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style type="text/css">
+        #footer{
+            height: 80px;
+            width: 100%;
+            line-height: 25px;
+            text-align: center;
+            background-color: #00AEAE;
+            padding:20px;
+            position: fixed;
+            bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <ol class="breadcrumb">
+        <li><a href="#">系统管理</a></li>
+        <li><a href="#">阈值和报警管理</a></li>
+        <li><a href="#">报警管理</a></li>
+        <li class="active">已解除报警页面</li>
+    </ol>
+    <div class="container-fluid">
+        <table class="table table-hover table-bordered">
+            <tr style="background-color: #e1edf7">
+                <th>编号</th>
+                <th>桥梁名称</th>
+                <th>传感器名称</th>
+                <th>报警日期</th>
+                <th>解除报警日期</th>
+                <th>警报状态</th>
+                <th>操作</th>
+            </tr>
+            <tr th:each="wrs : ${warn_records}">
+                <td th:text="${wrs.warn_id}"></td>
+                <td th:text="${wrs.bridge.bridge_name}"></td>
+                <td th:text="${wrs.sensor.sensor_name}"></td>
+                <td th:text="${#dates.format(wrs.warn_date,'yyyy-MM-dd')}"></td>
+                <td th:text="${#dates.format(wrs.relieve_date,'yyyy-MM-dd')}"></td>
+                <td th:text="${wrs.status}"></td>
+                <td><a th:href="@{'/Warn_record/delRelieveWarn_record/'+${wrs.warn_id}}">删除报警信息</a></td>
+            </tr>
+        </table>
+        <nav aria-label="Page navigation" style="text-align: center;">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+    <div id="footer">
+        <p>关于|广告服务|招聘|客服中心|QQ留言|网站管理|会员登录|购物车</p>
+        <p>Copyright ©2006-1008 All Rights Reserved</p>
+    </div>
+</div>
+</body>
+</html>

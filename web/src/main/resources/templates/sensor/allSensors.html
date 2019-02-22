@@ -1,38 +1,89 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorate="shared/layout">
+      layout:decorate="shared/layout" xmlns:c="http://cxf.apache.org/bindings/soap">
 <!--第二个属性标识这个页面被包装到shared/layout页面内-->
 <head>
     <meta charset="UTF-8">
     <title>展示所有信息页面</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style type="text/css">
+        #footer{
+            height: 80px;
+            width: 100%;
+            line-height: 25px;
+            text-align: center;
+            background-color: #00AEAE;
+            padding:20px;
+            position: fixed;
+            bottom: 5px;
+        }
+    </style>
+
 </head>
 <body>
     <div layout:fragment="content">
-    <div class="container-fluid">
-        <table class="table table-hover">
-            <tr>
-                <th>编号</th>
-                <th>桥梁编号</th>
-                <th>名称</th>
-                <th>单位</th>
-                <th>阈值</th>
-                <th>操作</th>
-            </tr>
-            <tr th:each="sensor:${sensors}">
-                <td th:text="${sensor.sensor_id}"></td>
-                <td th:text="${sensor.bridge_id}"></td>
-                <td th:text="${sensor.sensor_name}"></td>
-                <td th:text="${sensor.parameter_unit}"></td>
-                <td th:text="${sensor.threshold}"></td>
-                <td>
-                    <a th:href="@{'/toUpdate/'+${sensor.sensor_id}}">修改阈值</a>
-                </td>
-            </tr>
+        <div class="container-fluid">
+            <ol class="breadcrumb">
+                <li><a href="#">系统管理</a></li>
+                <li><a href="#">阈值和报警管理</a></li>
+                <li><a href="#">阈值管理</a></li>
+                <li class="active">展示所有传感器</li>
+            </ol>
+            <table class="table table-hover table-bordered">
+                <tr style="background-color: #e1edf7">
+                    <th>编号</th>
+                    <th>桥梁名称</th>
+                    <th>传感器名称</th>
+                    <th>单位名称</th>
+                    <th>单位符号</th>
+                    <th>一级阈值</th>
+                    <th>二级阈值</th>
+                    <th>操作</th>
+                </tr>
+                <tr th:each="sensor:${sensors}">
+                    <td th:text="${sensor.sensor_id}"></td>
+                    <td th:text="${sensor.bridge?.bridge_name}"></td>
+                    <td th:text="${sensor.sensor_name}"></td>
+                    <td th:text="${sensor.para_unit_cn}"></td>
+                    <td th:text="${sensor.parameter_unit}"></td>
+                    <td th:text="${sensor.threshold1}"></td>
+                    <td th:text="${sensor.threshold2}"></td>
+                    <td>
+                        <a th:href="@{'/sensor/toUpdateSensor/'+${sensor.sensor_id}}">修改传感器</a>
+                        |
+                        <a th:href="@{'/sensor/delSensor/'+${sensor.sensor_id}}">删除传感器</a>
+                    </td>
+                </tr>
+            </table>
+            <div th:align="right">
+                <a th:href="@{/sensor/toAddSensors}"><button class="btn btn-primary">添加传感器</button></a>
+            </div>
+        </div>
+        <nav aria-label="Page navigation" style="text-align: center;">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;第一页</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">最后一页&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
-        </table>
-    </div>
+        <div id="footer">
+            <p>关于|广告服务|招聘|客服中心|QQ留言|网站管理|会员登录|购物车</p>
+            <p>Copyright ©2006-1008 All Rights Reserved</p>
+        </div>
     </div>
 </body>
 </html>

@@ -5,41 +5,50 @@
 <!--第二个属性标识这个页面被包装到shared/layout页面内-->
 <head>
     <meta charset="UTF-8">
-    <title>传感器信息页面</title>
+    <title>查询传感器信息页面</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
     <div layout:fragment="content">
-        <div class="container-fluid">
-            <form th:action="@{/search}" method="post" class="form-horizontal">
+        <ol class="breadcrumb">
+            <li><a href="#">系统管理</a></li>
+            <li><a href="#">传感器管理</a></li>
+            <li class="active">查找传感器</li>
+        </ol>
+        <div class="container " style="width: 1000px; margin-top: 100px">
+            <form th:action="@{/sensor/searchSensor}" method="post" class="form-horizontal">
                 <div class="form-group" >
-                    <label for="search">查询</label>
-                    <input type="text" class="form-control" name="sensor_name" id="search" placeholder="请输入查询的传感器名称">
+                    <label for="search" class="col-sm-1 control-label">查询</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control " name="sensor_name" id="search" placeholder="请输入查询的传感器名称">
+                    </div>
+                    <button type="submit" class="btn btn-primary col-sm-offset-1 col-sm-1 ">搜索</button>
                 </div>
-                <button type="submit" class="btn btn-primary">搜索</button>
             </form>
-                <table class="table table-hover">
-
+                <table class="table table-hover" style="margin-top: 90px;">
                     <tr>
                         <th>编号</th>
-                        <th>桥梁编号</th>
-                        <th>名称</th>
-                        <th>单位</th>
-                        <th>阈值</th>
+                        <th>桥梁名称</th>
+                        <th>传感器名称</th>
+                        <th>单位名称</th>
+                        <th>单位符号</th>
+                        <th>一级阈值</th>
+                        <th>二级阈值</th>
                         <th>操作</th>
                     </tr>
                     <tr th:each="sensor:${sensor}">
                         <td th:text="${sensor.sensor_id}"></td>
-                        <td th:text="${sensor.bridge_id}"></td>
+                        <td th:text="${sensor.bridge.bridge_name}"></td>
                         <td th:text="${sensor.sensor_name}"></td>
+                        <td th:text="${sensor.para_unit_cn}"></td>
                         <td th:text="${sensor.parameter_unit}"></td>
-                        <td th:text="${sensor.threshold}"></td>
+                        <td th:text="${sensor.threshold1}"></td>
+                        <td th:text="${sensor.threshold2}"></td>
                         <td>
-                            <a th:href="@{'/toUpdate/'+${sensor.sensor_id}}">修改阈值</a>
+                            <a th:href="@{'/sensor/search_toUpdateSensor/'+${sensor.sensor_id}}">修改传感器</a>
                         </td>
                     </tr>
                 </table>
-
         </div>
     </div>
 

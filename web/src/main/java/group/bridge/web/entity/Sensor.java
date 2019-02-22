@@ -1,9 +1,10 @@
 package group.bridge.web.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(name = "sensor")
+@Table(name = "sensors")
 public class Sensor {
 
     @Id
@@ -20,10 +21,14 @@ public class Sensor {
     private Double threshold1;
     @Column(name = "threshold2")
     private Double threshold2;
-    //表示将外键名设置为bridge_id
-    @ManyToOne(cascade =CascadeType.ALL,fetch = FetchType.LAZY)
+//    表示将外键名设置为bridge_id
+    @ManyToOne(cascade =CascadeType.ALL)
     @JoinColumn(name = "bridge_id")
     private Bridge bridge;//所属桥梁
+
+//    一个传感器有多个报警记录
+    @OneToMany(cascade =CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "sensor" )
+    private Set<WarnRecord> warnRecord;
 
     public Integer getSensor_id() {
         return sensor_id;
@@ -32,6 +37,7 @@ public class Sensor {
     public void setSensor_id(Integer sensor_id) {
         this.sensor_id = sensor_id;
     }
+
 
     public String getSensor_name() {
         return sensor_name;
@@ -79,5 +85,13 @@ public class Sensor {
 
     public void setBridge(Bridge bridge) {
         this.bridge = bridge;
+    }
+
+    public Set<WarnRecord> getWarnRecord() {
+        return warnRecord;
+    }
+
+    public void setWarnRecord(Set<WarnRecord> warnRecord) {
+        this.warnRecord = warnRecord;
     }
 }

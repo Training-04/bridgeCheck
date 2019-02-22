@@ -5,6 +5,7 @@
     <title th:text="${title}">Title</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/layoutit.css}"/>
+    <link rel="stylesheet" th:href="@{//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css}">
     <script th:src="@{/js/jquery-1.10.2.js}"></script>
     <script th:src="@{/js/bootstrap.js}"></script>
 
@@ -25,17 +26,20 @@
                 </button>
                 <a class="navbar-brand" href="/">路桥检测系统</a>
             </div>
+
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#" ><span class="label label-success" id="safe" >安全</span>
+                        <a href="#" >
+                            <span class="label label-success" id="safe" >安全</span>
                             <span class="label label-danger" style="display: none;" id="warn" >警报</span>
                         </a>
                     </li>
+
                     <li>
-                        <a href="/logout">log out</a>
+                        <a href="/logout"><span class="glyphicon glyphicon-off" > logout</span></a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->

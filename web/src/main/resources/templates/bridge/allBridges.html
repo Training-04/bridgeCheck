@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout" >
+<!--第二个属性标识这个页面被包装到shared/layout页面内-->
+<head>
+    <meta charset="UTF-8">
+    <title>展示所有信息页面</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style type="text/css">
+        #footer{
+            height: 80px;
+            width: 100%;
+            line-height: 25px;
+            text-align: center;
+            background-color: #00AEAE;
+            padding:20px;
+            position: fixed;
+            bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li><a href="#">系统管理</a></li>
+            <li><a href="#">桥梁管理</a></li>
+            <li class="active">展示桥梁</li>
+        </ol>
+        <table class="table table-hover table-bordered">
+            <tr style="background-color: #e1edf7">
+                <th>编号</th>
+                <th>名称</th>
+                <th>寿命</th>
+                <th>长度</th>
+                <th>信息</th>
+                <th>包含的传感器名称</th>
+                <th>操作</th>
+            </tr>
+            <tr th:each="bridge:${bridge}">
+                <td th:text="${bridge.bridge_id}"></td>
+                <td th:text="${bridge.bridge_name}"></td>
+                <td th:text="${bridge.design_life}"></td>
+                <td th:text="${bridge.bridge_length}"></td>
+                <td th:text="${bridge.bridge_info}"></td>
+                <td style="width:30%;word-wrap: break-word;word-break: keep-all">
+                    <c forEach th:each="s:${bridge.sensor}" th:text="${s.sensor_name} + ' | '"></c>
+                </td>
+                <td>
+                    <a th:href="@{'/bridge/delBridge/'+${bridge.bridge_id}}">删除桥梁</a>
+                    |
+                    <a th:href="@{'/bridge/toUpdate/'+${bridge.bridge_id}}">修改桥梁</a>
+                </td>
+            </tr>
+        </table>
+        <div th:align="right">
+            <a th:href="@{/bridge/toAddBridges}"><button class="btn btn-primary" >添加桥梁</button></a>
+        </div>
+
+    </div>
+
+    <nav aria-label="Page navigation" style="text-align: center;">
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;第一页</span>
+                </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">最后一页&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="footer">
+        <p>关于|广告服务|招聘|客服中心|QQ留言|网站管理|会员登录|购物车</p>
+        <p>Copyright ©2006-1008 All Rights Reserved</p>
+    </div>
+
+</div>
+</body>
+</html>
