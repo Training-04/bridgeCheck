@@ -24,22 +24,22 @@
         </Url>
         <Url text="阈值和报警管理" path="thresholdAndwrMenu">
             <Url text="阈值管理" path="thresholdMenu" >
-                <Url text="修改阈值" path="/sensor/allThreshold" />
+                <Url text="修改阈值" path="/sensor/allThreshold/1" />
                 <Url text="查找阈值" path="/sensor/toSearchThreshold" />
             </Url>
             <Url text="报警管理" path="warn_recoreMenu" >
-                <Url text="全部报警记录" path="/Warn_record/allWarn_records" />
-                <Url text="已解除报警记录" path="/Warn_record/relieveWarn_records" />
+                <Url text="全部报警记录" path="/Warn_record/allWarn_records/1" />
+                <Url text="已解除报警记录" path="/Warn_record/relieveWarn_records/1" />
             </Url>
         </Url>
 
         <Url text="桥梁管理" isLink="false" path="bridgeMenu">
-            <Url text="展示桥梁" isLink="true" path="/bridge/allBridges" />
+            <Url text="展示桥梁" isLink="true" path="/bridge/allBridges/1" />
             <Url text="查找桥梁" isLink="true" path="/bridge/toSearchBridge" />
         </Url>
 
         <Url text="传感器管理" isLink="false" path="sensorMenu">
-            <Url text="展示传感器" isLink="true" path="/sensor/allSensors" />
+            <Url text="展示传感器" isLink="true" path="/sensor/allSensors/1" />
             <Url text="查找传感器" isLink="true" path="/sensor/toSearchSensor" />
         </Url>
     </Url>
