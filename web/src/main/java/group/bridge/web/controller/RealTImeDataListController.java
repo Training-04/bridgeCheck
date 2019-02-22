@@ -41,7 +41,7 @@ public class RealTImeDataListController {
         Integer bridge_id = params.getInteger("bridge");
         String para_unit_cn = params.getString("para_unit_cn");
         List<SensorRecord> lists = sensorRecordService.getByBridgeBySensor(bridge_id, para_unit_cn);
-
+     //   String json= JSON.toJSONString(lists);
         String json = JSON.toJSONString(lists, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteMapNullValue);
         System.out.println(json);
         return json;
