@@ -4,6 +4,7 @@ import group.bridge.web.entity.Role;
 import group.bridge.web.entity.User;
 import group.bridge.web.service.RoleService;
 import group.bridge.web.service.UserService;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,9 @@ public class UserController extends BaseController{
 
     @RequestMapping("/allUser")
     //@RequiresPermissions("userInfo:allUser")
-    @RequiresPermissions("所有用户信息")
+    //@RequiresPermissions("所有用户信息")
+    @RequiresPermissions(value={"所有用户信息","修改用户信息","删除用户信息"},logical= Logical.OR)
+
     public String getAllUser(Model model){
         List<User> lists=userService.getAll();
         model.addAttribute("user",lists);

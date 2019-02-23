@@ -6,6 +6,7 @@ import group.bridge.web.entity.Role;
 import group.bridge.web.entity.User;
 import group.bridge.web.service.PermissionService;
 import group.bridge.web.service.RoleService;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,8 @@ public class RoleController extends BaseController{
 
     @RequestMapping("/allRole")
     //@RequiresPermissions("roleInfo:allRole")
-    @RequiresPermissions("所有权限组信息")
+    //@RequiresPermissions("所有权限组信息")
+    @RequiresPermissions(value={"所有权限组信息","修改权限组信息","删除权限组信息"},logical= Logical.OR)
     public String getAllRole(Model model){
         List<Role> lists=roleService.getAll();
         model.addAttribute("role",lists);
