@@ -17,8 +17,8 @@
                 </Url>
                 <Url text="权限管理" isLink="false" path="permissionMenu" >
                     <Url text="添加权限" isLink="true" path="/permission/toAddPer" />
-                    <Url text="删除权限" isLink="true" path="/permission/allPer" />
-                    <Url text="修改权限" isLink="true" path="/permission/allPer" />
+                    <Url text="删除权限" isLink="true" path="/permission/allPer/1" />
+                    <Url text="修改权限" isLink="true" path="/permission/allPer/1" />
                     <Url text="查看权限" isLink="true" path="/permission/toSearchPer" />
                 </Url>
         </Url>
