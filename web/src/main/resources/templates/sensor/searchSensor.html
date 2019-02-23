@@ -62,6 +62,19 @@
                     </tr>
                 </table>
         </div>
+        <nav aria-label="Page navigation" style="text-align: center;">
+            <ul class="pagination" style="text-align: center;">
+                <li th:class="${pageIndex == 1}? 'disabled':''"><a th:href="@{'/sensor/allSensors/'+${pageIndex-1}}">上一页</a></li>
+                <li th:if="${pageIndex-3 >= 1}"><a th:href="@{'/sensor/allSensors/'+${pageIndex-3}}" th:text="${pageIndex-3}">1</a></li>
+                <li th:if="${pageIndex-2 >= 1}"><a th:href="@{'/sensor/allSensors/'+${pageIndex-2}}" th:text="${pageIndex-2}">1</a></li>
+                <li th:if="${pageIndex-1 >= 1}"><a th:href="@{'/sensor/allSensors/'+${pageIndex-1}}" th:text="${pageIndex-1}">1</a></li>
+                <li class="active"><a href="#" th:text="${pageIndex}">1</a></li>
+                <li th:if="${pageIndex+1 <= pageTotal}"><a th:href="@{'/sensor/allSensors/'+${pageIndex+1}}" th:text="${pageIndex+1}">1</a></li>
+                <li th:if="${pageIndex+2 <= pageTotal}"><a th:href="@{'/sensor/allSensors/'+${pageIndex+2}}" th:text="${pageIndex+2}">1</a></li>
+                <li th:if="${pageIndex+3 <= pageTotal}"><a th:href="@{'/sensor/allSensors/'+${pageIndex+3}}" th:text="${pageIndex+3}">1</a></li>
+                <li th:class="${pageIndex == pageTotal}? 'disabled':''"><a th:href="@{'/sensor/allSensors/'+${pageIndex+1}}">下一页</a></li>
+            </ul>
+        </nav>
         <div id="footer">
             <p>关于|广告服务|招聘|客服中心|QQ留言|网站管理|加入我们</p>
             <p>Copyright ©2006-2019 All Rights Reserved</p>

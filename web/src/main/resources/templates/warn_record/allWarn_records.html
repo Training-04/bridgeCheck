@@ -43,7 +43,7 @@
                     <td th:text="${wrs.warn_id}"></td>
                     <td th:text="${wrs.sensor.bridge.bridge_name}"></td>
                     <td th:text="${wrs.sensor.sensor_name}"></td>
-                    <td th:text="${#dates.format(wrs.warn_date,'yyyy-MM-dd')}"></td>
+                    <td th:text="${#dates.format(wrs.date,'yyyy-MM-dd')}"></td>
                     <td th:text="${#dates.format(wrs.relieve_date,'yyyy-MM-dd')}"></td>
                     <td th:text="${wrs.status}"></td>
                     <td>
@@ -54,27 +54,21 @@
                 </tr>
             </table>
             <div th:align="right">
-                <a th:href="@{'/Warn_record/toAddWarn_record'}"><btn type="button" class="btn btn-info">添加报警记录</btn></a>
+                <a th:href="@{'/Warn_record/toAddWarn_record'}"><btn type="button" class="btn btn-primary">添加报警记录</btn></a>
             </div>
 
         </div>
         <nav aria-label="Page navigation" style="text-align: center;">
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
+            <ul class="pagination" style="text-align: center;">
+                <li th:class="${pageIndex == 1}? 'disabled':''"><a th:href="@{'/Warn_record/allWarn_records/'+${pageIndex-1}}">上一页</a></li>
+                <li th:if="${pageIndex-3 >= 1}"><a th:href="@{'/Warn_record/allWarn_records/'+${pageIndex-3}}" th:text="${pageIndex-3}">1</a></li>
+                <li th:if="${pageIndex-2 >= 1}"><a th:href="@{'/Warn_record/allWarn_records/'+${pageIndex-2}}" th:text="${pageIndex-2}">1</a></li>
+                <li th:if="${pageIndex-1 >= 1}"><a th:href="@{'/Warn_record/allWarn_records/'+${pageIndex-1}}" th:text="${pageIndex-1}">1</a></li>
+                <li class="active"><a href="#" th:text="${pageIndex}">1</a></li>
+                <li th:if="${pageIndex+1 <= pageTotal}"><a th:href="@{'/Warn_record/allWarn_records/'+${pageIndex+1}}" th:text="${pageIndex+1}">1</a></li>
+                <li th:if="${pageIndex+2 <= pageTotal}"><a th:href="@{'/Warn_record/allWarn_records/'+${pageIndex+2}}" th:text="${pageIndex+2}">1</a></li>
+                <li th:if="${pageIndex+3 <= pageTotal}"><a th:href="@{'/Warn_record/allWarn_records/'+${pageIndex+3}}" th:text="${pageIndex+3}">1</a></li>
+                <li th:class="${pageIndex == pageTotal}? 'disabled':''"><a th:href="@{'/bridge/allBridges/'+${pageIndex+1}}">下一页</a></li>
             </ul>
         </nav>
         <div id="footer">

@@ -5,6 +5,9 @@ import group.bridge.web.entity.Sensor;
 import group.bridge.web.service.BridgeService;
 import group.bridge.web.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,20 +28,34 @@ public class SensorController extends BaseController{
     private BridgeService bridgeService;
 
     //展示所有传感器
-    @RequestMapping("/allSensors")
-    public String getAllSensor(Model model){
-        List<Sensor> lists = sensorService.getAll();
-        model.addAttribute("title","展示传感器信息页面");
-        model.addAttribute("sensors",lists);
+    @RequestMapping("/allSensors/{index}")
+    public String getAllSensor(@PathVariable("index") Integer index , Model model){
+        Pageable pageable= PageRequest.of(index-1, 5);
+        Page<Sensor> sPage = sensorService.getAll(pageable);
+//        int num=sPage.getSize();
+        int count=sPage.getTotalPages();
+        model.addAttribute("title","展示所有传感器页面");
+        model.addAttribute("sensors",sPage.getContent());
+        // 当前页
+        model.addAttribute("pageIndex", index);
+        // 总页数
+        model.addAttribute("pageTotal", count);
         return "sensor/allSensors";
     }
 
-    //展示所有传感器
-    @RequestMapping("/allThreshold")
-    public String getAllThreshold(Model model){
-        List<Sensor> lists = sensorService.getAll();
+    //展示所有传感器阈值
+    @RequestMapping("/allThreshold/{index}")
+    public String getAllThreshold(Model model,@PathVariable("index") Integer index){
+        Pageable pageable= PageRequest.of(index-1, 5);
+        Page<Sensor> sPage = sensorService.getAll(pageable);
+//        int num=sPage.getSize();
+        int count=sPage.getTotalPages();
         model.addAttribute("title","展示阈值信息页面");
-        model.addAttribute("sensors",lists);
+        model.addAttribute("sensors",sPage.getContent());
+        // 当前页
+        model.addAttribute("pageIndex", index);
+        // 总页数
+        model.addAttribute("pageTotal", count);
         return "sensor/allThreshold";
     }
 
@@ -55,7 +72,7 @@ public class SensorController extends BaseController{
     @RequestMapping("/updateThreshold")
     public String update(Sensor sensor){
         sensorService.update(sensor);
-        return "redirect:/sensor/allSensors";
+        return "redirect:/sensor/allSensors/1";
     }
 
     //在所有传感器页面更改传感器
@@ -71,7 +88,7 @@ public class SensorController extends BaseController{
     @RequestMapping("/updateSensor")
     public String updateSensor(Sensor sensor){
         sensorService.update(sensor);
-        return "redirect:/sensor/allSensors";
+        return "redirect:/sensor/allSensors/1";
     }
 
     //搜索相应名称的阈值（中介）
@@ -174,13 +191,15 @@ public class SensorController extends BaseController{
         Bridge bridge = bridgeService.get(bridge_id);
         sensor.setBridge(bridge);
         sensorService.add(sensor);
-        return "redirect:/sensor/allSensors";
+        return "redirect:/sensor/allSensors/1";
     }
     //删除传感器
 //    通过 @PathVariable 可以将 URL 中占位符参数绑定到控制器处理方法的入参中
     @RequestMapping("/delSensor/{id}")
     public String delSensor(@PathVariable("id") Integer id) {
         sensorService.deleteById(id);
-        return "redirect:/sensor/allSensors";
+        return "redirect:/sensor/allSensors/1";
     }
+
+
 }

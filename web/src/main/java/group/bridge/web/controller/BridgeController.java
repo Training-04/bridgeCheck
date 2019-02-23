@@ -4,6 +4,9 @@ import group.bridge.web.entity.Bridge;
 import group.bridge.web.service.BridgeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -29,42 +32,20 @@ public class BridgeController {
     }
 
     //    得到所有的桥梁
-    @RequestMapping("/allBridges")
+    @RequestMapping("/allBridges/{index}")
     //@RequiresPermissions("展示桥梁")
-    public String getAllBridges(Model model){
-        List<Bridge> lists = bridgeService.getAll();
-        model.addAttribute("bridge",lists);
+    public String getAllBridges(Model model,@PathVariable("index") Integer index){
+        Pageable pageable = PageRequest.of(index-1,10);
+        Page<Bridge> bPage = bridgeService.getAll(pageable);
+        int count = bPage.getTotalPages();
+        model.addAttribute("title","展示所有桥梁页面");
+        //得到所有桥梁内容，在页面上遍历对象
+        model.addAttribute("bridge",bPage.getContent());
+        //当前页保存为pageIndex
+        model.addAttribute("pageIndex",index);
+        //得到数据总的数目
+        model.addAttribute("pageTotal",count);
         return "bridge/allBridges";
-    }
-
-    //    添加桥梁
-    @RequestMapping("/toAddBridges")
-    @RequiresPermissions("test")
-    public String toAdd(Model model){
-        model.addAttribute("title","添加桥梁页面");
-        return "bridge/addBridges";
-    }
-    //  添加桥梁
-    @RequestMapping("/addBridges")
-    public String addBridge(Bridge bridge){
-        bridgeService.add(bridge);
-        return "redirect:/bridge/allBridges";
-    }
-
-    //在所有桥梁页面更改桥梁信息
-    @RequestMapping("/toUpdate/{id}")
-    public String toUpdate(Model model, @PathVariable("id") Integer id){
-        Bridge bridge = bridgeService.get(id);
-        model.addAttribute("title","修改桥梁信息");
-        model.addAttribute("bridge",bridge);
-        return "bridge/updateBridge";
-    }
-
-    //在所有桥梁页面更改桥梁信息
-    @RequestMapping("/updateBridge")
-    public String update(Bridge bridge){
-        bridgeService.update(bridge);
-        return "redirect:/bridge/allBridges";
     }
 
     //搜索相应名称的桥梁（中介）
@@ -84,10 +65,42 @@ public class BridgeController {
         return "bridge/searchBridge";
     }
 
+    //    添加桥梁
+    @RequestMapping("/toAddBridges")
+    @RequiresPermissions("test")
+    public String toAdd(Model model){
+        model.addAttribute("title","添加桥梁页面");
+        return "bridge/addBridges";
+    }
+    //  添加桥梁
+    @RequestMapping("/addBridges")
+    public String addBridge(Bridge bridge){
+        bridgeService.add(bridge);
+        return "redirect:/bridge/allBridges/1";
+    }
+
+    //在所有桥梁页面更改桥梁信息
+    @RequestMapping("/toUpdate/{id}")
+    public String toUpdate(Model model, @PathVariable("id") Integer id){
+        Bridge bridge = bridgeService.get(id);
+        model.addAttribute("title","修改桥梁信息");
+        model.addAttribute("bridge",bridge);
+        return "bridge/updateBridge";
+    }
+
+    //在所有桥梁页面更改桥梁信息
+    @RequestMapping("/updateBridge")
+    public String update(Bridge bridge){
+        bridgeService.update(bridge);
+        return "redirect:/bridge/allBridges/1";
+    }
+
+
+
     //删除桥梁
     @RequestMapping("/delBridge/{id}")
     public String delBridge(@PathVariable("id") Integer id) {
         bridgeService.deleteById(id);
-        return "redirect:/bridge/allBridges";
+        return "redirect:/bridge/allBridges/1";
     }
 }
