@@ -1,17 +1,24 @@
 package group.bridge.web.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import group.bridge.web.entity.SensorRecord;
+import group.bridge.web.service.SensorRecordService;
 import group.bridge.web.util.SessionUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.management.openmbean.CompositeData;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class URLLoginController {
@@ -24,6 +31,7 @@ public class URLLoginController {
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String dologin(HttpServletRequest request, String userName, String password){
+
         System.out.println("进入登陆处理");
         HttpSession session=request.getSession();
         System.out.println("对用户["+userName+"]密码["+password+"]验证");
