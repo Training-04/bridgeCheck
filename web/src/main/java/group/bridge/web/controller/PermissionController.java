@@ -2,6 +2,7 @@ package group.bridge.web.controller;
 
 import group.bridge.web.entity.Permission;
 import group.bridge.web.service.PermissionService;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,8 @@ public class PermissionController extends BaseController {
 
     @RequestMapping("/allPer")
     //@RequiresPermissions("perInfo:allPer")
-    @RequiresPermissions("所有权限信息")
+    //@RequiresPermissions("所有权限信息")
+    @RequiresPermissions(value={"所有权限信息","修改权限信息","删除权限信息"},logical= Logical.OR)
     public String getAllPer(Model model, HttpSession session){
         List<Permission> lists=permissionService.getAll();
         model.addAttribute("per",lists);
