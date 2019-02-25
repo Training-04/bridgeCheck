@@ -1,10 +1,11 @@
 package group.bridge.web.serviceImpl;
 
 import group.bridge.web.dao.SensorRepository;
-import group.bridge.web.entity.Person;
 import group.bridge.web.entity.Sensor;
 import group.bridge.web.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 

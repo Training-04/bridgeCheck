@@ -1,5 +1,6 @@
 package group.bridge.web.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -34,6 +35,7 @@ public class Sensor {
 
 //    一个传感器有多个报警记录
     @OneToMany(cascade =CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "sensor" )
+    @JSONField(serialize = false)
     private Set<WarnRecord> warnRecord;
 
     public Integer getSensor_id() {

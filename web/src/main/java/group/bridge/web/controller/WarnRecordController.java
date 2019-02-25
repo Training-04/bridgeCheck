@@ -8,6 +8,9 @@ import group.bridge.web.service.SensorService;
 import group.bridge.web.service.WarnRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -24,7 +27,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("Warn_record")
-public class Warn_recordController extends BaseController{
+public class WarnRecordController extends BaseController{
     @Autowired
     private WarnRecordService warn_recordService;
     @Autowired
@@ -33,20 +36,34 @@ public class Warn_recordController extends BaseController{
     private SensorService sensorService;
 
 //    显示未解除报警的传感器信息
-    @RequestMapping("/allWarn_records")
-    public String getAllWarn_record(Model model){
-        List<WarnRecord> lists = warn_recordService.getWarn_record();
+    @RequestMapping("/allWarn_records/{index}")
+    public String getAllWarn_record(Model model,@PathVariable("index") Integer index ){
+        Pageable pageable = PageRequest.of(index-1,10);
+        Page<WarnRecord> bPage = warn_recordService .getAll(pageable);
+        int count = bPage.getTotalPages();
         model.addAttribute("title","展示未解除报警信息页面");
-        model.addAttribute("warn_records",lists);
+        //得到所有报警内容，在页面上遍历对象
+        model.addAttribute("warn_records",bPage.getContent());
+        //当前页保存为pageIndex
+        model.addAttribute("pageIndex",index);
+        //得到数据总的数目
+        model.addAttribute("pageTotal",count);
         return "warn_record/allWarn_records";
     }
 
 //    显示已解除报警的信息
-    @RequestMapping("/relieveWarn_records")
-    public String getRelieveWarn_records(Model model){
-        List<WarnRecord> lists = warn_recordService.getRelieveWarn_record();
+    @RequestMapping("/relieveWarn_records/{index}")
+    public String getRelieveWarn_records(Model model,@PathVariable("index") Integer index){
+        Pageable pageable = PageRequest.of(index-1,10);
+        Page<WarnRecord> bPage = warn_recordService.getAll(pageable);
+        int count = bPage.getTotalPages();
         model.addAttribute("title","展示已解除报警信息页面");
-        model.addAttribute("warn_records",lists);
+        //得到所有解除报警内容，在页面上遍历对象
+        model.addAttribute("warn_records",bPage.getContent());
+        //当前页保存为pageIndex
+        model.addAttribute("pageIndex",index);
+        //得到数据总的数目
+        model.addAttribute("pageTotal",count);
         return "warn_record/relieveWarn_records";
     }
 
@@ -67,7 +84,7 @@ public class Warn_recordController extends BaseController{
         Sensor sensor = sensorService.get(sensor_id);
         wr.setSensor(sensor);
         warn_recordService.add(wr);
-        return "redirect:/Warn_record/allWarn_records";
+        return "redirect:/Warn_record/allWarn_records/1";
     }
     @RequestMapping("toUpdateW/{id}")
     public String toUpdate(Model model, @PathVariable("id") Integer id){
@@ -80,14 +97,14 @@ public class Warn_recordController extends BaseController{
     @RequestMapping("/updateWarn_record")
     public String update(WarnRecord wr){
         warn_recordService.update(wr);
-        return "redirect:/Warn_record/allWarn_records";
+        return "redirect:/Warn_record/allWarn_records/1";
     }
 
     //删除未解决报警记录
     @RequestMapping("/delWarn_record/{id}")
     public String delWarn_record(@PathVariable("id") Integer id) {
         warn_recordService.deleteById(id);
-        return "redirect:/Warn_record/allWarn_records";
+        return "redirect:/Warn_record/allWarn_records/1";
     }
 
     //删除已解决报警记录

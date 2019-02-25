@@ -6,7 +6,7 @@ import java.util.Date;
 
 
 @Entity(name = "warn_records")
-public class WarnRecord{
+public class WarnRecord {
 
     @Id
     @Column(name = "warn_id")
@@ -17,7 +17,7 @@ public class WarnRecord{
     private String status;
 
     @Column(name = "warn_date")
-    private Date warn_date;
+    private Date date;
 
     @Column(name = "relieve_date")
     private Date relieve_date;
@@ -26,7 +26,7 @@ public class WarnRecord{
     private String warn_para;
 
 
-    @ManyToOne(cascade =CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sensor_id")
     private Sensor sensor;
 
@@ -46,12 +46,12 @@ public class WarnRecord{
         this.status = status;
     }
 
-    public Date getWarn_date() {
-        return warn_date;
+    public Date getDate() {
+        return date;
     }
 
-    public void setWarn_date(Date warn_date) {
-        this.warn_date = warn_date;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Date getRelieve_date() {

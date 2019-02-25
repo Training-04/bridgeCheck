@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrap.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/layoutit.css" />
+    <script src="/js/jquery-1.10.2.js"></script>
+    <script src="/js/bootstrap.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="container">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <br>
+            <div align="center"><h1>历史警告列表</h1></div>
+            <br>
+            <br>
+<!--            <div align="center" >
+                <input type="datetime-local"  value="2019-01-17T10:37:59" min="2018-12-25" max="2019-03-15" >
+                --
+                <input type="datetime-local"  value="2019-01-18T10:37:59" min="2018-12-25" max="2019-03-15">
+            </div>
+-->
+            <hr width="850" size="1" color="#000000">
+            <br><br>
+            <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>预警</th>
+                    <th>预警桥梁</th>
+                    <th>产生时间</th>
+                    <th>警告日志</th>
+                    <th>警告参数</th>
+                    <th>传感器编号</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="WarnRecord:${wr}" th:class="'table-row'+${WarnRecord.warn_id%2}">
+
+                    <td th:text="${WarnRecord.warn_id}" >aaa</td>
+
+                    <!-- 通过对象的方法取属性 -->
+                    <td th:text="${WarnRecord.sensor.bridge.getBridge_info()}">aaa</td>
+
+                    <td th:text="${WarnRecord.date}" >aaa</td>
+                    <td th:text="${WarnRecord.status}" >aaa</td>
+                    <td th:text="${WarnRecord.warn_para}" >aaa</td>
+                    <!-- 直接取对象的属性 -->
+                    <td th:text="${WarnRecord.sensor.sensor_name}" >aaa</td>
+                </tr>
+
+            </table>
+
+            </tbody>
+            <nav aria-label="Page navigation" style="text-align: center;">
+                <ul class="pagination" style="text-align: center;">
+                    <li th:class="${pageIndex==1}?'disabled':''"><a th:href="@{'/history_warn_record/'+${pageIndex-1}}">上一页</a></li>
+                    <li th:if="${pageIndex-3 >=1}" ><a th:href="@{'/history_warn_record/'+${pageIndex-3}}" th:text="${pageIndex -3}" >1</a></li>
+                    <li th:if="${pageIndex-2 >=1}" ><a th:href="@{'/history_warn_record/'+${pageIndex-2}}" th:text="${pageIndex -2}" >1</a></li>
+                    <li th:if="${pageIndex-1 >=1}" ><a th:href="@{'/history_warn_record/'+${pageIndex-1}}" th:text="${pageIndex -1}" >1</a></li>
+                    <li class="active"><a href="#" th:text="${pageIndex}" >1</a></li>
+                    <li th:if="${pageIndex+1 <=pageTotal}" ><a th:href="@{'/history_warn_record/'+${pageIndex+1}}" th:text="${pageIndex +1}" >1</a></li>
+                    <li th:if="${pageIndex+2 <=pageTotal}" ><a th:href="@{'/history_warn_record/'+${pageIndex+2}}" th:text="${pageIndex +2}" >1</a></li>
+                    <li th:if="${pageIndex+3 <=pageTotal}" ><a th:href="@{'/history_warn_record/'+${pageIndex+3}}" th:text="${pageIndex +3}" >1</a></li>
+
+                    <li th:class="${pageIndex==pageTotal}?'disabled' : ''" ><a th:href="@{'/history_warn_record/'+${pageIndex+1}}">下一页</a></li>
+                </ul><br>
+            </nav>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+
+
+
+</div>
+</body>
+
+</html>

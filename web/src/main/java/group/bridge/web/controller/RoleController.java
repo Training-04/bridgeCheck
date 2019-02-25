@@ -6,6 +6,7 @@ import group.bridge.web.entity.Role;
 import group.bridge.web.entity.User;
 import group.bridge.web.service.PermissionService;
 import group.bridge.web.service.RoleService;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,9 @@ public class RoleController extends BaseController{
     PermissionService permissionService;
 
     @RequestMapping("/allRole")
-    @RequiresPermissions("roleInfo:allRole")
+    //@RequiresPermissions("roleInfo:allRole")
+    //@RequiresPermissions("所有权限组信息")
+    @RequiresPermissions(value={"所有权限组信息","修改权限组信息","删除权限组信息"},logical= Logical.OR)
     public String getAllRole(Model model){
         List<Role> lists=roleService.getAll();
         model.addAttribute("role",lists);
@@ -41,7 +44,7 @@ public class RoleController extends BaseController{
     }
 
     @RequestMapping("/toAddRole")
-    @RequiresPermissions("roleInfo:toAddRole")
+    @RequiresPermissions("添加权限组信息")
     public String toAdd(Model model, HttpSession session){
         List<Permission> per=permissionService.getAll();
         session.setAttribute("session",per);
@@ -100,7 +103,8 @@ public class RoleController extends BaseController{
     }
 
     @RequestMapping("/toSearchRole")
-    @RequiresPermissions("roleInfo:toSearchRole")
+    //@RequiresPermissions("roleInfo:toSearchRole")
+    @RequiresPermissions("查看权限组信息")
     public String toSearch(Model model){
         model.addAttribute("title","查找权限组信息");
         return "sysmanagement/rolemanagement/searchrole";

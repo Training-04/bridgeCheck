@@ -43,36 +43,30 @@
                 <td th:text="${wrs.warn_id}"></td>
                 <td th:text="${wrs.sensor.bridge.bridge_name}"></td>
                 <td th:text="${wrs.sensor.sensor_name}"></td>
-                <td th:text="${#dates.format(wrs.warn_date,'yyyy-MM-dd')}"></td>
+                <td th:text="${#dates.format(wrs.date,'yyyy-MM-dd')}"></td>
                 <td th:text="${#dates.format(wrs.relieve_date,'yyyy-MM-dd')}"></td>
                 <td th:text="${wrs.status}"></td>
                 <td><a th:href="@{'/Warn_record/delRelieveWarn_record/'+${wrs.warn_id}}">删除报警信息</a></td>
             </tr>
         </table>
         <nav aria-label="Page navigation" style="text-align: center;">
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
+            <ul class="pagination" style="text-align: center;">
+                <li th:class="${pageIndex == 1}? 'disabled':''"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex-1}}">上一页</a></li>
+                <li th:if="${pageIndex-3 >= 1}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex-3}}" th:text="${pageIndex-3}">1</a></li>
+                <li th:if="${pageIndex-2 >= 1}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex-2}}" th:text="${pageIndex-2}">1</a></li>
+                <li th:if="${pageIndex-1 >= 1}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex-1}}" th:text="${pageIndex-1}">1</a></li>
+                <li class="active"><a href="#" th:text="${pageIndex}">1</a></li>
+                <li th:if="${pageIndex+1 <= pageTotal}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex+1}}" th:text="${pageIndex+1}">1</a></li>
+                <li th:if="${pageIndex+2 <= pageTotal}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex+2}}" th:text="${pageIndex+2}">1</a></li>
+                <li th:if="${pageIndex+3 <= pageTotal}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex+3}}" th:text="${pageIndex+3}">1</a></li>
+                <li th:class="${pageIndex == pageTotal}? 'disabled':''"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex+1}}">下一页</a></li>
             </ul>
         </nav>
 
     </div>
     <div id="footer">
-        <p>关于|广告服务|招聘|客服中心|QQ留言|网站管理|会员登录|购物车</p>
-        <p>Copyright ©2006-1008 All Rights Reserved</p>
+        <p>关于|广告服务|招聘|客服中心|QQ留言|网站管理|加入我们</p>
+        <p>Copyright ©2006-2019 All Rights Reserved</p>
     </div>
 </div>
 </body>

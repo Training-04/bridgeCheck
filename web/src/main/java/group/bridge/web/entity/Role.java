@@ -16,8 +16,8 @@ public class Role {
     private int role_id;
     @Column(name = "role_name")
     private String role_name;
-    @Column(name = "roleE")
-    private String roleE;
+//    @Column(name = "roleE")
+//    private String roleE;
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
@@ -41,13 +41,13 @@ public class Role {
     public String getRole_name(){return role_name;}
     public void setRole_name(String role_name){this.role_name=role_name;}
 
-    public String getRoleE() {
-        return roleE;
-    }
-
-    public void setRoleE(String roleE) {
-        this.roleE = roleE;
-    }
+//    public String getRoleE() {
+//        return roleE;
+//    }
+//
+//    public void setRoleE(String roleE) {
+//        this.roleE = roleE;
+//    }
 
     public Set<User> getUsers() {
         return users;

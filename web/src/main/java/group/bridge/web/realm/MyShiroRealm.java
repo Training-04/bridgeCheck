@@ -133,11 +133,15 @@ public class MyShiroRealm extends AuthorizingRealm {
         //Set<Role> roles=user.getRoles();
         //Role role= (Role) roles;
         for (Role role:user.getRoles()){
-            simpleAuthorInfo.addRole(role.getRoleE());
-            System.out.println("用户"+user.getUser_name()+"具有的角色:"+role.getRoleE());
+            //simpleAuthorInfo.addRole(role.getRoleE());
+            simpleAuthorInfo.addRole(role.getRole_name());
+            //System.out.println("用户"+user.getUser_name()+"具有的角色:"+role.getRoleE());
+            System.out.println("用户"+user.getUser_name()+"具有的角色:"+role.getRole_name());
             for (Permission permission:role.getPermissions()){
-                simpleAuthorInfo.addStringPermission(permission.getPermissionE());
-                System.out.println("用户"+user.getUser_name()+"具有的权限："+permission.getPermissionE());
+                //simpleAuthorInfo.addStringPermission(permission.getPermissionE());
+                simpleAuthorInfo.addStringPermission(permission.getPermission_name());
+                //System.out.println("用户"+user.getUser_name()+"具有的权限："+permission.getPermissionE());
+                System.out.println("用户"+user.getUser_name()+"具有的权限："+permission.getPermission_name());
             }
         }
         return simpleAuthorInfo;

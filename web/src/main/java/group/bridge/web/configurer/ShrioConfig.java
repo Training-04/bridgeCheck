@@ -39,7 +39,7 @@ import javax.servlet.ServletResponse;
 // 就好像SpringMvc 通过DispachServlet 来主控制一样。
 //既然是使用 Filter 一般也就能猜到，是通过URL规则来进行过滤和权限校验，
 // 所以我们需要定义一系列关于URL的规则和访问权限。
-//@Configuration
+@Configuration
 public class ShrioConfig {
     //ShiroFilterFactoryBean 处理拦截资源文件问题。
     //注意：单独一个ShiroFilterFactoryBean配置是或报错的，因为在初始化ShiroFilterFactoryBean的时候需要注入：SecurityManager
@@ -59,6 +59,7 @@ public class ShrioConfig {
 //        Map<String, Filter> map = new LinkedHashMap<>();
 //        map.put("authc", new MyFormAuthenticationFilter());
 //        shiroFilterFactoryBean.setFilters(map);
+
 
 
         //设置进入登陆界面
@@ -83,18 +84,18 @@ public class ShrioConfig {
         //filterChainDefinitionMap.put("/templates/login/login","anon");
         // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
-        // 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边-->:这是一个坑呢，一不小心代码就不好使了;
+        // 过滤链定义，从上向下顺序执行，一般将 /**放在最下边-->:这是一个坑呢，一不小心代码就不好使了;
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问;user:remember me的可以访问-->
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         //访问的是后端url地址为 /login的接口
         //对权限URL设置为需要认证
+        // /**是指所有目录
+        // /*是指所有文件夹，不包括子文件夹
+        //filterChainDefinitionMap.put("/**", "authc");
         filterChainDefinitionMap.put("/**", "authc");
         //filterChainDefinitionMap.put("/templates/sysmanagement/permissionmanagement/**", "authc");
-        //filterChainDefinitionMap.put("/templates/sysmanagement/rolemanagement/**", "authc");
-        //filterChainDefinitionMap.put("/templates/sysmanagement/usermanagement/**", "authc");
-        filterChainDefinitionMap.put("/**", "authc");
 
-        //filterChainDefinitionMap.put("/**/*.html", "anon");
+        System.out.println("URL拦截执行顺序"+filterChainDefinitionMap);
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         System.out.println("Shiro拦截器工厂类注入成功");
