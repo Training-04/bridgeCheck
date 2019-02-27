@@ -20,4 +20,6 @@ public interface WarnRecordService extends BaseService<WarnRecord, Integer> {
 
     Page<WarnRecord> getPage(Pageable pageable);
 
+    void insertWarn_record();
+
 }

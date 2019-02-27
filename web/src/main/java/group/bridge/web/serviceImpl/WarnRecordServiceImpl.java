@@ -30,5 +30,10 @@ public class WarnRecordServiceImpl extends BaseServiceImpl<WarnRecord, Integer> 
     public List<WarnRecord> getRelieveWarn_record(){
         return warnRecordRepository.findAllByStatus("已解除");
     }
+
+    @Override
+    public void insertWarn_record(){
+
+    }
 }
 
