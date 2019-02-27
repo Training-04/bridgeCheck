@@ -26,4 +26,10 @@ public interface SensorRecordService extends BaseService<SensorRecord, Integer>{
 
     //获取指定桥梁15秒内传感器数据
     List<SensorRecord> get15SecSensor_records(Integer bridge_id, String para_cn, Date curTime);
+
+    //获取超过1级阈值的传感器记录
+    List<SensorRecord> getWarn1Sensor_records(Date startTime);
+
+    //获取超过2级阈值的传感器记录
+    List<SensorRecord> getWarn2Sensor_records(Date startTime);
 }

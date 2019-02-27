@@ -49,5 +49,15 @@ public interface SensorRecordRepository extends BaseRepository<SensorRecord, Int
             value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensors.bridge_id = :bridge_id AND sensors.para_unit_cn = :para_unit_cn AND sensor_records.date <= :curTime AND sensor_records.date > :startTime")
     List<SensorRecord> findByBridgeID_BEFORE(@Param("bridge_id") Integer bridge_id, @Param("para_unit_cn") String para_unit_cn, @Param("curTime") Date curTime, @Param("startTime") Date startTime);
 
+    //查询1级报警传感器记录
+    @Query(nativeQuery = true,
+            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensor_records.data > :curTime AND sensor_records.value >= sensors.threshold1 AND sensor_records.value < sensors.threshold2")
+    List<SensorRecord> findByThreshold1andTime(@Param("curTime") Date curTime);
+
+    //查询2级报警传感器记录
+    @Query(nativeQuery = true,
+            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensor_records.data > :curTime AND sensor_records.value >= sensors.threshold2")
+    List<SensorRecord> findByThreshold2andTime(@Param("curTime") Date curTime);
+
 }
 
