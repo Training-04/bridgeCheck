@@ -47,11 +47,13 @@
             var pre_bridge_label = bridge_label;
 
             //页面数据存储
-            var count = 1;
-            var date_tag = new Date(2018, 0, 1, 8, 0, 14);//当前时间(因数据库数据关系，当前时间设置为2018/01/01 08:00:14)
-            var date_tag0 = new Date(2018, 0, 1, 8, 0, 0);
+            // var count = 1;
+            // var date_tag = new Date(2018, 0, 1, 8, 0, 14);//当前时间(因数据库数据关系，当前时间设置为2018/01/01 08:00:14)
+            // var date_tag0 = new Date(2018, 0, 1, 8, 0, 0);
             var curDate = new Date();
-            curDate = date_tag;
+            // curDate = date_tag;
+            var record_dis = 10000;//每多少秒一条数据
+
             var date = [];                   //时间
             var temp_data = [];              //温度
             var displacement_data = [];      //位移
@@ -61,7 +63,7 @@
             var relasedimen_data = [];       //相对沉降量
 
 
-            //获取传感器15s数据函数
+            //获取传感器15条数据函数
             function get15SecSensorRecord(){
                 $.ajax({
                     type: 'post',
@@ -432,23 +434,26 @@
                 if(bridge_label != pre_bridge_label){
 
                     //重置数据
-                    count = -15;
-                    curDate = date_tag0;
+                    // count = -15;
+                    curDate = new Date();
+
+
 
                     getLiveSensorRecord();
 
                     pre_bridge_label = bridge_label;
                 }else{
-                    count++;
-                    var time = curDate.getTime();
-                    var new_curDate = new Date(time + 1000);
-                    curDate = new_curDate;
-                    if(count <= 6){
+                    // count++;
+                    // var time = curDate.getTime();
+                    // var new_curDate = new Date(time + record_dis);
+                    // curDate = new_curDate;
+                    curDate = new Date();
+                    // if(count <= 6){
                         getLiveSensorRecord();
-                    }
+                    //}
                 }
                 myChart.setOption(option);
-            }, 1000);
+            }, record_dis);
 
             if (option && typeof option === "object") {
                 myChart.setOption(option, true);

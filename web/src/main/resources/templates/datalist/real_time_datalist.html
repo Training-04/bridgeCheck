@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultrap.net.nz/web/thymeleaf/layout"
       layout:decorate="shared/layout">
 <head>
@@ -23,25 +24,11 @@
                 <br>
                     <select id="bridge" name = "choose_bridge">
                         <optgroup label="bridge" >
-                            <option value= 1> 武汉长江大桥 </option>
-                            <option value= 2> 港珠澳跨海大桥 </option>
-                            <option value= 3> 杭州湾跨海大桥 </option>
-                            <option value= 4> 巫山长江大桥 </option>
-                            <option value= 5> 黄石长江大桥 </option>
-
+                            <option  th:each="bridge:${bridges}" th:value="${bridge.bridge_id}" th:text="${bridge.bridge_info}"> 武汉长江大桥 </option>
                         </optgroup>
                     </select>
                 &nbsp&nbsp&nbsp
-<!--                <input type="text" size="17"  id="1" readonly >
-                <script>
-                    function updateTime(){
-                        var date = new Date();
-                        var time = date.toLocaleString();
-                        document.getElementById("1").value = time;
-                    }
-                    setInterval("location.reload()", 10000);
-                    setInterval("updateTime()", 1)
-                </script>-->
+
                 <br>
             </div>
 
