@@ -55,13 +55,6 @@ public class ShrioConfig {
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-        //解决登录成功后无法跳转到successUrl的问题
-//        Map<String, Filter> map = new LinkedHashMap<>();
-//        map.put("authc", new MyFormAuthenticationFilter());
-//        shiroFilterFactoryBean.setFilters(map);
-
-
-
         //设置进入登陆界面
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/login");
@@ -91,9 +84,7 @@ public class ShrioConfig {
         //对权限URL设置为需要认证
         // /**是指所有目录
         // /*是指所有文件夹，不包括子文件夹
-        //filterChainDefinitionMap.put("/**", "authc");
         filterChainDefinitionMap.put("/**", "authc");
-        //filterChainDefinitionMap.put("/templates/sysmanagement/permissionmanagement/**", "authc");
 
         System.out.println("URL拦截执行顺序"+filterChainDefinitionMap);
 
@@ -241,21 +232,6 @@ public class ShrioConfig {
 //        advisorAutoProxyCreator.setProxyTargetClass(true);
 //        return advisorAutoProxyCreator;
 //    }
-//    @Bean(name="simpleMappingExceptionResolver")
-//    public SimpleMappingExceptionResolver simpleMappingExceptionResolver(){
-//        SimpleMappingExceptionResolver s=new SimpleMappingExceptionResolver();
-//        Properties mappings=new Properties();
-//        //数据库异常处理
-//        mappings.setProperty("DatabaseException", "databaseError");
-//        mappings.setProperty("UnauthorizedException","404");
-//        // None by default
-//        s.setExceptionMappings(mappings);
-//        // No default
-//        s.setDefaultErrorView("error");
-//        // Default is "exception"
-//        s.setExceptionAttribute("ex");
-//        return s;
-//    }
 
 
     //开启shiro aop注解支持
@@ -265,14 +241,4 @@ public class ShrioConfig {
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
     }
-
-
-//    private class MyFormAuthenticationFilter extends FormAuthenticationFilter implements Filter {
-//        @Override
-//        protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
-//            String successUrl = "/index";
-//            WebUtils.issueRedirect(request,response,successUrl);
-//            return false;
-//        }
-//    }
 }
