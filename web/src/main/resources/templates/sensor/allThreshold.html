@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
+<!--第二个属性标识这个页面被包装到shared/layout页面内-->
+<head>
+    <meta charset="UTF-8">
+    <title>展示所有信息页面</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style type="text/css">
+        #footer{
+            height: 80px;
+            width: 100%;
+            line-height: 25px;
+            text-align: center;
+            background-color: #00AEAE;
+            padding:20px;
+            position: fixed;
+            bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li><a href="#">系统管理</a></li>
+            <li><a href="#">阈值和报警管理</a></li>
+            <li><a href="#">阈值管理</a></li>
+            <li class="active">修改阈值</li>
+        </ol>
+        <table class="table table-hover table-bordered">
+            <tr style="background-color: #e1edf7">
+                <th>编号</th>
+                <th>桥梁名称</th>
+                <th>传感器名称</th>
+                <th>单位名称</th>
+                <th>单位符号</th>
+                <th>一级阈值</th>
+                <th>二级阈值</th>
+                <th>操作</th>
+            </tr>
+            <tr th:each="sensor:${sensors}">
+                <td th:text="${sensor.sensor_id}"></td>
+                <td th:text="${sensor.bridge?.bridge_name}"></td>
+                <td th:text="${sensor.sensor_name}"></td>
+                <td th:text="${sensor.para_unit_cn}"></td>
+                <td th:text="${sensor.parameter_unit}"></td>
+                <td th:text="${sensor.threshold1}"></td>
+                <td th:text="${sensor.threshold2}"></td>
+                <td>
+                    <a th:href="@{'/sensor/toUpdateThreshold/'+${sensor.sensor_id}}">修改阈值</a>
+                    |
+                    <a th:href="@{'/sensor/delSensor/'+${sensor.sensor_id}}">删除传感器</a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <nav aria-label="Page navigation" style="text-align: center;">
+        <ul class="pagination" style="text-align: center;">
+            <li th:class="${pageIndex == 1}? 'disabled':''"><a th:href="@{'/sensor/allThreshold/'+${pageIndex-1}}">上一页</a></li>
+            <li th:if="${pageIndex-3 >= 1}"><a th:href="@{'/sensor/allThreshold/'+${pageIndex-3}}" th:text="${pageIndex-3}">1</a></li>
+            <li th:if="${pageIndex-2 >= 1}"><a th:href="@{'/sensor/allThreshold/'+${pageIndex-2}}" th:text="${pageIndex-2}">1</a></li>
+            <li th:if="${pageIndex-1 >= 1}"><a th:href="@{'/sensor/allThreshold/'+${pageIndex-1}}" th:text="${pageIndex-1}">1</a></li>
+            <li class="active"><a href="#" th:text="${pageIndex}">1</a></li>
+            <li th:if="${pageIndex+1 <= pageTotal}"><a th:href="@{'/sensor/allThreshold/'+${pageIndex+1}}" th:text="${pageIndex+1}">1</a></li>
+            <li th:if="${pageIndex+2 <= pageTotal}"><a th:href="@{'/sensor/allThreshold/'+${pageIndex+2}}" th:text="${pageIndex+2}">1</a></li>
+            <li th:if="${pageIndex+3 <= pageTotal}"><a th:href="@{'/sensor/allThreshold/'+${pageIndex+3}}" th:text="${pageIndex+3}">1</a></li>
+            <li th:class="${pageIndex == pageTotal}? 'disabled':''"><a th:href="@{'/sensor/allThreshold/'+${pageIndex+1}}">下一页</a></li>
+        </ul>
+    </nav>
+
+    <div id="footer">
+        <p>关于|广告服务|招聘|客服中心|QQ留言|网站管理|加入我们</p>
+        <p>Copyright ©2006-2019 All Rights Reserved</p>
+    </div>
+</div>
+</body>
+</html>

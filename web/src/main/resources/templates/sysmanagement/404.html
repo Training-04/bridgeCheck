@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="shared/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>404</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
-未授权
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <p>未授权页面</p>
+    </div>
+</div>
 </body>
 </html>

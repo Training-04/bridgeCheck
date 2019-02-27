@@ -21,14 +21,17 @@ public class ApiController {
     @RequestMapping("/single")
     public String single(){
         String str="";
+        Bridge bridge2=null;
         ObjectMapper mapper=new ObjectMapper();
         try{
-            Bridge bridge=bridgeService.get(1);
-            str=mapper.writeValueAsString(bridge);
+            //Bridge bridge=bridgeService.get(1);
+            bridge2=bridgeService.get2(1);
+            System.out.println(bridge2);
+//            str=mapper.writeValueAsString(bridge2);
             System.out.println(str);
         }catch (Exception ex)
         {
-
+            System.out.println(ex.getMessage());
         }
         return str;
     }
@@ -38,11 +41,13 @@ public class ApiController {
         ObjectMapper mapper=new ObjectMapper();
         try{
             List<Bridge> bridges=bridgeService.getAll();
+            List<Bridge> bridges2=bridgeService.getAllNotCascade();
+
             str=mapper.writeValueAsString(bridges);
             System.out.println(str);
         }catch (Exception ex)
         {
-
+            System.out.println(ex.getMessage());
         }
         return str;
     }

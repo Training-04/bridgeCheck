@@ -10,10 +10,10 @@
 <body>
 <div layout:fragment="content">
     <div style="margin: 10px 100px 30px auto" align="right">
-        <a href="/allPer" th:href="@{/allPer}" class="btn btn-default">Back</a>
+        <a href="/permission/allPer" th:href="@{/permission/allPer}" class="btn btn-default">Back</a>
     </div>
 
-    <form class="form-horizontal" role="form" method="post" th:action="@{/searchPer}">
+    <form class="form-horizontal" role="form" method="post" th:action="@{/permission/searchPer}">
         <div class="form-group">
             <label for="permission_name" class="col-sm-2 control-label">检索</label>
             <div class="col-sm-7">
@@ -33,16 +33,16 @@
             <tr>
                 <th>序号</th>
                 <th>权限名</th>
-                <th>权限</th>
-                <th>URL</th>
+                <!--<th>权限</th>-->
+                <!--<th>URL</th>-->
             </tr>
             </thead>
             <tbody>
             <tr th:each="Permission : ${per}">
                 <td th:text="${Permission.permission_id}">aaa</td>
                 <td th:text="${Permission.permission_name}">aaa</td>
-                <td th:text="${Permission.permissionE}">aaa</td>
-                <td th:text="${Permission.url}">aaa</td>
+                <!--<td th:text="${Permission.permissionE}">aaa</td>-->
+                <!--<td th:text="${Permission.url}">aaa</td>-->
             </tr>
             </tbody>
         </table>

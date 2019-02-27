@@ -1,13 +1,14 @@
 package group.bridge.web.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "sensors")
-
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "sensor_id")
@@ -27,10 +28,15 @@ public class Sensor {
     private Double threshold1;
     @Column(name = "threshold2")
     private Double threshold2;
-    //表示将外键名设置为bridge_id
+//    表示将外键名设置为bridge_id
     @ManyToOne(cascade =CascadeType.ALL)
     @JoinColumn(name = "bridge_id")
     private Bridge bridge;//所属桥梁
+
+//    一个传感器有多个报警记录
+    @OneToMany(cascade =CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "sensor" )
+    @JSONField(serialize = false)
+    private Set<WarnRecord> warnRecord;
 
     public Integer getSensor_id() {
         return sensor_id;
@@ -86,5 +92,13 @@ public class Sensor {
 
     public void setBridge(Bridge bridge) {
         this.bridge = bridge;
+    }
+
+    public Set<WarnRecord> getWarnRecord() {
+        return warnRecord;
+    }
+
+    public void setWarnRecord(Set<WarnRecord> warnRecord) {
+        this.warnRecord = warnRecord;
     }
 }

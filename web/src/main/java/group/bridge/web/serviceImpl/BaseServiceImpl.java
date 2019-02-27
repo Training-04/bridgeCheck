@@ -52,10 +52,17 @@ public abstract class BaseServiceImpl<T,ID> implements BaseService<T,ID>, Initia
     public Page<T> getAll(Pageable pageable){
         return repository.findAll(pageable);
     }
-
+    @Override
+    public List<T> getAllNotCascade() {
+        return repository.findAllNotCascade();
+    }
     @Override
     public T get(ID id) {
         return repository.findById(id).orElse(null);
+    }
+    @Override
+    public T get2(ID id) {
+        return repository.getOne(id);
     }
     @Override
     public List<T> getByPredicate(Specification<T> specification){

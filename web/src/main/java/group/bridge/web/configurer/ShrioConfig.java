@@ -1,6 +1,7 @@
 package group.bridge.web.configurer;
 
 import group.bridge.web.realm.MyShiroRealm;
+import group.bridge.web.reslover.MyExceptionResolver;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import java.util.LinkedHashMap;
@@ -37,7 +39,7 @@ import javax.servlet.ServletResponse;
 // 就好像SpringMvc 通过DispachServlet 来主控制一样。
 //既然是使用 Filter 一般也就能猜到，是通过URL规则来进行过滤和权限校验，
 // 所以我们需要定义一系列关于URL的规则和访问权限。
-//@Configuration
+@Configuration
 public class ShrioConfig {
     //ShiroFilterFactoryBean 处理拦截资源文件问题。
     //注意：单独一个ShiroFilterFactoryBean配置是或报错的，因为在初始化ShiroFilterFactoryBean的时候需要注入：SecurityManager
@@ -59,6 +61,7 @@ public class ShrioConfig {
 //        shiroFilterFactoryBean.setFilters(map);
 
 
+
         //设置进入登陆界面
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/login");
@@ -76,22 +79,23 @@ public class ShrioConfig {
         filterChainDefinitionMap.put("/**/*.jpg", "anon");
         filterChainDefinitionMap.put("/**/*.js", "anon");
         filterChainDefinitionMap.put("/url.xml", "anon");
+        filterChainDefinitionMap.put("/sysmanagement/404","anon");
 
         //filterChainDefinitionMap.put("/templates/login/login","anon");
         // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
-        // 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边-->:这是一个坑呢，一不小心代码就不好使了;
+        // 过滤链定义，从上向下顺序执行，一般将 /**放在最下边-->:这是一个坑呢，一不小心代码就不好使了;
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问;user:remember me的可以访问-->
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         //访问的是后端url地址为 /login的接口
         //对权限URL设置为需要认证
-        filterChainDefinitionMap.put("/sysmanagement/**", "authc");
-        //filterChainDefinitionMap.put("/templates/sysmanagement/permissionmanagement/**", "authc");
-        //filterChainDefinitionMap.put("/templates/sysmanagement/rolemanagement/**", "authc");
-        //filterChainDefinitionMap.put("/templates/sysmanagement/usermanagement/**", "authc");
+        // /**是指所有目录
+        // /*是指所有文件夹，不包括子文件夹
+        //filterChainDefinitionMap.put("/**", "authc");
         filterChainDefinitionMap.put("/**", "authc");
+        //filterChainDefinitionMap.put("/templates/sysmanagement/permissionmanagement/**", "authc");
 
-        filterChainDefinitionMap.put("/**/*.html", "anon");
+        System.out.println("URL拦截执行顺序"+filterChainDefinitionMap);
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         System.out.println("Shiro拦截器工厂类注入成功");
@@ -110,6 +114,15 @@ public class ShrioConfig {
 //        return hashedCredentialsMatcher;
 //    }
 
+    /*
+        当没有权限时跳转404，
+        解决不跳转而在控制台报错的问题
+     */
+    @Bean
+    public HandlerExceptionResolver solver(){
+        HandlerExceptionResolver handlerExceptionResolver = new MyExceptionResolver();
+        return handlerExceptionResolver;
+    }
 
     //身份认证realm; (这个需要自己写，账号密码校验；权限等)
     //@return
@@ -173,6 +186,7 @@ public class ShrioConfig {
 //        redisSessionDAO.setRedisManager(redisManager());
 //        return redisSessionDAO;
 //    }
+
     /**
      * shiro session的管理
      */
@@ -227,21 +241,21 @@ public class ShrioConfig {
 //        advisorAutoProxyCreator.setProxyTargetClass(true);
 //        return advisorAutoProxyCreator;
 //    }
-    @Bean(name="simpleMappingExceptionResolver")
-    public SimpleMappingExceptionResolver simpleMappingExceptionResolver(){
-        SimpleMappingExceptionResolver s=new SimpleMappingExceptionResolver();
-        Properties mappings=new Properties();
-        //数据库异常处理
-        mappings.setProperty("DatabaseException", "databaseError");
-        mappings.setProperty("UnauthorizedException","403");
-        // None by default
-        s.setExceptionMappings(mappings);
-        // No default
-        s.setDefaultErrorView("error");
-        // Default is "exception"
-        s.setExceptionAttribute("ex");
-        return s;
-    }
+//    @Bean(name="simpleMappingExceptionResolver")
+//    public SimpleMappingExceptionResolver simpleMappingExceptionResolver(){
+//        SimpleMappingExceptionResolver s=new SimpleMappingExceptionResolver();
+//        Properties mappings=new Properties();
+//        //数据库异常处理
+//        mappings.setProperty("DatabaseException", "databaseError");
+//        mappings.setProperty("UnauthorizedException","404");
+//        // None by default
+//        s.setExceptionMappings(mappings);
+//        // No default
+//        s.setDefaultErrorView("error");
+//        // Default is "exception"
+//        s.setExceptionAttribute("ex");
+//        return s;
+//    }
 
 
     //开启shiro aop注解支持

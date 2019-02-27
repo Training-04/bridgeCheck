@@ -21,19 +21,19 @@
             <tr>
                 <th>序号</th>
                 <th>权限名</th>
-                <th>权限</th>
-                <th>URL</th>
+                <!--<th>权限</th>-->
+                <!--<th>URL</th>-->
             </tr>
             </thead>
             <tbody>
             <tr th:each="Permission : ${per}">
                 <td th:text="${Permission.permission_id}">aaa</td>
                 <td th:text="${Permission.permission_name}">aaa</td>
-                <td th:text="${Permission.permissionE}">aaa</td>
-                <td th:text="${Permission.url}">aaa</td>
+                <!--<td th:text="${Permission.permissionE}">aaa</td>-->
+                <!--<td th:text="${Permission.url}">aaa</td>-->
                 <td align="center">
-                    <a th:href="@{'/toUpdatePer/'+${Permission.permission_id}}">修改</a>&nbsp|&nbsp
-                    <a th:href="@{'/deletePer/'+${Permission.permission_id}}" onclick="return confirm('确认删除？')">删除</a>
+                    <a th:href="@{'/permission/toUpdatePer/'+${Permission.permission_id}}">修改</a>&nbsp|&nbsp
+                    <a th:href="@{'/permission/deletePer/'+${Permission.permission_id}}" onclick="return confirm('确认删除？')">删除</a>
                 </td>
             </tr>
             </tbody>
@@ -42,10 +42,26 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td align="center"> <a href="/toAddPer">添&nbsp加</a></td>
+                <td align="center"> <a href="/permission/toAddPer">添&nbsp加</a></td>
             </tr>
         </table>
     </div>
+
+    <!--用于实现分页功能-->
+    <nav aria-label="Page navigation" style="text-align: center;">
+        <ul class="pagination" style="text-align: center;">
+            <li th:class="${pageIndex == 1}? 'disabled':''"><a th:href="@{'/permission/allPer/'+${pageIndex-1}}">上一页</a></li>
+            <li th:if="${pageIndex-3 >= 1}"><a th:href="@{'/permission/allPer/'+${pageIndex-3}}" th:text="${pageIndex-3}">1</a></li>
+            <li th:if="${pageIndex-2 >= 1}"><a th:href="@{'/permission/allPer/'+${pageIndex-2}}" th:text="${pageIndex-2}">1</a></li>
+            <li th:if="${pageIndex-1 >= 1}"><a th:href="@{'/permission/allPer/'+${pageIndex-1}}" th:text="${pageIndex-1}">1</a></li>
+            <li class="active"><a href="#" th:text="${pageIndex}">1</a></li>
+            <li th:if="${pageIndex+1 <= pageTotal}"><a th:href="@{'/permission/allPer/'+${pageIndex+1}}" th:text="${pageIndex+1}">1</a></li>
+            <li th:if="${pageIndex+2 <= pageTotal}"><a th:href="@{'/permission/allPer/'+${pageIndex+2}}" th:text="${pageIndex+2}">1</a></li>
+            <li th:if="${pageIndex+3 <= pageTotal}"><a th:href="@{'/permission/allPer/'+${pageIndex+3}}" th:text="${pageIndex+3}">1</a></li>
+            <li th:class="${pageIndex == pageTotal}? 'disabled':''"><a th:href="@{'/permission/allPer/'+${pageIndex+1}}">下一页</a></li>
+        </ul>
+    </nav>
+
 </div>
 </body>
 </html>

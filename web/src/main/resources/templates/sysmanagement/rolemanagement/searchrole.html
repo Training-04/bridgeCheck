@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorate="shared/layout">
+      layout:decorate="shared/layout" xmlns:c="">
 <head>
     <meta charset="UTF-8">
     <title>查找权限组信息</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
 </head>
 <body>
 <div layout:fragment="content">
     <div style="margin: 10px 100px 30px auto" align="right">
-        <a href="/allRole" th:href="@{/allRole}" class="btn btn-default">Back</a>
+        <a href="/role/allRole" th:href="@{/role/allRole}" class="btn btn-default">Back</a>
     </div>
 
-    <form class="form-horizontal" role="form" method="post" th:action="@{/searchRole}">
+    <form class="form-horizontal" role="form" method="post" th:action="@{/role/searchRole}">
         <div class="form-group">
             <label for="role_name" class="col-sm-2 control-label">检索</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control" name="role_name" id="role_name" placeholder="请输入权限组Name"/>
+                <input type="text" class="form-control" name="role_name" id="role_name" placeholder="请输入权限组名称"/>
             </div>
 
             <div class="form-group">
@@ -33,17 +34,17 @@
             <tr>
                 <th>序号</th>
                 <th>权限组名</th>
-                <th>权限组</th>
+                <!--<th>权限组</th>-->
                 <th>拥有的权限</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="Role : ${role}">
+            <tr th:each="Role : ${role}" >
                 <td th:text="${Role.role_id}">aaa</td>
                 <td th:text="${Role.role_name}">aaa</td>
-                <td th:text="${Role.roleE}">aaa</td>
-                <td th:each="Permission:${permission}">
-                    <font th:text="${Permission.permission_name}">aaa</font>
+                <!--<td th:text="${Role.roleE}">aaa</td>-->
+                <td style="width:40%; word-wrap:break-word;word-break:keep-all;">
+                    <c:foreach th:each="Permission:${Role.permissions}" th:text="${Permission.permission_name} +' || '">aaa</c:foreach>
                 </td>
             </tr>
             </tbody>

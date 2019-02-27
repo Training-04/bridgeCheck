@@ -9,6 +9,8 @@
 <body>
 <div layout:fragment="content" >
     <h1>ajax测试</h1>
+    <h1 th:each="s1 : ${b1.getSensor()}" th:text="${s1.getSensor_id()}"></h1>
+    <h1 th:each="s2 : ${b2.getSensor()}" th:text="${s2.getSensor_id()}"></h1>
     <button onclick="single()">返回单个数据</button><br />
     <button onclick="array()">返回多个数据</button><br />
     <script>

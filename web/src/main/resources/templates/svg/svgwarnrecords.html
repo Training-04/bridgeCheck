@@ -34,6 +34,9 @@
             var dom = document.getElementById("container");
             var myChart = echarts.init(dom);
             var app = {};
+
+            var data = [];
+            var blank = [];
             option = null;
 
             //查询报警记录函数
@@ -42,7 +45,6 @@
                 var date = +echarts.number.parseDate(year_label + '-01-01');
                 var end = +echarts.number.parseDate((+year_label + 1) + '-01-01');
                 var dayTime = 3600 * 24 * 1000;
-                var data = [];
                 $.ajax({
                     type: 'get',
                     url: "/ajax/ajax_warn_records",
@@ -50,14 +52,14 @@
                     data:"",
                     datatype: "json",
                     success:function(result){
-                        //alert(result);
+                        // alert(result);
                         var obj = eval("("+result+")");
-                        //alert(obj[0].status);
+                        // alert(obj[0].status);
                         for (var time = date; time < end; time += dayTime) {
                             var flag = false;
                             for(var index = 0; index < obj.length; index++){
-                                var cur_wrdate = obj[index].warn_date;
-                                if(cur_wrdate>=time && cur_wrdate < time+dayTime){
+                                var cur_wrdate = obj[index].date;
+                                if(cur_wrdate >= time && cur_wrdate < time+dayTime){
                                     flag = true;
                                     if(obj[index].status == "未解除"){
                                         data.push([
@@ -85,7 +87,6 @@
                         alert("数据请求错误");a
                     }
                 });
-                return data;
             }
 
             //筛选
@@ -101,7 +102,7 @@
             var down_enddate = year_label.toString()+'-12-31';
 
             //获取记录
-            var data = getWarnData();
+            getWarnData();
 
             option = {
                 backgroundColor: '#ffffff',
@@ -265,9 +266,8 @@
                     up_enddate = year_label.toString()+'-06-30';
                     down_startdate = year_label.toString()+'-07-01';
                     down_enddate = year_label.toString()+'-12-31';
-                    var blank = [];
                     data = blank;
-                    data = getWarnData();
+                    getWarnData();
 
                     option = {
                         backgroundColor: '#ffffff',

@@ -2,6 +2,9 @@ package group.bridge.web.entity;
 
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity(name = "role")
@@ -13,8 +16,8 @@ public class Role {
     private int role_id;
     @Column(name = "role_name")
     private String role_name;
-    @Column(name = "roleE")
-    private String roleE;
+//    @Column(name = "roleE")
+//    private String roleE;
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
@@ -38,13 +41,13 @@ public class Role {
     public String getRole_name(){return role_name;}
     public void setRole_name(String role_name){this.role_name=role_name;}
 
-    public String getRoleE() {
-        return roleE;
-    }
-
-    public void setRoleE(String roleE) {
-        this.roleE = roleE;
-    }
+//    public String getRoleE() {
+//        return roleE;
+//    }
+//
+//    public void setRoleE(String roleE) {
+//        this.roleE = roleE;
+//    }
 
     public Set<User> getUsers() {
         return users;
@@ -54,6 +57,14 @@ public class Role {
         this.users = users;
     }
 
+    //中间表加用户
+    public void addusers(User user) {
+        if(users==null){
+            users=new HashSet<User>();
+        }
+        this.users.add(user);
+    }
+
     public Set<Permission> getPermissions() {
         return permissions;
     }
@@ -61,4 +72,13 @@ public class Role {
     public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
     }
+
+    //中间表加权限
+    public void addPermissions(Permission permission) {
+        if (permissions == null){
+            permissions = new HashSet<Permission>();
+        }
+        this.permissions.add(permission);
+    }
+
 }

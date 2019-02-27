@@ -1,6 +1,7 @@
 package group.bridge.web.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "permission")
@@ -11,26 +12,26 @@ public class Permission {
     private int permission_id;
     @Column(name = "permission_name")
     private String permission_name;
-    @Column(name = "permissionE")
-    private String permissionE;
-    @Column
-    private String url;
+//    @Column(name = "permissionE")
+//    private String permissionE;
+//    @Column
+//    private String url;
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getPermissionE() {
-        return permissionE;
-    }
-
-    public void setPermissionE(String permissionE) {
-        this.permissionE = permissionE;
-    }
+//    public String getUrl() {
+//        return url;
+//    }
+//
+//    public void setUrl(String url) {
+//        this.url = url;
+//    }
+//
+//    public String getPermissionE() {
+//        return permissionE;
+//    }
+//
+//    public void setPermissionE(String permissionE) {
+//        this.permissionE = permissionE;
+//    }
 
 
 
@@ -66,4 +67,11 @@ public class Permission {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    //中间表添加数据
+    public void addRoles(Role role) {
+        if (roles == null){
+            roles = new HashSet<Role>();
+        }
+        this.roles.add(role);}
 }

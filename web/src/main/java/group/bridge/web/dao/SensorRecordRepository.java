@@ -1,6 +1,8 @@
 package group.bridge.web.dao;
 
 import group.bridge.web.entity.SensorRecord;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -11,6 +13,18 @@ import java.util.List;
 
 @Repository
 public interface SensorRecordRepository extends BaseRepository<SensorRecord, Integer> {
+
+    List<SensorRecord> findAllByOrderByDateDesc();
+    Page<SensorRecord> findAllByOrderByDateDesc(Pageable pageable);
+    // 按桥梁名称查询，按日期排序
+    @Query(nativeQuery = true,
+            value = "SELECT record_id, date, value, sr.sensor_id FROM  sensor_records sr, sensors s WHERE sr.sensor_id = s.sensor_id AND s.bridge_id = :bridge_id ORDER BY date DESC;")
+    List<SensorRecord> findAllByBridgeByDateDesc(@Param("bridge_id") Integer bridge_id);
+
+    // 按桥梁名、传感器名查询，按日期排序
+    @Query(nativeQuery = true,
+            value = "SELECT record_id, date, value, sr.sensor_id FROM  sensor_records sr, sensors s WHERE sr.sensor_id = s.sensor_id AND s.bridge_id = :bridge_id  AND s.para_unit_cn = :para_unit_cn ORDER BY date DESC;")
+    List<SensorRecord> findAddByBridgeBySensorByDateDesc(@Param("bridge_id") Integer bridge_id, @Param("para_unit_cn") String para_unit_cn);
 
     //需要分类查询的数据：微应变（microstrain）、温度(temperature)、位移(displacement)、相对沉降量(relative sedimentation)、液位变化(liquidlevel change)、OBL
 
@@ -34,4 +48,16 @@ public interface SensorRecordRepository extends BaseRepository<SensorRecord, Int
     @Query(nativeQuery = true,
             value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensors.bridge_id = :bridge_id AND sensors.para_unit_cn = :para_unit_cn AND sensor_records.date <= :curTime AND sensor_records.date > :startTime")
     List<SensorRecord> findByBridgeID_BEFORE(@Param("bridge_id") Integer bridge_id, @Param("para_unit_cn") String para_unit_cn, @Param("curTime") Date curTime, @Param("startTime") Date startTime);
+
+    //查询1级报警传感器记录
+    @Query(nativeQuery = true,
+            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensor_records.data > :curTime AND sensor_records.value >= sensors.threshold1 AND sensor_records.value < sensors.threshold2")
+    List<SensorRecord> findByThreshold1andTime(@Param("curTime") Date curTime);
+
+    //查询2级报警传感器记录
+    @Query(nativeQuery = true,
+            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensor_records.data > :curTime AND sensor_records.value >= sensors.threshold2")
+    List<SensorRecord> findByThreshold2andTime(@Param("curTime") Date curTime);
+
 }
+

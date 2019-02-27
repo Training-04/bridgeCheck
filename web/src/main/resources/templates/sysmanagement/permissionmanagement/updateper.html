@@ -11,11 +11,11 @@
 <div layout:fragment="content">
 
     <div style="margin: 10px 100px 10px auto" align="right">
-        <a href="/allPer" th:href="@{/allPer}" class="btn btn-default">Back</a>
+        <a href="/permission/allPer" th:href="@{/permission/allPer}" class="btn btn-default">Back</a>
     </div>
     <div style="border: 1px solid #000000;margin: 100px auto;width: 600px;text-align: center" >
         <p>修改权限信息</p>
-        <form class="form-horizontal" role="form" method="post" th:object="${per}" th:action="@{/updatePer}">
+        <form class="form-horizontal" role="form" method="post" th:object="${per}" th:action="@{/permission/updatePer}">
 
             <div class="form-group">
                     <label for="permission_id" class="col-sm-2 control-label">编号</label>
@@ -31,20 +31,20 @@
                            th:field="*{permission_name}" required="required"/>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="permissionE" class="col-sm-2 control-label" disabled="">权限</label>
-                <div class="col-sm-7">
-                    <input type="text" class="form-control" name="permissionE" id="permissionE" th:value="${per.permissionE}"
-                           th:field="*{permissionE}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="url" class="col-sm-2 control-label" disabled="">URL</label>
-                <div class="col-sm-7">
-                    <input type="text" class="form-control" name="url" id="url" th:value="${per.url}"
-                           th:field="*{url}" />
-                </div>
-            </div>
+            <!--<div class="form-group">-->
+                <!--<label for="permissionE" class="col-sm-2 control-label" disabled="">权限</label>-->
+                <!--<div class="col-sm-7">-->
+                    <!--<input type="text" class="form-control" name="permissionE" id="permissionE" th:value="${per.permissionE}"-->
+                           <!--th:field="*{permissionE}" />-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+                <!--<label for="url" class="col-sm-2 control-label" disabled="">URL</label>-->
+                <!--<div class="col-sm-7">-->
+                    <!--<input type="text" class="form-control" name="url" id="url" th:value="${per.url}"-->
+                           <!--th:field="*{url}" />-->
+                <!--</div>-->
+            <!--</div>-->
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-7">
