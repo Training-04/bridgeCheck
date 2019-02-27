@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,6 +30,11 @@ public class WarnRecordServiceImpl extends BaseServiceImpl<WarnRecord, Integer> 
 
     public List<WarnRecord> getRelieveWarn_record(){
         return warnRecordRepository.findAllByStatus("已解除");
+    }
+
+    @Override
+    public void insertWarn_record(Date warn_date, String status, String warn_para, Integer sensor_id){
+        warnRecordRepository.InsertWarn_records(warn_date, status, warn_para, sensor_id);
     }
 }
 

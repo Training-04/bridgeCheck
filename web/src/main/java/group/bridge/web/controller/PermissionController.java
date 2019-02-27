@@ -5,6 +5,9 @@ import group.bridge.web.service.PermissionService;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,18 +22,29 @@ public class PermissionController extends BaseController {
     @Autowired
     PermissionService permissionService;
 
-    @RequestMapping("/allPer")
+    @RequestMapping("/allPer/{index}")
     //@RequiresPermissions("perInfo:allPer")
-    //@RequiresPermissions("所有权限信息")
+    //logical= Logical.OR的意思是，只要存在value={"所有权限信息","修改权限信息","删除权限信息"}的一个，就可以拥有这个类的权限
     @RequiresPermissions(value={"所有权限信息","修改权限信息","删除权限信息"},logical= Logical.OR)
-    public String getAllPer(Model model, HttpSession session){
-        List<Permission> lists=permissionService.getAll();
-        model.addAttribute("per",lists);
+    public String getAllPer(Model model, HttpSession session,@PathVariable("index") Integer index){
+        //List<Permission> lists=permissionService.getAll();
+        //model.addAttribute("per",lists);
+        //session.setAttribute("session",lists);
+        //分页所用
+        Pageable pageable = PageRequest.of(index-1,10);
+        Page<Permission> bPage = permissionService .getAll(pageable);
+        int count = bPage.getTotalPages();
+        //分页所用
+        //得到所有权限组内容，在页面上遍历对象
+        model.addAttribute("per",bPage.getContent());
         model.addAttribute("title","所有权限信息");
-        session.setAttribute("session",lists);
+        session.setAttribute("session",bPage.getContent());
+        //当前页保存为pageIndex
+        model.addAttribute("pageIndex",index);
+        //得到数据总的数目
+        model.addAttribute("pageTotal",count);
         return "sysmanagement/permissionmanagement/allper";
     }
-
 
     @RequestMapping("/toAddPer")
     //@RequiresPermissions("perInfo:toAddPer")
@@ -44,7 +58,7 @@ public class PermissionController extends BaseController {
     @RequestMapping("/addPer")
     public String add(Permission permission){
         permissionService.add(permission);
-        return "redirect:/permission/allPer";
+        return "redirect:/permission/allPer/1";
     }
 
 
@@ -61,13 +75,13 @@ public class PermissionController extends BaseController {
     @RequestMapping("/updatePer")
     public String update(Permission permission){
         permissionService.updatePer(permission);
-        return "redirect:/permission/allPer";
+        return "redirect:/permission/allPer/1";
     }
 
     @RequestMapping("/deletePer/{id}")
     public String delete(@PathVariable("id") int permissionID){
         permissionService.deleteById(permissionID);
-        return "redirect:/permission/allPer";
+        return "redirect:/permission/allPer/1";
     }
 
     @RequestMapping("/toSearchPer")

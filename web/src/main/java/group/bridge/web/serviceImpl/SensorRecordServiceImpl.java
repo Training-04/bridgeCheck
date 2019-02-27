@@ -66,4 +66,14 @@ public class SensorRecordServiceImpl extends BaseServiceImpl<SensorRecord, Integ
         Date startTime = new Date(curtime - 15*record_distance);
         return sensorRecordRepository.findByBridgeID_BEFORE(bridge_id, para_cn, curTime, startTime);
     }
+
+    @Override
+    public List<SensorRecord> getWarn1Sensor_records(Date curTime){
+        return sensorRecordRepository.findByThreshold1andTime(curTime);
+    }
+
+    @Override
+    public List<SensorRecord> getWarn2Sensor_records(Date curTime){
+        return sensorRecordRepository.findByThreshold2andTime(curTime);
+    }
 }
