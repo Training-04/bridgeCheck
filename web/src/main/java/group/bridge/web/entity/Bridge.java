@@ -16,7 +16,6 @@ import java.util.Set;
 public class Bridge {
     @Id
     @Column(name="bridge_id")
-   // @OneToMany
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bridge_id;
     @Column(name="bridge_name")

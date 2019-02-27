@@ -50,7 +50,7 @@ public class BridgeController {
 
     //搜索相应名称的桥梁（中介）
     @RequestMapping("/toSearchBridge")
-    @RequiresPermissions("查找桥梁")
+//    @RequiresPermissions("查找桥梁")
     public String toSearch(Model model){
         model.addAttribute("title","查询桥梁信息页面");
         return "bridge/searchBridge";
@@ -67,7 +67,7 @@ public class BridgeController {
 
     //    添加桥梁
     @RequestMapping("/toAddBridges")
-    @RequiresPermissions("test")
+//    @RequiresPermissions("test")
     public String toAdd(Model model){
         model.addAttribute("title","添加桥梁页面");
         return "bridge/addBridges";
@@ -94,8 +94,6 @@ public class BridgeController {
         bridgeService.update(bridge);
         return "redirect:/bridge/allBridges/1";
     }
-
-
 
     //删除桥梁
     @RequestMapping("/delBridge/{id}")

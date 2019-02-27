@@ -72,7 +72,7 @@ public class SensorController extends BaseController{
     @RequestMapping("/updateThreshold")
     public String update(Sensor sensor){
         sensorService.update(sensor);
-        return "redirect:/sensor/allSensors/1";
+        return "redirect:/sensor/allThreshold/1";
     }
 
     //在所有传感器页面更改传感器

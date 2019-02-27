@@ -41,7 +41,7 @@ public class Manager implements Runnable {
 
     public void runJob(String inputPath) throws IOException, ClassNotFoundException, InterruptedException {
         Configuration conf = new Configuration();
-        conf.set("hbase.zookeeper.quorum", "master");
+        conf.set("hbase.zookeeper.quorum", "localhost");
         //设置当前时间，用来做rowkey
         Long beforeTime = System.currentTimeMillis();
         conf.set("time", beforeTime + "");

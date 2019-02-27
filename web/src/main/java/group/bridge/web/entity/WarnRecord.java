@@ -25,8 +25,7 @@ public class WarnRecord {
     @Column(name = "warn_para")
     private String warn_para;
 
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "sensor_id")
     private Sensor sensor;
 
