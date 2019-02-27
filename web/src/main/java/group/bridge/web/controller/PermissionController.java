@@ -58,7 +58,7 @@ public class PermissionController extends BaseController {
     @RequestMapping("/addPer")
     public String add(Permission permission){
         permissionService.add(permission);
-        return "redirect:/permission/allPer";
+        return "redirect:/permission/allPer/1";
     }
 
 
@@ -75,13 +75,13 @@ public class PermissionController extends BaseController {
     @RequestMapping("/updatePer")
     public String update(Permission permission){
         permissionService.updatePer(permission);
-        return "redirect:/permission/allPer";
+        return "redirect:/permission/allPer/1";
     }
 
     @RequestMapping("/deletePer/{id}")
     public String delete(@PathVariable("id") int permissionID){
         permissionService.deleteById(permissionID);
-        return "redirect:/permission/allPer";
+        return "redirect:/permission/allPer/1";
     }
 
     @RequestMapping("/toSearchPer")
