@@ -7,8 +7,10 @@ import java.util.Date;
 public class SensorRecord {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="record_id")
     private Integer record_id;
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="date")
     private Date date;
     @Column(name="value")
