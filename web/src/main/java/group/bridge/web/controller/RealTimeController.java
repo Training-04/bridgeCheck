@@ -1,8 +1,10 @@
 package group.bridge.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import group.bridge.web.entity.Bridge;
 import group.bridge.web.entity.SensorRecord;
 import group.bridge.web.entity.WarnRecord;
+import group.bridge.web.service.BridgeService;
 import group.bridge.web.service.SensorRecordService;
 import group.bridge.web.service.WarnRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,26 @@ public class RealTimeController {
     @Autowired
     WarnRecordService warnRecordService;
 
+    @Autowired
+    BridgeService bridgeService;
+
     @PostMapping("/ajax_test")
     public List<SensorRecord> getSensorRecord(Integer bridge_id, String sensor_name){
         return sensorRecordService.getSensor_records(bridge_id, sensor_name);
+    }
+
+    @RequestMapping("/ajax_bridges")
+    public String getAllBridge(){
+        String str = "";
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            List<Bridge> ls = bridgeService.getAll();
+            str = mapper.writeValueAsString(ls);
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        System.out.println(str);
+        return str;
     }
 
     @RequestMapping("/ajax_warn_records")
