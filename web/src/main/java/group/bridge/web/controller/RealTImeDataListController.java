@@ -29,6 +29,9 @@ public class RealTImeDataListController {
         Integer bridge_id = params.getInteger("bridge");
         List<SensorRecord> lists = sensorRecordService.getAllByBridgeIDDesc(bridge_id);
 
+        // 仅读取前12个
+        lists = lists.subList(0, 12);
+
         String json = JSON.toJSONString(lists, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteMapNullValue);
         // String json = JSON.toJSONString(lists);
         System.out.println(json);

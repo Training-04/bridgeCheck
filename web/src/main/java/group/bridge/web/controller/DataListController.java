@@ -34,8 +34,10 @@ public class DataListController {
 
 
     @RequestMapping("/real_time_datalist")
-    public String Real_time_datalist()
+    public String Real_time_datalist(Model model)
     {
+        List<Bridge> bridges = bridgeService.getAll();
+        model.addAttribute("bridges",bridges);
         return "/datalist/real_time_datalist";
     }
 
@@ -77,8 +79,10 @@ public class DataListController {
 
 
     @RequestMapping("/statistic_datalist")
-    public String Statistic_datalist()
+    public String Statistic_datalist(Model model)
     {
+        List<Bridge> bridges = bridgeService.getAll();
+        model.addAttribute("bridges",bridges);
         return "/datalist/statistic_datalist";
     }
 

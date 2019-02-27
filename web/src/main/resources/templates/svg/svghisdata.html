@@ -10,14 +10,32 @@
 <div layout:fragment="content" >
     <div>
         <select id="bridge" name="Select_Bridge">
-            <optgroup label="Bridge">
-                <option value="1"> 武汉长江大桥 </option>
-                <option value="2"> 武汉长江二桥 </option>
-                <option value="3"> 武汉二七长江大桥 </option>
-                <option value="4"> 白沙洲大桥 </option>
-                <option value="5"> 鹦鹉洲大桥 </option>
+            <optgroup id="bridge_opt" label="Bridge">
             </optgroup>
         </select>
+        <script>
+            $.ajax({
+                type : 'get',
+                url : '/ajax/ajax_bridges',
+                async: false,
+                datatype: 'json',
+                success: function(result){
+                    //alert(result);
+                    var obj = eval("("+result+")");
+                    var sum = obj.length;
+                    var objSelectNow=document.getElementById("bridge_opt");
+                    var inner = "";
+                    for(var index = 0; index < sum; index++){
+                        var str = "<option value='"+obj[index].bridge_id+"'>"+obj[index].bridge_name+"</option>";
+                        inner = inner + str;
+                    }
+                    objSelectNow.innerHTML=inner;
+                },
+                error: function(result){
+
+                }
+            });
+        </script>
         <select id="sensor" name="Select_Sensor">
             <optgroup label="Sensor">
                 <option value="温度"> 温度 </option>
