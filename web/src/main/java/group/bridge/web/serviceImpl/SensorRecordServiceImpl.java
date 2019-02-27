@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class SensorRecordServiceImpl extends BaseServiceImpl<SensorRecord, Integer> implements SensorRecordService {
 
-    private Integer record_distance = 1000;//关于数据每分钟多少条在此设置（每条时间间隔，单位 ms）
+    private Integer record_distance = 10000;//关于数据每分钟多少条在此设置（每条时间间隔，单位 ms）
 
     @Autowired
     SensorRecordRepository sensorRecordRepository;
