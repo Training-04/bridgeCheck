@@ -23,7 +23,7 @@ public class PutReducer extends TableReducer<Text, LongWritable, ImmutableBytesW
         for (LongWritable value : values) {
             finalValue = value.get();
 
-            //每个sensor写10条
+            //每个sensor写dataNum条
             Put put = new Put(Bytes.toBytes(rowKey+""));
             put.addColumn(Bytes.toBytes("base_info"), Bytes.toBytes(column), Bytes.toBytes(finalValue+""));
 

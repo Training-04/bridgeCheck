@@ -18,6 +18,7 @@ import java.io.IOException;
 public class Manager implements Runnable {
     public boolean stop = false;
 
+    public int count = 20;
     public void run() {
         int index = 0;
         while (!stop) {
@@ -31,7 +32,7 @@ public class Manager implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (index == 10) {
+            if (index == count) {
                 break;
             }
         }
@@ -69,8 +70,8 @@ public class Manager implements Runnable {
 
         Long timeSpan = System.currentTimeMillis() - beforeTime;
         System.out.println("timeSpan:"+timeSpan);
-        if (60*1000-timeSpan > 0) {
-            Thread.sleep(60 * 1000 - timeSpan);
+        if (StaticData.dataNum*1000-timeSpan > 0) {
+            Thread.sleep(StaticData.dataNum * 1000 - timeSpan);
         }
         System.out.println("next begin");
 
