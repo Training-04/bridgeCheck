@@ -2,31 +2,39 @@
 .sidebar-nav ul{
 	list-style: none;
 	padding-left: 0px;
-  }
-  .sidebar-nav li{
+}
+.sidebar-nav li{
 	list-style: none;
-  }
-  .sidebar-nav a{
+	padding-left: 10px;
+}
+.sidebar-nav a{
 	display: block;
 	width: 100%;
 	text-decoration: none;
 	color: inherit;
 	padding: 10px 15px;
 	font-size: 14px;
-  }
-  .L1{
-	background-color: #0B9CA1;
-	color: white;
-  }
-  .L2{
-	background-color: #6ABEA7;
-	color: white;
-  }
-  .L3{
-	background-color: #6EC9C4;
-	color: white;
-  }
-  
+}
+.L1{
+	font-weight: bold;
+	/* background-color: #1E83EB; */
+
+}
+.L2{
+	font-weight: normal;
+	/* background-color: #418ACF; */
+
+}
+.L3{
+	/* background-color: #38A4E5; */
+
+}
+.L4{
+	/* background-color: #72C1E0; */
+
+
+}
+
 body {
 	/* padding-top:50px; */
 	/* padding-bottom: 40px; */
@@ -58,7 +66,8 @@ body {
 	left:0px;
 	bottom:0;
 	top:32px;
-	background:white;
+	background:#F4F4F4;
+	/* color: #777; */
 	/* padding: 10px;  */
 	z-index:10;
 	-webkit-transition: all 500ms ease;
