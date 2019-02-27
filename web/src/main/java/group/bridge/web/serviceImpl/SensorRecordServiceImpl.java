@@ -28,8 +28,8 @@ public class SensorRecordServiceImpl extends BaseServiceImpl<SensorRecord, Integ
         return sensorRecordRepository.findAllByOrderByDateDesc();
     }
 
-    public List<SensorRecord> getAllByBridgeIDDesc(Integer bridge_id){
-        return sensorRecordRepository.findAllByBridgeByDateDesc(bridge_id);
+    public List<SensorRecord> getAllByBridgeIDDesc(Integer bridge_id, Integer sensor_num){
+        return sensorRecordRepository.findAllByBridgeByDateDesc(bridge_id, sensor_num);
     }
 
     public Page<SensorRecord> getPage(Pageable pageable)
