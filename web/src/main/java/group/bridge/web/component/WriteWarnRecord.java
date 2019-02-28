@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 
 public class WriteWarnRecord implements Runnable {
+    boolean stop = false;
+    boolean stoped = false;
     @Autowired
     WarnRecordService warnRecordService;
     @Autowired
@@ -69,7 +72,7 @@ public class WriteWarnRecord implements Runnable {
 
     @Override
     public void run() {
-        while(true) {
+        while(!stop) {
             try {
 
                 Thread.sleep(1000);
@@ -77,6 +80,15 @@ public class WriteWarnRecord implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+        stoped=true;
+    }
+    @PreDestroy
+    public void destory(){
+        stop = true;
+        System.out.println("warn_record is closed");
+        while (stoped){
+
         }
     }
 }

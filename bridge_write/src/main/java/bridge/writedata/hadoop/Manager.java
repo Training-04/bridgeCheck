@@ -32,9 +32,9 @@ public class Manager implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (index == count) {
-                break;
-            }
+//            if (index == count) {
+//                break;
+//            }
         }
         System.out.println("job stop");
 

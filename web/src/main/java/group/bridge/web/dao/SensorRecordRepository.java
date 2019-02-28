@@ -68,7 +68,7 @@ public interface SensorRecordRepository extends BaseRepository<SensorRecord, Int
             value = "SELECT sr.record_id, sr.date, sr.sensor_id, sr.value " +
                     "FROM sensor_records as sr,sensors as s " +
                     "WHERE sr.sensor_id = s.sensor_id AND sr.value >= s.threshold2 AND sr.date > " +
-                    "(select warn_date from warn_records  order by warn_date asc limit 1) " +
+                    "(select warn_date from warn_records  order by warn_date desc limit 1) " +
                     "order by sr.date asc ")
     List<SensorRecord> getSensorRecordByThreshold2HasWarn();
     @Query(nativeQuery = true,
@@ -82,7 +82,7 @@ public interface SensorRecordRepository extends BaseRepository<SensorRecord, Int
             value = "SELECT sr.record_id, sr.date, sr.sensor_id, sr.value " +
                     "FROM sensor_records as sr,sensors as s " +
                     "WHERE sr.sensor_id = s.sensor_id AND sr.value >= s.threshold1 AND sr.value < s.threshold2 " +
-                    "AND sr.date > (select warn_date from warn_records  order by warn_date asc limit 1) " +
+                    "AND sr.date > (select warn_date from warn_records  order by warn_date desc limit 1) " +
                     "order by sr.date asc ")
     List<SensorRecord> getSensorRecordByThresholdHasWarn();
     @Query(nativeQuery = true,
