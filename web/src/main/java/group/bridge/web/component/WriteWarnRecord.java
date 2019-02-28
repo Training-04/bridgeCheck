@@ -86,9 +86,11 @@ public class WriteWarnRecord implements Runnable {
     @PreDestroy
     public void destory(){
         stop = true;
-        System.out.println("warn_record is closed");
+        System.out.println("warn_record is closing...");
         while (stoped){
 
         }
+        System.out.println("warn_record is closed");
+
     }
 }
