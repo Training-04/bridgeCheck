@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class SensorRecordServiceImpl extends BaseServiceImpl<SensorRecord, Integer> implements SensorRecordService {
 
-    private Integer record_distance = 1000;//关于数据每分钟多少条在此设置（每条时间间隔，单位 ms）
+    private Integer record_distance = 10000;//关于数据每分钟多少条在此设置（每条时间间隔，单位 ms）
 
     @Autowired
     SensorRecordRepository sensorRecordRepository;
@@ -28,8 +28,8 @@ public class SensorRecordServiceImpl extends BaseServiceImpl<SensorRecord, Integ
         return sensorRecordRepository.findAllByOrderByDateDesc();
     }
 
-    public List<SensorRecord> getAllByBridgeIDDesc(Integer bridge_id){
-        return sensorRecordRepository.findAllByBridgeByDateDesc(bridge_id);
+    public List<SensorRecord> getAllByBridgeIDDesc(Integer bridge_id, Integer sensor_num){
+        return sensorRecordRepository.findAllByBridgeByDateDesc(bridge_id, sensor_num);
     }
 
     public Page<SensorRecord> getPage(Pageable pageable)

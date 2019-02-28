@@ -16,10 +16,10 @@ public interface SensorRecordRepository extends BaseRepository<SensorRecord, Int
 
     List<SensorRecord> findAllByOrderByDateDesc();
     Page<SensorRecord> findAllByOrderByDateDesc(Pageable pageable);
-    // 按桥梁名称查询，按日期排序
+    // 按桥梁名称查询，按日期排序,按传感器数量读取相应条数的传感器记录
     @Query(nativeQuery = true,
-            value = "SELECT record_id, date, value, sr.sensor_id FROM  sensor_records sr, sensors s WHERE sr.sensor_id = s.sensor_id AND s.bridge_id = :bridge_id ORDER BY date DESC;")
-    List<SensorRecord> findAllByBridgeByDateDesc(@Param("bridge_id") Integer bridge_id);
+            value = "SELECT record_id, date, value, sr.sensor_id FROM  sensor_records sr, sensors s WHERE sr.sensor_id = s.sensor_id AND s.bridge_id = :bridge_id ORDER BY date DESC limit :sensor_num ;")
+    List<SensorRecord> findAllByBridgeByDateDesc(@Param("bridge_id") Integer bridge_id, @Param("sensor_num") Integer sensor_num);
 
     // 按桥梁名、传感器名查询，按日期排序
     @Query(nativeQuery = true,

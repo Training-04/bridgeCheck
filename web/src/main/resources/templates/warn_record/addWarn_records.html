@@ -11,6 +11,11 @@
 </head>
 <body>
     <div layout:fragment="content">
+        <ol class="breadcrumb">
+            <li><a href="#">系统管理</a></li>
+            <li><a href="#">报警管理</a></li>
+            <li class="active">添加报警记录</li>
+        </ol>
         <div class="container" style="width: 500px;">
             <form th:action="@{/Warn_record/addWarn_records}" method="post">
                 <div class="form-group">
@@ -53,7 +58,7 @@
 
                 <div align="center" style="margin-top: 8px;padding-right: 50px;" >
                     <button type="submit" class="btn btn-primary">添加</button>
-                    <a th:href="@{/Warn_record/allWarn_records}"><button type="submit" class="btn btn-primary">返回主页面</button></a>
+                    <a class="btn btn-primary" th:href="@{/Warn_record/allWarn_records}">返回主页面</a>
                 </div>
 
             </form>

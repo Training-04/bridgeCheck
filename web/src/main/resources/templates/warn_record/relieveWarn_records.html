@@ -24,7 +24,6 @@
 <div layout:fragment="content">
     <ol class="breadcrumb">
         <li><a href="#">系统管理</a></li>
-        <li><a href="#">阈值和报警管理</a></li>
         <li><a href="#">报警管理</a></li>
         <li class="active">已解除报警页面</li>
     </ol>
@@ -49,19 +48,19 @@
                 <td><a th:href="@{'/Warn_record/delRelieveWarn_record/'+${wrs.warn_id}}">删除报警信息</a></td>
             </tr>
         </table>
-        <nav aria-label="Page navigation" style="text-align: center;">
-            <ul class="pagination" style="text-align: center;">
-                <li th:class="${pageIndex == 1}? 'disabled':''"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex-1}}">上一页</a></li>
-                <li th:if="${pageIndex-3 >= 1}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex-3}}" th:text="${pageIndex-3}">1</a></li>
-                <li th:if="${pageIndex-2 >= 1}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex-2}}" th:text="${pageIndex-2}">1</a></li>
-                <li th:if="${pageIndex-1 >= 1}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex-1}}" th:text="${pageIndex-1}">1</a></li>
-                <li class="active"><a href="#" th:text="${pageIndex}">1</a></li>
-                <li th:if="${pageIndex+1 <= pageTotal}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex+1}}" th:text="${pageIndex+1}">1</a></li>
-                <li th:if="${pageIndex+2 <= pageTotal}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex+2}}" th:text="${pageIndex+2}">1</a></li>
-                <li th:if="${pageIndex+3 <= pageTotal}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex+3}}" th:text="${pageIndex+3}">1</a></li>
-                <li th:class="${pageIndex == pageTotal}? 'disabled':''"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex+1}}">下一页</a></li>
-            </ul>
-        </nav>
+        <!--<nav aria-label="Page navigation" style="text-align: center;">-->
+            <!--<ul class="pagination" style="text-align: center;">-->
+                <!--<li th:class="${pageIndex == 1}? 'disabled':''"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex-1}}">上一页</a></li>-->
+                <!--<li th:if="${pageIndex-3 >= 1}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex-3}}" th:text="${pageIndex-3}">1</a></li>-->
+                <!--<li th:if="${pageIndex-2 >= 1}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex-2}}" th:text="${pageIndex-2}">1</a></li>-->
+                <!--<li th:if="${pageIndex-1 >= 1}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex-1}}" th:text="${pageIndex-1}">1</a></li>-->
+                <!--<li class="active"><a href="#" th:text="${pageIndex}">1</a></li>-->
+                <!--<li th:if="${pageIndex+1 <= pageTotal}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex+1}}" th:text="${pageIndex+1}">1</a></li>-->
+                <!--<li th:if="${pageIndex+2 <= pageTotal}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex+2}}" th:text="${pageIndex+2}">1</a></li>-->
+                <!--<li th:if="${pageIndex+3 <= pageTotal}"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex+3}}" th:text="${pageIndex+3}">1</a></li>-->
+                <!--<li th:class="${pageIndex == pageTotal}? 'disabled':''"><a th:href="@{'/Warn_record/relieveWarn_records/'+${pageIndex+1}}">下一页</a></li>-->
+            <!--</ul>-->
+        <!--</nav>-->
 
     </div>
     <div id="footer">
