@@ -7,18 +7,6 @@
     <meta charset="UTF-8">
     <title>展示警报信息页面</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <style type="text/css">
-        #footer{
-            height: 80px;
-            width: 100%;
-            line-height: 25px;
-            text-align: center;
-            background-color: #00AEAE;
-            padding:20px;
-            position: fixed;
-            bottom: 5px;
-        }
-    </style>
 </head>
 <body>
 <div layout:fragment="content">
@@ -63,10 +51,7 @@
         <!--</nav>-->
 
     </div>
-    <div id="footer">
-        <p>关于|广告服务|招聘|客服中心|QQ留言|网站管理|加入我们</p>
-        <p>Copyright ©2006-2019 All Rights Reserved</p>
-    </div>
+    <div th:replace="common/foot::footer"></div>
 </div>
 </body>
 </html>
