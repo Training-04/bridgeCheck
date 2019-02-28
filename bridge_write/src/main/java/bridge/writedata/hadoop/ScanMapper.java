@@ -29,7 +29,7 @@ public class ScanMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
                 e.getStackTrace();
             }
             //两分钟
-            for(int i=0;i<120;i++) {
+            for(int i=0;i<StaticData.dataNum;i++) {
                 Random random = new Random(UUID.randomUUID().hashCode());
                 sensorValue = random.nextInt(maxValue.intValue()-minValue.intValue()) + minValue;
                 context.write(new Text(id), new LongWritable(sensorValue));

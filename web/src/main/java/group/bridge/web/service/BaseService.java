@@ -9,7 +9,7 @@ import java.util.List;
 public interface BaseService<T,ID> {
     boolean add(T t);
 
-
+    void addAll(List<T> list);
     boolean update(T t);
 
     void delete(T t);
@@ -30,4 +30,5 @@ public interface BaseService<T,ID> {
     List<T> getByPredicate(Specification<T> specification);
 
     Page<T> getByPredicate(Specification<T> specification, Pageable pageable);
+    Long count();
 }

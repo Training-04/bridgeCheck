@@ -18,6 +18,7 @@ import java.io.IOException;
 public class Manager implements Runnable {
     public boolean stop = false;
 
+    public int count = 20;
     public void run() {
         int index = 0;
         while (!stop) {
@@ -31,9 +32,9 @@ public class Manager implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (index == 10) {
-                break;
-            }
+//            if (index == count) {
+//                break;
+//            }
         }
         System.out.println("job stop");
 
@@ -41,7 +42,7 @@ public class Manager implements Runnable {
 
     public void runJob(String inputPath) throws IOException, ClassNotFoundException, InterruptedException {
         Configuration conf = new Configuration();
-        conf.set("hbase.zookeeper.quorum", "localhost");
+        conf.set("hbase.zookeeper.quorum", "master");
         //设置当前时间，用来做rowkey
         Long beforeTime = System.currentTimeMillis();
         conf.set("time", beforeTime + "");
@@ -69,8 +70,8 @@ public class Manager implements Runnable {
 
         Long timeSpan = System.currentTimeMillis() - beforeTime;
         System.out.println("timeSpan:"+timeSpan);
-        if (60*1000-timeSpan > 0) {
-            Thread.sleep(60 * 1000 - timeSpan);
+        if (StaticData.dataNum*1000-timeSpan > 0) {
+            Thread.sleep(StaticData.dataNum * 1000 - timeSpan);
         }
         System.out.println("next begin");
 

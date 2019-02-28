@@ -32,4 +32,14 @@ public interface SensorRecordService extends BaseService<SensorRecord, Integer>{
 
     //获取超过2级阈值的传感器记录
     List<SensorRecord> getWarn2Sensor_records(Date startTime);
+
+
+    List<SensorRecord> getSensorRecordByThreshold2HasWarn();
+
+    List<SensorRecord> getSensorRecordByThreshold2NoWarn();
+
+
+    List<SensorRecord> getSensorRecordByThresholdHasWarn();
+
+    List<SensorRecord> getSensorRecordByThresholdNoWarn();
 }
