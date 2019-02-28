@@ -14,6 +14,12 @@ public class DataRunner {
 
         }else{
             StaticData.dataNum = Integer.parseInt(args[0]);
+            System.out.println();
+            System.out.println();
+            System.out.println(StaticData.dataNum);
+            System.out.println();
+            System.out.println();
+
             if(args.length>2){
                 manager.count = Integer.parseInt(args[1]);
             }

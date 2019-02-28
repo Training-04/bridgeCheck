@@ -16,10 +16,10 @@ public interface SensorRecordRepository extends BaseRepository<SensorRecord, Int
 
     List<SensorRecord> findAllByOrderByDateDesc();
     Page<SensorRecord> findAllByOrderByDateDesc(Pageable pageable);
-    // 按桥梁名称查询，按日期排序
+    // 按桥梁名称查询，按日期排序,按传感器数量读取相应条数的传感器记录
     @Query(nativeQuery = true,
-            value = "SELECT record_id, date, value, sr.sensor_id FROM  sensor_records sr, sensors s WHERE sr.sensor_id = s.sensor_id AND s.bridge_id = :bridge_id ORDER BY date DESC;")
-    List<SensorRecord> findAllByBridgeByDateDesc(@Param("bridge_id") Integer bridge_id);
+            value = "SELECT record_id, date, value, sr.sensor_id FROM  sensor_records sr, sensors s WHERE sr.sensor_id = s.sensor_id AND s.bridge_id = :bridge_id ORDER BY date DESC limit :sensor_num ;")
+    List<SensorRecord> findAllByBridgeByDateDesc(@Param("bridge_id") Integer bridge_id, @Param("sensor_num") Integer sensor_num);
 
     // 按桥梁名、传感器名查询，按日期排序
     @Query(nativeQuery = true,
@@ -51,13 +51,46 @@ public interface SensorRecordRepository extends BaseRepository<SensorRecord, Int
 
     //查询1级报警传感器记录
     @Query(nativeQuery = true,
-            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensor_records.data > :curTime AND sensor_records.value >= sensors.threshold1 AND sensor_records.value < sensors.threshold2")
+            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensor_records.date > :curTime AND sensor_records.value >= sensors.threshold1 AND sensor_records.value < sensors.threshold2")
     List<SensorRecord> findByThreshold1andTime(@Param("curTime") Date curTime);
 
     //查询2级报警传感器记录
     @Query(nativeQuery = true,
-            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensor_records.data > :curTime AND sensor_records.value >= sensors.threshold2")
+            value = "SELECT sr.record_id, sr.date, sr.sensor_id, sr.value " +
+                    "FROM sensor_records as sr,sensors as s " +
+                    "WHERE sr.sensor_id = s.sensor_id AND sr.value >= s.threshold2 AND sr.date > " +
+                    "(select warn_date from warn_records  order by warn_date asc limit 1) " +
+                    "order by sr.date asc ")
     List<SensorRecord> findByThreshold2andTime(@Param("curTime") Date curTime);
+
+
+    @Query(nativeQuery = true,
+            value = "SELECT sr.record_id, sr.date, sr.sensor_id, sr.value " +
+                    "FROM sensor_records as sr,sensors as s " +
+                    "WHERE sr.sensor_id = s.sensor_id AND sr.value >= s.threshold2 AND sr.date > " +
+                    "(select warn_date from warn_records  order by warn_date desc limit 1) " +
+                    "order by sr.date asc ")
+    List<SensorRecord> getSensorRecordByThreshold2HasWarn();
+    @Query(nativeQuery = true,
+            value = "SELECT sr.record_id, sr.date, sr.sensor_id, sr.value " +
+                    "FROM sensor_records as sr,sensors as s " +
+                    "WHERE sr.sensor_id = s.sensor_id AND sr.value >= s.threshold2  " +
+                    "order by sr.date asc ")
+    List<SensorRecord> getSensorRecordByThreshold2NoWarn();
+
+    @Query(nativeQuery = true,
+            value = "SELECT sr.record_id, sr.date, sr.sensor_id, sr.value " +
+                    "FROM sensor_records as sr,sensors as s " +
+                    "WHERE sr.sensor_id = s.sensor_id AND sr.value >= s.threshold1 AND sr.value < s.threshold2 " +
+                    "AND sr.date > (select warn_date from warn_records  order by warn_date desc limit 1) " +
+                    "order by sr.date asc ")
+    List<SensorRecord> getSensorRecordByThresholdHasWarn();
+    @Query(nativeQuery = true,
+            value = "SELECT sr.record_id, sr.date, sr.sensor_id, sr.value " +
+                    "FROM sensor_records as sr,sensors as s " +
+                    "WHERE sr.sensor_id = s.sensor_id AND sr.value >= s.threshold1 AND sr.value < s.threshold2  " +
+                    "order by sr.date asc ")
+    List<SensorRecord> getSensorRecordByThresholdNoWarn();
 
 }
 

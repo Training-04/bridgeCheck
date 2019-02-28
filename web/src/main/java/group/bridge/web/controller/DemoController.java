@@ -17,7 +17,7 @@ public class DemoController extends BaseController{
     PersonService personService;
     @Autowired
     BridgeService bridgeService;
-    @RequestMapping(value = {"/",""})
+    @RequestMapping(value = {"/","","index"})
     public String demo() {
         return "common/index";
     }

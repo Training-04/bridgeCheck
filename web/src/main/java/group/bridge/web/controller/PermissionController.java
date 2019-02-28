@@ -23,7 +23,6 @@ public class PermissionController extends BaseController {
     PermissionService permissionService;
 
     @RequestMapping("/allPer/{index}")
-    //@RequiresPermissions("perInfo:allPer")
     //logical= Logical.OR的意思是，只要存在value={"所有权限信息","修改权限信息","删除权限信息"}的一个，就可以拥有这个类的权限
     @RequiresPermissions(value={"所有权限信息","修改权限信息","删除权限信息"},logical= Logical.OR)
     public String getAllPer(Model model, HttpSession session,@PathVariable("index") Integer index){
@@ -47,7 +46,6 @@ public class PermissionController extends BaseController {
     }
 
     @RequestMapping("/toAddPer")
-    //@RequiresPermissions("perInfo:toAddPer")
     @RequiresPermissions("添加权限信息")
 
     public String toAdd(Model model){
@@ -58,7 +56,7 @@ public class PermissionController extends BaseController {
     @RequestMapping("/addPer")
     public String add(Permission permission){
         permissionService.add(permission);
-        return "redirect:/permission/allPer/1";
+        return "redirect:/permission/allPer";
     }
 
 
@@ -75,17 +73,16 @@ public class PermissionController extends BaseController {
     @RequestMapping("/updatePer")
     public String update(Permission permission){
         permissionService.updatePer(permission);
-        return "redirect:/permission/allPer/1";
+        return "redirect:/permission/allPer";
     }
 
     @RequestMapping("/deletePer/{id}")
     public String delete(@PathVariable("id") int permissionID){
         permissionService.deleteById(permissionID);
-        return "redirect:/permission/allPer/1";
+        return "redirect:/permission/allPer";
     }
 
     @RequestMapping("/toSearchPer")
-    //@RequiresPermissions("perInfo:toSearchPer")
     @RequiresPermissions("查询权限信息")
     public String toSearch(Model model){
         model.addAttribute("title","查找权限信息");

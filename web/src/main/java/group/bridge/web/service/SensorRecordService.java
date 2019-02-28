@@ -18,7 +18,7 @@ public interface SensorRecordService extends BaseService<SensorRecord, Integer>{
     //获取指定桥梁的最新传感器数据
     List<SensorRecord> getLastSensor_records(Integer bridge_id, String para_cn, Date curTime);
     List<SensorRecord> getAllDesc();
-    List<SensorRecord> getAllByBridgeIDDesc(Integer bridge_id);
+    List<SensorRecord> getAllByBridgeIDDesc(Integer bridge_id, Integer sensor_num);
     List<SensorRecord> getByBridgeBySensor(Integer bridge_id, String para_unit_cn);
 
     Page<SensorRecord> getPage(Pageable pageable);
@@ -32,4 +32,14 @@ public interface SensorRecordService extends BaseService<SensorRecord, Integer>{
 
     //获取超过2级阈值的传感器记录
     List<SensorRecord> getWarn2Sensor_records(Date startTime);
+
+
+    List<SensorRecord> getSensorRecordByThreshold2HasWarn();
+
+    List<SensorRecord> getSensorRecordByThreshold2NoWarn();
+
+
+    List<SensorRecord> getSensorRecordByThresholdHasWarn();
+
+    List<SensorRecord> getSensorRecordByThresholdNoWarn();
 }

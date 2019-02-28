@@ -28,7 +28,6 @@ public class UserController extends BaseController{
 
 
     @RequestMapping("/allUser")
-    //@RequiresPermissions("userInfo:allUser")
     //@RequiresPermissions("所有用户信息")
     @RequiresPermissions(value={"所有用户信息","修改用户信息","删除用户信息"},logical= Logical.OR)
 
@@ -40,7 +39,6 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("/toAdd")
-    //@RequiresPermissions("userInfo:toAdd")
     @RequiresPermissions("添加用户信息")
     public String toAdd(Model model, HttpSession session){
         List<Role> roles=roleService.getAll();
@@ -96,7 +94,6 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("/toSearch")
-    //@RequiresPermissions("userInfo:toSearch")
     @RequiresPermissions("查询用户信息")
     public String toSearch(Model model){
         model.addAttribute("title","查找用户信息");

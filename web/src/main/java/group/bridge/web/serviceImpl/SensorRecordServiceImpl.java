@@ -28,8 +28,8 @@ public class SensorRecordServiceImpl extends BaseServiceImpl<SensorRecord, Integ
         return sensorRecordRepository.findAllByOrderByDateDesc();
     }
 
-    public List<SensorRecord> getAllByBridgeIDDesc(Integer bridge_id){
-        return sensorRecordRepository.findAllByBridgeByDateDesc(bridge_id);
+    public List<SensorRecord> getAllByBridgeIDDesc(Integer bridge_id, Integer sensor_num){
+        return sensorRecordRepository.findAllByBridgeByDateDesc(bridge_id, sensor_num);
     }
 
     public Page<SensorRecord> getPage(Pageable pageable)
@@ -75,5 +75,23 @@ public class SensorRecordServiceImpl extends BaseServiceImpl<SensorRecord, Integ
     @Override
     public List<SensorRecord> getWarn2Sensor_records(Date curTime){
         return sensorRecordRepository.findByThreshold2andTime(curTime);
+    }
+
+
+    public List<SensorRecord> getSensorRecordByThreshold2HasWarn(){
+        return sensorRecordRepository.getSensorRecordByThreshold2HasWarn();
+    }
+
+    public List<SensorRecord> getSensorRecordByThreshold2NoWarn(){
+        return sensorRecordRepository.getSensorRecordByThreshold2NoWarn();
+    }
+
+
+    public List<SensorRecord> getSensorRecordByThresholdHasWarn(){
+        return sensorRecordRepository.getSensorRecordByThresholdHasWarn();
+    }
+
+    public List<SensorRecord> getSensorRecordByThresholdNoWarn(){
+        return sensorRecordRepository.getSensorRecordByThresholdNoWarn();
     }
 }

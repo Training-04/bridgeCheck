@@ -54,9 +54,9 @@
                 <td th:text="${bridge.bridge_length}"></td>
                 <td th:text="${bridge.bridge_info}"></td>
                 <td>
-                    <a th:href="@{'/bridge/delBridge/'+${bridge.bridge_id}}">删除</a>
+                    <a th:href="@{'/bridge/toUpdate/'+${bridge.bridge_id}}">修改桥梁</a>
                     |
-                    <a th:href="@{'/bridge/toUpdate/'+${bridge.bridge_id}}">修改</a>
+                    <a th:href="@{'/bridge/delBridge/'+${bridge.bridge_id}}">删除桥梁</a>
                 </td>
             </tr>
         </table>

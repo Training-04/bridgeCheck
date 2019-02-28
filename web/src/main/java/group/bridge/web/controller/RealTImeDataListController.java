@@ -1,6 +1,7 @@
 package group.bridge.web.controller;
 
 
+import group.bridge.web.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -22,12 +23,19 @@ public class RealTImeDataListController {
     public BridgeService bridgeService;
     @Autowired
     public SensorRecordService sensorRecordService;
+    @Autowired
+    public SensorService sensorService;
 
     @RequestMapping("ajax_realtime")
     public String ajax_realtime(@RequestBody JSONObject params)
     {
         Integer bridge_id = params.getInteger("bridge");
-        List<SensorRecord> lists = sensorRecordService.getAllByBridgeIDDesc(bridge_id);
+        Integer sensor_num = sensorService.getSensorCount();
+
+        List<SensorRecord> lists = sensorRecordService.getAllByBridgeIDDesc(bridge_id,sensor_num);
+
+        // 仅读取前12个
+     //   lists = lists.subList(0, 12);
 
         String json = JSON.toJSONString(lists, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.WriteMapNullValue);
         // String json = JSON.toJSONString(lists);

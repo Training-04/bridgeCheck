@@ -24,4 +24,6 @@ public interface WarnRecordService extends BaseService<WarnRecord, Integer> {
     //插入报警记录
     void insertWarn_record(Date warn_date, String status, String warn_para, Integer sensor_id);
 
+    Long getNotRelieveCount();
+
 }

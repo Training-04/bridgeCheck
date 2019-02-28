@@ -12,7 +12,7 @@
 
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid" style="position: fixed; width: 100%; z-index: 10; ">
     <nav class="navbar navbar-default navbar-static-top" style="margin-bottom: 0px">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -33,14 +33,14 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#" >
-                            <span class="label label-success" id="safe" >安全</span>
-                            <span class="label label-danger" style="display: none;" id="warn" >警报</span>
+                        <a href="/Warn_record/allWarn_records">
+                            <span class="label label-success" id="safe">安全</span>
+                            <span class="label label-danger" style="display: none;" id="warn">警报</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="/logout"><span class="glyphicon glyphicon-off" > logout</span></a>
+                        <a href="/logout"><span class="glyphicon glyphicon-off"> logout</span></a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -51,32 +51,33 @@
     </nav>
 </div>
 <div class="row" style="margin-left: 200px;">
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top: 50px;">
         <div class="col-md-12" layout:fragment="content">
             ceshi
         </div>
     </div>
 </div>
 <script>
-    setInterval(checkWarn,2*1000);
-    function checkWarn(){
+    setInterval(checkWarn, 2 * 1000);
+
+    function checkWarn() {
         $.ajax({
             type: 'get',
             url: "/api/warn",
             async: true,
-            data:"",
+            data: "",
             datatype: "json",
-            success:function(result){
-                if(!result){
-                    $("#warn").css("display","none");
-                    $("#safe").css("display","inline");
+            success: function (result) {
+                if (!result) {
+                    $("#warn").css("display", "none");
+                    $("#safe").css("display", "inline");
 
-                }else{
-                    $("#warn").css("display","inline");
-                    $("#safe").css("display","none");
+                } else {
+                    $("#warn").css("display", "inline");
+                    $("#safe").css("display", "none");
                 }
             },
-            error:function(result){
+            error: function (result) {
             }
 
         });

@@ -22,6 +22,11 @@ public class SensorServiceImpl extends BaseServiceImpl<Sensor,Integer> implement
         this.repository = sensorRepository;
     }
 
+    public Integer getSensorCount()
+    {
+        return sensorRepository.getSensorCount();
+    }
+
     @Override
     public List<Sensor> getByName(String sensor_name) {
         Specification<Sensor> sensorSpecification=new Specification<Sensor>() {

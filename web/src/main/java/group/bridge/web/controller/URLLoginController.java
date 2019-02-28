@@ -57,12 +57,6 @@ public class URLLoginController {
         }
     }
 
-
-    @RequestMapping("/index")
-    public String index(){
-        return"demo/fragment1";
-    }
-
     @RequestMapping("/404")
     public String unauthorizedRole(){
         System.out.println("------没有权限-------");

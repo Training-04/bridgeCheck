@@ -12,7 +12,6 @@
     <!--<div style="background-color:#F5F5F5;height: 1022px">-->
     <ol class="breadcrumb">
         <li><a href="#">系统管理</a></li>
-        <li><a href="#">阈值和报警管理</a></li>
         <li><a href="#">阈值管理</a></li>
         <li><a href="#">修改阈值</a></li>
         <li class="active">添加传感器</li>
@@ -68,7 +67,7 @@
 
             <div align="center" style="margin-top: 8px;padding-right: 50px;" >
                 <button type="submit" class="btn btn-primary" >添加</button>
-                <a th:href="@{/sensor/allSensors}"><button type="submit" class="btn btn-primary">返回主页面</button></a>
+                <a class="btn btn-primary" th:href="@{/sensor/allSensors}">返回主页面</a>
             </div>
         </form>
     </div>
