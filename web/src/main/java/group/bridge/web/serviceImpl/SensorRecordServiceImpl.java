@@ -76,4 +76,22 @@ public class SensorRecordServiceImpl extends BaseServiceImpl<SensorRecord, Integ
     public List<SensorRecord> getWarn2Sensor_records(Date curTime){
         return sensorRecordRepository.findByThreshold2andTime(curTime);
     }
+
+
+    public List<SensorRecord> getSensorRecordByThreshold2HasWarn(){
+        return sensorRecordRepository.getSensorRecordByThreshold2HasWarn();
+    }
+
+    public List<SensorRecord> getSensorRecordByThreshold2NoWarn(){
+        return sensorRecordRepository.getSensorRecordByThreshold2NoWarn();
+    }
+
+
+    public List<SensorRecord> getSensorRecordByThresholdHasWarn(){
+        return sensorRecordRepository.getSensorRecordByThresholdHasWarn();
+    }
+
+    public List<SensorRecord> getSensorRecordByThresholdNoWarn(){
+        return sensorRecordRepository.getSensorRecordByThresholdNoWarn();
+    }
 }

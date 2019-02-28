@@ -24,6 +24,12 @@ public abstract class BaseServiceImpl<T,ID> implements BaseService<T,ID>, Initia
         }
         return true;
     }
+    @Override
+    public void addAll(List<T> list) {
+
+        repository.saveAll(list);
+
+    }
 
     @Override
     public boolean update(T t) {
@@ -76,5 +82,9 @@ public abstract class BaseServiceImpl<T,ID> implements BaseService<T,ID>, Initia
     @Override
     public void afterPropertiesSet() throws Exception {
         setRepository();
+    }
+    @Override
+    public Long count(){
+        return repository.count();
     }
 }

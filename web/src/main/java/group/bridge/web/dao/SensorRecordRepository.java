@@ -51,13 +51,46 @@ public interface SensorRecordRepository extends BaseRepository<SensorRecord, Int
 
     //查询1级报警传感器记录
     @Query(nativeQuery = true,
-            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensor_records.data > :curTime AND sensor_records.value >= sensors.threshold1 AND sensor_records.value < sensors.threshold2")
+            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensor_records.date > :curTime AND sensor_records.value >= sensors.threshold1 AND sensor_records.value < sensors.threshold2")
     List<SensorRecord> findByThreshold1andTime(@Param("curTime") Date curTime);
 
     //查询2级报警传感器记录
     @Query(nativeQuery = true,
-            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensor_records.data > :curTime AND sensor_records.value >= sensors.threshold2")
+            value = "SELECT sr.record_id, sr.date, sr.sensor_id, sr.value " +
+                    "FROM sensor_records as sr,sensors as s " +
+                    "WHERE sr.sensor_id = s.sensor_id AND sr.value >= s.threshold2 AND sr.date > " +
+                    "(select warn_date from warn_records  order by warn_date asc limit 1) " +
+                    "order by sr.date asc ")
     List<SensorRecord> findByThreshold2andTime(@Param("curTime") Date curTime);
+
+
+    @Query(nativeQuery = true,
+            value = "SELECT sr.record_id, sr.date, sr.sensor_id, sr.value " +
+                    "FROM sensor_records as sr,sensors as s " +
+                    "WHERE sr.sensor_id = s.sensor_id AND sr.value >= s.threshold2 AND sr.date > " +
+                    "(select warn_date from warn_records  order by warn_date asc limit 1) " +
+                    "order by sr.date asc ")
+    List<SensorRecord> getSensorRecordByThreshold2HasWarn();
+    @Query(nativeQuery = true,
+            value = "SELECT sr.record_id, sr.date, sr.sensor_id, sr.value " +
+                    "FROM sensor_records as sr,sensors as s " +
+                    "WHERE sr.sensor_id = s.sensor_id AND sr.value >= s.threshold2  " +
+                    "order by sr.date asc ")
+    List<SensorRecord> getSensorRecordByThreshold2NoWarn();
+
+    @Query(nativeQuery = true,
+            value = "SELECT sr.record_id, sr.date, sr.sensor_id, sr.value " +
+                    "FROM sensor_records as sr,sensors as s " +
+                    "WHERE sr.sensor_id = s.sensor_id AND sr.value >= s.threshold1 AND sr.value < s.threshold2 " +
+                    "AND sr.date > (select warn_date from warn_records  order by warn_date asc limit 1) " +
+                    "order by sr.date asc ")
+    List<SensorRecord> getSensorRecordByThresholdHasWarn();
+    @Query(nativeQuery = true,
+            value = "SELECT sr.record_id, sr.date, sr.sensor_id, sr.value " +
+                    "FROM sensor_records as sr,sensors as s " +
+                    "WHERE sr.sensor_id = s.sensor_id AND sr.value >= s.threshold1 AND sr.value < s.threshold2  " +
+                    "order by sr.date asc ")
+    List<SensorRecord> getSensorRecordByThresholdNoWarn();
 
 }
 
