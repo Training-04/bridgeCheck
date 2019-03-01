@@ -22,7 +22,7 @@
             <div >
                 <select id="bridge" name = "choose_bridge">
                     <optgroup label="bridge" >
-                        <option  th:each="bridge:${bridges}" th:value="${bridge.bridge_id}" th:text="${bridge.bridge_info}"> 武汉长江大桥 </option>
+                        <option  th:each="bridge:${bridges}" th:value="${bridge.bridge_id}" th:text="${bridge.bridge_name}"> 武汉长江大桥 </option>
                     </optgroup>
                 </select>
                 <select id="sensor" name = "choose_sensor">
@@ -123,7 +123,7 @@
                                     var tr = document.createElement('tr');
                                     // 桥梁
                                     var bridgeTd = document.createElement('td');
-                                    bridgeTd.innerHTML = srList[i-j].sensor.bridge.bridge_info;
+                                    bridgeTd.innerHTML = srList[i-j].sensor.bridge.bridge_name;
                                     //alert(srList[0].sensor.bridge.bridge_info);
 
                                     // 项目
