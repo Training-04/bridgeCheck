@@ -1,9 +1,6 @@
 package group.bridge.web.interceptor;
 
-import group.bridge.web.util.CookieUtil;
-import group.bridge.web.util.JwtBuilder;
-import group.bridge.web.util.TokenUtil;
-import group.bridge.web.util.XmlOperator;
+import group.bridge.web.util.*;
 import io.jsonwebtoken.Claims;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -22,7 +19,7 @@ public class PageInterceptor implements HandlerInterceptor {
         if(!result) {
             response.sendRedirect("/login");
         }else{
-           setNavigation(request);
+           SessionUtil.setNavigation(request);
         }
         return result;
     }
@@ -31,11 +28,5 @@ public class PageInterceptor implements HandlerInterceptor {
 
     }
 
-    private void setNavigation(HttpServletRequest request){
-        HttpSession session=request.getSession();
-        Object nav=session.getAttribute("nav");
-        if(nav==null) {
-            session.setAttribute("nav", XmlOperator.getUrl());
-        }
-    }
+
 }
