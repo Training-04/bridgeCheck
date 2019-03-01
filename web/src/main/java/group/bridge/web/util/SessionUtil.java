@@ -8,4 +8,11 @@ public class SessionUtil {
         HttpSession session=request.getSession();
         session.removeAttribute(attrName);
     }
+    public static void setNavigation(HttpServletRequest request){
+        HttpSession session=request.getSession();
+        Object nav=session.getAttribute("nav");
+        if(nav==null) {
+            session.setAttribute("nav", XmlOperator.getUrl());
+        }
+    }
 }

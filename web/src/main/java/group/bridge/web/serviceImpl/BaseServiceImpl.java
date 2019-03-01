@@ -24,6 +24,12 @@ public abstract class BaseServiceImpl<T,ID> implements BaseService<T,ID>, Initia
         }
         return true;
     }
+    @Override
+    public void addAll(List<T> list) {
+
+        repository.saveAll(list);
+
+    }
 
     @Override
     public boolean update(T t) {
@@ -32,6 +38,7 @@ public abstract class BaseServiceImpl<T,ID> implements BaseService<T,ID>, Initia
         }
         return true;
     }
+
 
     @Override
     public void delete(T t) {
@@ -51,9 +58,16 @@ public abstract class BaseServiceImpl<T,ID> implements BaseService<T,ID>, Initia
     public Page<T> getAll(Pageable pageable){
         return repository.findAll(pageable);
     }
-
+    @Override
+    public List<T> getAllNotCascade() {
+        return repository.findAllNotCascade();
+    }
     @Override
     public T get(ID id) {
+        return repository.findById(id).orElse(null);
+    }
+    @Override
+    public T get2(ID id) {
         return repository.getOne(id);
     }
     @Override
@@ -68,5 +82,9 @@ public abstract class BaseServiceImpl<T,ID> implements BaseService<T,ID>, Initia
     @Override
     public void afterPropertiesSet() throws Exception {
         setRepository();
+    }
+    @Override
+    public Long count(){
+        return repository.count();
     }
 }

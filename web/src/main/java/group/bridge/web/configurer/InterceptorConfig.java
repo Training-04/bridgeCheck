@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
+//@Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -14,7 +14,11 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(new PageInterceptor()).addPathPatterns("/**").
                 excludePathPatterns("/login").
                 excludePathPatterns("/logout").
-                excludePathPatterns("/api/**");
+                excludePathPatterns("/api/**").
+                excludePathPatterns("/**/*.jpg").
+                excludePathPatterns("/**/*.css").
+                excludePathPatterns("/**/*.js").
+                excludePathPatterns("/**/*.png");
         //拦截api
         registry.addInterceptor(new ApiInterceptor()).addPathPatterns("/api/**");
     }
