@@ -57,5 +57,9 @@ public class WarnRecordServiceImpl extends BaseServiceImpl<WarnRecord, Integer> 
             return predicate;
         });
     }
+
+    public List<WarnRecord> getWarnRecord(){
+       return warnRecordRepository.getWarnRecord();
+    }
 }
 

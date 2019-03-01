@@ -10,9 +10,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "bridges")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "bridge_id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "bridge_id")
 public class Bridge {
     @Id
     @Column(name="bridge_id")
