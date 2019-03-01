@@ -41,7 +41,7 @@ public interface SensorRecordRepository extends BaseRepository<SensorRecord, Int
 
     //根据桥梁id查询指定传感器记录(实时)
     @Query(nativeQuery = true,
-            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensors.bridge_id = :bridge_id AND sensors.para_unit_cn = :para_unit_cn AND sensor_records.date >= :curTime AND sensor_records.date < :endTime")
+            value = "SELECT sensor_records.record_id, sensor_records.date, sensor_records.sensor_id, sensor_records.value FROM sensor_records,sensors WHERE sensor_records.sensor_id = sensors.sensor_id AND sensors.bridge_id = :bridge_id AND sensors.para_unit_cn = :para_unit_cn AND sensor_records.date > :curTime AND sensor_records.date <= :endTime")
     List<SensorRecord> findByBridgeId_LIVE(@Param("bridge_id") Integer bridge_id, @Param("para_unit_cn") String para_unit_cn, @Param("curTime") Date curTime, @Param("endTime") Date endTime);
 
     //根据桥梁ID查询传感器记录（前15秒)

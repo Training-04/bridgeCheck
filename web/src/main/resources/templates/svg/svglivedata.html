@@ -52,7 +52,7 @@
             // var date_tag0 = new Date(2018, 0, 1, 8, 0, 0);
             var curDate = new Date();
             // curDate = date_tag;
-            var record_dis = 10000;//每多少秒一条数据
+            var record_dis = 1000 * 10;//每多少秒一条数据
 
             var date = [];                   //时间
             var temp_data = [];              //温度
@@ -137,7 +137,6 @@
                         }
                     },
                     error: function (result) {
-                        //alert("数据请求错误！");
                     }
                 });
                 $.ajax({
@@ -192,8 +191,11 @@
                         //alert(obj[0].date);
                         var thisdate = new Date(obj[0].date);
                         var curdate = thisdate.toLocaleString();
-                        date.shift();
-                        temp_data.shift();
+                        if(date.length == 15){
+                            date.shift();
+                        }
+                        if(temp_data.length == 15)
+                            temp_data.shift();
                         date.push(curdate);
                         temp_data.push(obj[0].value);
 
@@ -211,7 +213,8 @@
                     success: function(result){
                         //alert(result);
                         var obj = eval("("+result+")");
-                        displacement_data.shift();
+                        if(displacement_data.length == 15)
+                            displacement_data.shift();
                         displacement_data.push(obj[0].value);
 
                     },
@@ -228,7 +231,8 @@
                     success: function(result){
                         //alert(result);
                         var obj = eval("("+result+")");
-                        microstrain_data.shift();
+                        if(microstrain_data.length == 15)
+                            microstrain_data.shift();
                         microstrain_data.push(obj[0].value);
 
                     },
@@ -245,7 +249,8 @@
                     success: function(result){
                         //alert(result);
                         var obj = eval("("+result+")");
-                        relasedimen_data.shift();
+                        if(relasedimen_data.length == 15)
+                            relasedimen_data.shift();
                         relasedimen_data.push(obj[0].value);
 
                     },
@@ -262,7 +267,8 @@
                     success: function(result){
                         //alert(result);
                         var obj = eval("("+result+")");
-                        liquidlevel_data.shift();
+                        if(liquidlevel_data.length == 15)
+                            liquidlevel_data.shift();
                         liquidlevel_data.push(obj[0].value);
 
                     },
@@ -279,7 +285,8 @@
                     success: function(result){
                         //alert(result);
                         var obj = eval("("+result+")");
-                        OBL_data.shift();
+                        if(OBL_data.length == 15)
+                            OBL_data.shift();
                         OBL_data.push(obj[0].value);
 
                     },
@@ -431,11 +438,15 @@
             setInterval(function(){
                 //alert(curDate);
                 bridge_label = document.getElementById("bridge").value;
+                var time = curDate.getTime();
+                var new_curDate = new Date(time + record_dis);
+                curDate = new_curDate;
+                //curDate = new Date();
                 if(bridge_label != pre_bridge_label){
 
                     //重置数据
                     // count = -15;
-                    curDate = new Date();
+                    // curDate = new Date();
 
 
 
@@ -447,9 +458,9 @@
                     // var time = curDate.getTime();
                     // var new_curDate = new Date(time + record_dis);
                     // curDate = new_curDate;
-                    curDate = new Date();
+                    // curDate = new Date();
                     // if(count <= 6){
-                        getLiveSensorRecord();
+                    getLiveSensorRecord();
                     //}
                 }
                 myChart.setOption(option);
