@@ -18,6 +18,7 @@ public interface WarnRecordService extends BaseService<WarnRecord, Integer> {
 
     List<WarnRecord> getWarn_record();
     List<WarnRecord> getRelieveWarn_record();
+    List<WarnRecord> getWarnRecord();
 
     Page<WarnRecord> getPage(Pageable pageable);
 
