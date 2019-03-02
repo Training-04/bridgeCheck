@@ -139,7 +139,13 @@
                     }
                 },
                 tooltip : {
-                    trigger: 'item'
+                    trigger: 'item',
+                    formatter: function(params){
+                        return (
+                            "日   期：" + params.data[0] + "<br />" +
+                            "报警参数：" + params.data[1] + "<br />" +
+                            "报警内容：" + params.data[2]);
+                    }
                 },
                 legend: {
                     top: '30',
@@ -207,7 +213,7 @@
                         coordinateSystem: 'calendar',
                         data: data.filter(isHealthRecord),
                         symbolSize: function (val) {
-                            return Math.floor(Math.random() * 7777) / 500;
+                            return Math.floor(Math.random() * 7777) / 500 + 1;
                         },
                         itemStyle: {
                             normal: {
@@ -222,7 +228,7 @@
                         calendarIndex: 1,
                         data: data.filter(isHealthRecord),
                         symbolSize: function (val) {
-                            return Math.floor(Math.random() * 7777) / 500;
+                            return Math.floor(Math.random() * 7777) / 500 + 1;
                         },
                         itemStyle: {
                             normal: {
@@ -235,7 +241,7 @@
                         type: 'effectScatter',
                         coordinateSystem: 'calendar',
                         calendarIndex: 1,
-                        data: warndata,
+                        data: data.filter(isWarnRecord),
                         symbolSize: 20,
                         showEffectOn: 'render',
                         rippleEffect: {
@@ -255,7 +261,7 @@
                         name: '报警',
                         type: 'effectScatter',
                         coordinateSystem: 'calendar',
-                        data: warndata,
+                        data: data.filter(isWarnRecord),
                         symbolSize: 20,
                         showEffectOn: 'render',
                         rippleEffect: {
@@ -368,7 +374,7 @@
                                 coordinateSystem: 'calendar',
                                 data: data.filter(isHealthRecord),
                                 symbolSize: function (val) {
-                                    return Math.floor(Math.random() * 7777) / 500;
+                                    return Math.floor(Math.random() * 7777) / 500 + 1;
                                 },
                                 itemStyle: {
                                     normal: {
@@ -383,7 +389,7 @@
                                 calendarIndex: 1,
                                 data: data.filter(isHealthRecord),
                                 symbolSize: function (val) {
-                                    return Math.floor(Math.random() * 7777) / 500;
+                                    return Math.floor(Math.random() * 7777) / 500 + 1;
                                 },
                                 itemStyle: {
                                     normal: {
@@ -396,7 +402,7 @@
                                 type: 'effectScatter',
                                 coordinateSystem: 'calendar',
                                 calendarIndex: 1,
-                                data: warndata,
+                                data: data.filter(isWarnRecord),
                                 symbolSize: 20,
                                 showEffectOn: 'render',
                                 rippleEffect: {
@@ -416,7 +422,7 @@
                                 name: '报警',
                                 type: 'effectScatter',
                                 coordinateSystem: 'calendar',
-                                data: warndata,
+                                data: data.filter(isWarnRecord),
                                 symbolSize: 20,
                                 showEffectOn: 'render',
                                 rippleEffect: {
