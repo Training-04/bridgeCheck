@@ -12,18 +12,18 @@
     <ol class="breadcrumb">
         <li><a href="#">系统管理</a></li>
         <li><a href="#">桥梁管理</a></li>
-        <li><a href="#">展示桥梁</a></li>
+        <li><a href="#">查找桥梁</a></li>
         <li class="active">修改桥梁</li>
     </ol>
     <div class="container" style="width:500px">
-        <form th:action="@{/bridge/updateBridge}" th:object="${bridge}" method="post">
+        <form th:action="@{/bridge/search_updateBridge}" th:object="${bridge}" method="post">
             <div class="form-group">
                 <label for="bridge_id" >桥梁编号:</label>
                 <input type="text" class="form-control " id="bridge_id" th:field="*{bridge_id}" readonly="readonly" >
             </div>
             <div class="form-group">
                 <label for="bridge_name">桥梁名称:</label>
-                <input type="text" class="form-control" id="bridge_name" th:field="*{bridge_name}" th:name="bridge_name">
+                <input type="text" class="form-control" id="bridge_name" th:field="*{bridge_name}" >
             </div>
             <div class="form-group">
                 <label for="design_life">桥梁寿命：</label>
@@ -40,7 +40,7 @@
 
             <div align="center" style="margin-top: 8px;padding-right: 50px;" >
                 <button type="submit" class="btn btn-primary">更改</button>
-                <a class="btn btn-primary" href="/bridge/allBridges/1" th:href="@{/bridge/allBridges/1}">返回主页面</a>
+                <a class="btn btn-primary" href="/bridge/searchBridge" th:href="@{/bridge/searchBridge}">返回主页面</a>
             </div>
         </form>
     </div>

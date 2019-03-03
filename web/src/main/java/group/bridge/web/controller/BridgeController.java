@@ -1,6 +1,7 @@
 package group.bridge.web.controller;
 
 import group.bridge.web.entity.Bridge;
+import group.bridge.web.entity.Sensor;
 import group.bridge.web.service.BridgeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -65,6 +68,15 @@ public class BridgeController {
         return "bridge/searchBridge";
     }
 
+    //搜索相应名称的桥梁,用于在查找页面更改信息后返回
+    @RequestMapping("/searchBridge2")
+    public String getByName1(Model model,@ModelAttribute("bridge_name")String bridge_name){
+        List<Bridge> lists = bridgeService.getByName(bridge_name);
+        model.addAttribute("title","查询传感器信息页面");
+        model.addAttribute("bridge",lists);
+        return "bridge/searchBridge";
+    }
+
     //    添加桥梁
     @RequestMapping("/toAddBridges")
 //    @RequiresPermissions("test")
@@ -100,5 +112,21 @@ public class BridgeController {
     public String delBridge(@PathVariable("id") Integer id) {
         bridgeService.deleteById(id);
         return "redirect:/bridge/allBridges/1";
+    }
+
+    //    在搜索页面更改桥梁
+    @RequestMapping("/search_toUpdateBridge/{id}")
+    public String search_toUpdateBridge(Model model, @PathVariable("id") Integer id){
+        Bridge bridge = bridgeService.get(id);
+        model.addAttribute("title","修改桥梁");
+        model.addAttribute("bridge",bridge);
+        return "bridge/search_updateBridge";
+    }
+    //在搜索页面更改桥梁
+    @RequestMapping("/search_updateBridge")
+    public String search_updateBridge(Bridge bridge, @RequestParam(value = "bridge_name") String bridge_name, RedirectAttributes model){
+        bridgeService.update(bridge);
+        model.addFlashAttribute("bridge_name", bridge_name);
+        return "redirect:/bridge/searchBridge2";
     }
 }

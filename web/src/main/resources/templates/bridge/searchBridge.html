@@ -7,25 +7,13 @@
     <meta charset="UTF-8">
     <title>查询传感器信息页面</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <style type="text/css">
-        #footer{
-            height: 80px;
-            width: 100%;
-            line-height: 25px;
-            text-align: center;
-            background-color: #00AEAE;
-            padding:20px;
-            position: fixed;
-            bottom: 5px;
-        }
-    </style>
+
 </head>
 <body>
 <div layout:fragment="content">
     <ol class="breadcrumb">
         <li><a href="#">系统管理</a></li>
         <li><a href="#">桥梁管理</a></li>
-        <li><a href="#">展示桥梁</a></li>
         <li class="active">查找桥梁</li>
     </ol>
     <div class="container " style="width: 1000px; margin-top: 100px">
@@ -54,18 +42,14 @@
                 <td th:text="${bridge.bridge_length}"></td>
                 <td th:text="${bridge.bridge_info}"></td>
                 <td>
-                    <a th:href="@{'/bridge/toUpdate/'+${bridge.bridge_id}}">修改桥梁</a>
+                    <a th:href="@{'/bridge/search_toUpdateBridge/'+${bridge.bridge_id}}">修改桥梁</a>
                     |
                     <a th:href="@{'/bridge/delBridge/'+${bridge.bridge_id}}">删除桥梁</a>
                 </td>
             </tr>
         </table>
     </div>
-
-    <div id="footer">
-        <p>关于|广告服务|招聘|客服中心|QQ留言|网站管理|加入我们</p>
-        <p>Copyright ©2006-2019 All Rights Reserved</p>
-    </div>
+    <div th:replace="common/foot::footer"></div>
 </div>
 
 </body>

@@ -30,7 +30,7 @@ public class SensorController extends BaseController{
     //展示所有传感器
     @RequestMapping("/allSensors/{index}")
     public String getAllSensor(@PathVariable("index") Integer index , Model model){
-        Pageable pageable= PageRequest.of(index-1, 5);
+        Pageable pageable= PageRequest.of(index-1, 10);
         Page<Sensor> sPage = sensorService.getAll(pageable);
 //        int num=sPage.getSize();
         int count=sPage.getTotalPages();
@@ -46,7 +46,7 @@ public class SensorController extends BaseController{
     //展示所有传感器阈值
     @RequestMapping("/allThreshold/{index}")
     public String getAllThreshold(Model model,@PathVariable("index") Integer index){
-        Pageable pageable= PageRequest.of(index-1, 5);
+        Pageable pageable= PageRequest.of(index-1, 10);
         Page<Sensor> sPage = sensorService.getAll(pageable);
 //        int num=sPage.getSize();
         int count=sPage.getTotalPages();
