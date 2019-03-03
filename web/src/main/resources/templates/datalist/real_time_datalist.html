@@ -24,7 +24,7 @@
                 <br>
                     <select id="bridge" name = "choose_bridge">
                         <optgroup label="bridge" >
-                            <option  th:each="bridge:${bridges}" th:value="${bridge.bridge_id}" th:text="${bridge.bridge_info}"> 武汉长江大桥 </option>
+                            <option  th:each="bridge:${bridges}" th:value="${bridge.bridge_id}" th:text="${bridge.bridge_name}"> 武汉长江大桥 </option>
                         </optgroup>
                     </select>
                 &nbsp&nbsp&nbsp
@@ -97,7 +97,7 @@
                                     //alert(srList[i].sensor.para_unit_cn);
 
                                     var bridgeTd = document.createElement('td');
-                                    bridgeTd.innerHTML = srList[i].sensor.bridge.bridge_info;
+                                    bridgeTd.innerHTML = srList[i].sensor.bridge.bridge_name;
                                     //alert(srList[0].sensor.bridge.bridge_info);
 
                                     var dateTd = document.createElement('td');

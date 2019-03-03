@@ -1,11 +1,18 @@
 package group.bridge.web.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 
 
 @Entity(name = "warn_records")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "warn_id")
 public class WarnRecord {
 
     @Id
@@ -70,9 +77,14 @@ public class WarnRecord {
         this.warn_para = warn_para;
     }
 
+    @JsonIgnore
     public Sensor getSensor() {
         return sensor;
     }
+
+//    public String getSensor_unit_para(){
+//        return sensor.getPara_unit_cn();
+//    }
 
     public void setSensor(Sensor sensor) {
         this.sensor = sensor;

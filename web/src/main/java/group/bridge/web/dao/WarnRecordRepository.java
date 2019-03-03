@@ -20,4 +20,10 @@ public interface WarnRecordRepository extends BaseRepository<WarnRecord, Integer
             value="INSERT INTO warn_records (warn_date, status, warn_para, sensor_id)" +
                     "values (warn_date = :warn_date, status = :status, warn_para = :warn_para, sennsor_id = :sensor_id)")
     void InsertWarn_records(@Param("warn_date")Date warn_date, @Param("status")String status, @Param("warn_para")String warn_para, @Param("sensor_id")Integer sensor_id);
+
+    @Query(nativeQuery = true,
+            value="SELECT warn_records.warn_id, warn_records.warn_date, warn_records.relieve_date, warn_records.status, warn_records.warn_para, sensors.sensor_id " +
+                    "FROM warn_records,sensors " +
+                    "WHERE warn_records.sensor_id = sensors.sensor_id")
+    List<WarnRecord> getWarnRecord();
 }
