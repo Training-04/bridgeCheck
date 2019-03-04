@@ -17,45 +17,38 @@
 <div layout:fragment="content">
 
     <div class="container">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-10">
-            <div >
-                <select id="bridge" name = "choose_bridge">
-                    <optgroup label="bridge" >
-                        <option  th:each="bridge:${bridges}" th:value="${bridge.bridge_id}" th:text="${bridge.bridge_name}"> 武汉长江大桥 </option>
-                    </optgroup>
-                </select>
-                <select id="sensor" name = "choose_sensor">
-                    <optgroup label="sensor" >
-                        <option value= "微应变"> 微应变 </option>
-                        <option value= "温度"> 温度 </option>
-                        <option value= "相对沉降量"> 相对沉降量 </option>
-                        <option value= "液位变化"> 液位变化 </option>
-                        <option value= "位移"> 位移 </option>
-                        <option value= "OBL"> OBL </option>
-
-                    </optgroup>
-                </select>
-                <select id="timeStep" name = "choose_timeStep">
-                    <optgroup label="timeStep" >
-                        <option value= 3> 3s </option>
-                        <option value= 5> 5s </option>
-                        <option value= 10> 10s </option>
-                        <option value= 3600> 1h </option>
-                        <option value= 86400> 1d </option>
-                    </optgroup>
-                </select>
-            </div>
+        <div style="display: inline;">
+            <br>
+            <select id="bridge" name = "choose_bridge">
+                <optgroup label="bridge" >
+                    <option  th:each="bridge:${bridges}" th:value="${bridge.bridge_id}" th:text="${bridge.bridge_name}"> 武汉长江大桥 </option>
+                </optgroup>
+            </select>
+            <select id="sensor" name = "choose_sensor">
+                <optgroup label="sensor" >
+                    <option value= "微应变"> 微应变 </option>
+                    <option value= "温度"> 温度 </option>
+                    <option value= "相对沉降量"> 相对沉降量 </option>
+                    <option value= "液位变化"> 液位变化 </option>
+                    <option value= "位移"> 位移 </option>
+                    <option value= "OBL"> OBL </option>
+                </optgroup>
+            </select>
+            <select id="timeStep" name = "choose_timeStep">
+                <optgroup label="timeStep" >
+                    <option value= 3> 3秒 </option>
+                    <option value= 5> 5秒 </option>
+                    <option value= 10> 10秒 </option>
+                    <option value= 3600> 1小时 </option>
+                    <option value= 86400> 1天 </option>
+                </optgroup>
+            </select>
+        </div>
 
             <div align="center"><h1>数据统计列表</h1></div>
             <br>
             <br>
-<!--                <div align="center" >
-                    <input type="datetime-local"  value="2019-01-17T10:37:59" min="2018-12-25" max="2019-03-15" >
-                --
-                <input type="datetime-local"  value="2019-01-18T10:37:59" min="2018-12-25" max="2019-03-15">
-            </div>
--->
+
             <hr width="850" size="1" color="#000000">
             <br><br>
             <table class="table table-hover table-condensed">
@@ -221,9 +214,6 @@
 
 
         </div>
-        <div class="col-lg-1"></div>
-    </div>
-
 
 
 </div>
