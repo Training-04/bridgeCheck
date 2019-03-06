@@ -28,9 +28,8 @@ public class UserController extends BaseController{
 
 
     @RequestMapping("/allUser")
-    //@RequiresPermissions("所有用户信息")
-    @RequiresPermissions(value={"所有用户信息","修改用户信息","删除用户信息"},logical= Logical.OR)
-
+    @RequiresPermissions("所有用户信息")
+    //@RequiresPermissions(value={"所有用户信息","修改用户信息","删除用户信息"},logical= Logical.OR)
     public String getAllUser(Model model){
         List<User> lists=userService.getAll();
         model.addAttribute("user",lists);
@@ -63,6 +62,7 @@ public class UserController extends BaseController{
 
 
     @RequestMapping("/toUpdate/{id}")
+    @RequiresPermissions("修改用户信息")
     public String toUpdate(Model model,@PathVariable("id") int userID){
         User user=userService.getUserByID(userID);
         Set<Role>roles=user.getRoles();
@@ -88,6 +88,7 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("/delete/{id}")
+    @RequiresPermissions("删除用户信息")
     public String delete(@PathVariable("id") int userID){
         userService.deleteById(userID);
         return "redirect:/user/allUser";
@@ -121,6 +122,7 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("/touserAddrole/{id}")
+    @RequiresPermissions("添加新的权限组")
     public String roleadd(Model model,@PathVariable("id") int userID,HttpSession session){
         User user=userService.getUserByID(userID);
         List<Role> roles=roleService.getAll();
@@ -163,6 +165,7 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("/touserupdaterole/{id}")
+    @RequiresPermissions("修改已拥有权限组")
     public String userupdaterole(Model model,@PathVariable("id") int userID,HttpSession session){
         User user = userService.getUserByID(userID);
         Set<Role> roles = user.getRoles();

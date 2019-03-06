@@ -24,7 +24,8 @@ public class PermissionController extends BaseController {
 
     @RequestMapping("/allPer/{index}")
     //logical= Logical.OR的意思是，只要存在value={"所有权限信息","修改权限信息","删除权限信息"}的一个，就可以拥有这个类的权限
-    @RequiresPermissions(value={"所有权限信息","修改权限信息","删除权限信息"},logical= Logical.OR)
+//    @RequiresPermissions(value={"所有权限信息","修改权限信息","删除权限信息"},logical= Logical.OR)
+    @RequiresPermissions("所有权限信息")
     public String getAllPer(Model model, HttpSession session,@PathVariable("index") Integer index){
         //List<Permission> lists=permissionService.getAll();
         //model.addAttribute("per",lists);
@@ -47,7 +48,6 @@ public class PermissionController extends BaseController {
 
     @RequestMapping("/toAddPer")
     @RequiresPermissions("添加权限信息")
-
     public String toAdd(Model model){
         model.addAttribute("title","添加权限");
         return "sysmanagement/permissionmanagement/addper";
@@ -56,11 +56,12 @@ public class PermissionController extends BaseController {
     @RequestMapping("/addPer")
     public String add(Permission permission){
         permissionService.add(permission);
-        return "redirect:/permission/allPer";
+        return "redirect:/permission/allPer/1";
     }
 
 
     @RequestMapping("/toUpdatePer/{id}")
+    @RequiresPermissions("修改权限信息")
     public String toUpdate(Model model,@PathVariable("id") int permissionID){
         Permission per=permissionService.getPerByID(permissionID);
         model.addAttribute("per",per);
@@ -73,13 +74,14 @@ public class PermissionController extends BaseController {
     @RequestMapping("/updatePer")
     public String update(Permission permission){
         permissionService.updatePer(permission);
-        return "redirect:/permission/allPer";
+        return "redirect:/permission/allPer/1";
     }
 
     @RequestMapping("/deletePer/{id}")
+    @RequiresPermissions("删除权限信息")
     public String delete(@PathVariable("id") int permissionID){
         permissionService.deleteById(permissionID);
-        return "redirect:/permission/allPer";
+        return "redirect:/permission/allPer/1";
     }
 
     @RequestMapping("/toSearchPer")

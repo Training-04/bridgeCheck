@@ -32,7 +32,8 @@ public class RoleController extends BaseController{
     PermissionService permissionService;
 
     @RequestMapping("/allRole")
-    @RequiresPermissions(value={"所有权限组信息","修改权限组信息","删除权限组信息"},logical= Logical.OR)
+    //@RequiresPermissions(value={"所有权限组信息","修改权限组信息","删除权限组信息"},logical= Logical.OR)
+    @RequiresPermissions("所有权限组信息")
     public String getAllRole(Model model){
         List<Role> lists=roleService.getAll();
         model.addAttribute("role",lists);
@@ -70,6 +71,7 @@ public class RoleController extends BaseController{
 
 
     @RequestMapping("/toUpdateRole/{id}")
+    @RequiresPermissions("修改权限组信息")
     public String toUpdate(Model model,@PathVariable("id") int roleID){
         Role role=roleService.getRoleByID(roleID);
         Set<Permission> permissions=role.getPermissions();
@@ -94,6 +96,7 @@ public class RoleController extends BaseController{
     }
 
     @RequestMapping("/deleteRole/{id}")
+    @RequiresPermissions("删除权限组信息")
     public String delete(@PathVariable("id") int roleID){
         roleService.deleteById(roleID);
         return "redirect:/role/allRole";
@@ -116,6 +119,7 @@ public class RoleController extends BaseController{
     }
 
     @RequestMapping("/toroleAddper/{id}")
+    @RequiresPermissions("添加新的权限")
     public String roleadd(Model model,@PathVariable("id") int roleID,HttpSession session){
         Role role=roleService.getRoleByID(roleID);
         List<Permission> per=permissionService.getAll();
@@ -158,6 +162,7 @@ public class RoleController extends BaseController{
     }
 
     @RequestMapping("/toroleupdateper/{id}")
+    @RequiresPermissions("修改已拥有权限")
     public String roleupdateper(Model model,@PathVariable("id") int roleID,HttpSession session){
         Role role=roleService.getRoleByID(roleID);
         //List<Permission> per=permissionService.getAll();
